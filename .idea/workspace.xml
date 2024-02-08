@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72cb68be-9ef2-4f70-9d94-a83c4ac9667b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/Components/CounterTest.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/Components/Header.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/Components/Overlay.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/Routes/Router.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/styles/css/main.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/styles/css/main.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/styles/sass/_app.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/styles/sass/_base.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/styles/sass/_components.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/styles/sass/_layout.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/styles/sass/main.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FactoryForge_Frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/FactoryForge_Frontend/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FactoryForge_Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/FactoryForge_Frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FactoryForge_Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/FactoryForge_Frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FactoryForge_Frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FactoryForge_Frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FactoryForge_Frontend/src/Routes/Router.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/Routes/Router.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FactoryForge_Frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FactoryForge_Frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/FactoryForge_Frontend/src/main.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +70,7 @@
       <option name="presentableId" value="Default" />
       <updated>1707429129542</updated>
       <workItem from="1707429130614" duration="763000" />
-      <workItem from="1707431640518" duration="798000" />
+      <workItem from="1707431640518" duration="1393000" />
     </task>
     <servers />
   </component>
