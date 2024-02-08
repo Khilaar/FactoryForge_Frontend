@@ -10,11 +10,11 @@ const Router = () => {
           <Route index element={<RegisterPage />} />
           <Route path="validation" element={<ValidationPage />} />
         </Route> */}
-        <Route path="/" element={<Layout />}>
+        {/* <Route path="/" element={<Layout />}>
           <Route element={<ProtectedRoute />}>
             <Route/>
           </Route>
-        </Route>
+        </Route> */}
       </Routes>
     </BrowserRouter>
   );
