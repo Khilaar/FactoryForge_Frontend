@@ -44,10 +44,12 @@ const Inventory = () => {
 
   return (
     <div>
-      <h1>Inventory</h1>
+      <h1 className="route-title">Inventory</h1>
 
       <div className="inventory-highest-section">
-        <section className="inventory-section">
+        <section>
+          {/*##############################################################*/}
+          {/*Products Inventory*/}
           <ul>
             <h2>Products</h2>
             {products.map((product) => (
@@ -60,9 +62,17 @@ const Inventory = () => {
               </li>
             ))}
           </ul>
+          {/*##############################################################*/}
         </section>
+        <button className="pushable">
+          <span className="shadow"></span>
+          <span className="edge"></span>
+          <span className="front">ADD NEW PRODUCT</span>
+        </button>
 
         <section>
+          {/*##############################################################*/}
+          {/*Raw Materials Inventory*/}
           <ul>
             <h2>Raw Materials</h2>
             {rawMaterials.map((rawMaterials) => (
@@ -78,7 +88,49 @@ const Inventory = () => {
               </li>
             ))}
           </ul>
+          {/*##############################################################*/}
         </section>
+        <button className="pushable">
+          <span className="shadow"></span>
+          <span className="edge"></span>
+          <span className="front">ADD NED RAW MATERIAL</span>
+        </button>
+      </div>
+
+      {/*##############################################################*/}
+      {/*Low-on Inventory*/}
+      <div className="inventory-bottom-part">
+        <div className="low-on-inventory">
+          <ul>
+            <h2 className="route-subtitle">Low on Raw Materials</h2>
+            {rawMaterials.map((rawMaterials) => (
+              <li key={rawMaterials.id} className="product-item">
+                <span>id: {rawMaterials.id}</span>
+                <span>{rawMaterials.name}</span>
+                <span>cost: {rawMaterials.cost}</span>
+                <span>quantity: {rawMaterials.quantity_available}</span>
+                <span>
+                  restock required:{" "}
+                  {rawMaterials.restock_required ? "Yes" : "No"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {/*##############################################################*/}
+
+        <form className="inventory-order-form" action="">
+          <div className="inventory-order-form-raw-material">
+            <h3>Raw Material: </h3>
+            <input className="inventory-order-form-mat-input" type="text" />
+            <h3>Quantity: </h3>
+            <input
+              className="inventory-order-form-mat-quantity-input"
+              type="text"
+            />
+            <button>send</button>
+          </div>
+        </form>
       </div>
     </div>
   );
