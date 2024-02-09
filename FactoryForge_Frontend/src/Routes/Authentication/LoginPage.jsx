@@ -13,7 +13,7 @@ function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const retrieveUser = async () => {
     if (data) {
       const userId = data.user.id;
       const userAvatar = data.user.avatar;
@@ -24,11 +24,15 @@ function LoginPage() {
       dispatch(login_user(data));
       dispatch(set_id(userId));
       dispatch(set_avatar(userAvatar));
-      navigate("/posts");
+      navigate("/dashboard");
     }
-  }, [data, dispatch, navigate]);
+  };
 
-  return <Container></Container>;
+  useEffect(() => {
+    retrieveUser();
+  }, []);
+
+  return <div className="login_container">test</div>;
 }
 
 export default LoginPage;
