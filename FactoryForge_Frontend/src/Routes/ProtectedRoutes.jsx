@@ -2,13 +2,11 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-export default function ProtectedRoute() {
-  const accessToken = useSelector((state) => state.user.accessToken)
+export default function ProtectedRoutes() {
+  const accessToken = useSelector((state) => state.user.accessToken);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  const validateLoggedIn = () => {
-
-  }
+  const validateLoggedIn = () => {};
 
   const LogIn = () => {
     setIsLoggedIn(true);
