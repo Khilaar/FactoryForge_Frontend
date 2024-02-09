@@ -13,6 +13,18 @@
   border-radius: 5px;
   font-size: large;
   color: whitesmoke;
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  span {
+    flex: 1;
+    margin-right: 1rem;
+  }
+  span:last-child {
+    text-align: right;
+  }
 }
 
 .inventory-section {
