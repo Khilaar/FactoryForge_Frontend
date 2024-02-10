@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "../../styles/sass/_components.scss";
 import API from "../../api/API";
 
 const ProductInventory = () => {
