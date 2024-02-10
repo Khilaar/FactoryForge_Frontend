@@ -3,11 +3,26 @@
   padding: 0;
 }
 
-.route-title {
-  margin-top: 1rem;
-  margin-left: 2rem;
-  color: whitesmoke;
-  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+.layout_container {
+  display: flex;
+}
+
+main {
+  flex: 1;
+  transition: margin-left 0.3s ease;
+  margin-left: 0;
+}
+
+.sidebar-container.sidebar-open {
+  transform: translateX(0);
+}
+
+.sidebar-container.sidebar-open + main {
+  margin-left: 200px;
+}
+
+.sidebar-container.sidebar-closed + main {
+  margin-left: 50px;
 }
 
 body {
@@ -16,6 +31,13 @@ body {
   background: -webkit-linear-gradient(to top, #06071a, #41295a); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to top, #06071a, #2d1d3f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   overflow: hidden;
+}
+
+.route-title {
+  margin-top: 1rem;
+  margin-left: 2rem;
+  color: whitesmoke;
+  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 /* Inventory Component */
@@ -326,6 +348,39 @@ body {
 
 #root {
   height: 100vh;
+}
+
+.sidebar_content {
+  border: 1px black solid;
+}
+
+.sidebar-container {
+  width: 250px;
+  min-width: 50px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #333;
+  transition: transform 0.3s ease, width 0.3s ease;
+  transform: translateX(-250px);
+}
+
+.sidebar-container.sidebar-open {
+  transform: translateX(0);
+  width: 200px;
+}
+
+.sidebar-container.sidebar-closed {
+  transform: translateX(0);
+  width: 50px;
+}
+
+.toggle-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
 }
 
 .login_container {
