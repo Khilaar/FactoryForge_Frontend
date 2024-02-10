@@ -290,3 +290,13 @@
 }
 
 /* Inventory Order Form End*/
+
+.product-list {
+  max-height: calc(
+    100vh - 200px
+  ); /* Adjust 200px as needed based on your layout */
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

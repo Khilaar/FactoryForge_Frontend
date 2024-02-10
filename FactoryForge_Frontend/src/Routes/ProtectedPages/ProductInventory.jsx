@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../styles/sass/_components.scss";
 import API from "../../api/API";
 
 const ProductInventory = () => {
-  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
 
   /*###########################*/
@@ -28,8 +26,8 @@ const ProductInventory = () => {
       <section>
         {/*###########################*/}
         {/*Products Inventory*/}
-        <ul>
-          <h2>Products</h2>
+        <h2>All Products</h2>
+        <ul className="product-list">
           {products.map((product) => (
             <li key={product.id} className="product-item">
               <span>id: {product.id}</span>
