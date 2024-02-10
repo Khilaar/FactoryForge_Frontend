@@ -1,0 +1,125 @@
+.dashboard {
+  background: #4E8098;
+  display: flex;
+  flex-direction: column;
+  height: 96vh;
+  padding: 2vh;
+  gap: 2vh;
+
+
+  .dash_top {
+    display: flex;
+    gap: 5vh;
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      gap: 2vh;
+
+
+      .top_products {
+        display: flex;
+        flex-direction: column;
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 2vh;
+
+      .products {
+
+      }
+    }
+      .tasks {
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 2vh;
+    }
+      .suppliers {
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 2vh;
+    }
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+      gap: 2vh;
+      width: 50%;
+
+      .search {}
+      .customer_order {
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 2vh;
+      }
+
+      .raw_material_inventory {
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 2vh;
+      }
+    }
+
+  }
+  .weekly_budget {
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 2vh;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.loadingSpinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.loading div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: #092327;
+  animation: loading 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.loading div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.loading div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.loading div:nth-child(3) {
+  left: 56px;
+}
+@keyframes loading {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
