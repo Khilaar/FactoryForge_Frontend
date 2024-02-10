@@ -177,10 +177,7 @@ body {
   gap: 50rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   background: rgba(255, 255, 255, 0.03); /* Background with transparency */
-  background: rgba(255, 255, 255, 0.03); /* Background with transparency */
   border-radius: 16px;
-  backdrop-filter: blur(2.4px); /* Backdrop filter with blur */
-  -webkit-backdrop-filter: blur(2.4px); /* For Safari */
   backdrop-filter: blur(2.4px); /* Backdrop filter with blur */
   -webkit-backdrop-filter: blur(2.4px); /* For Safari */
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -351,39 +348,6 @@ body {
 
 #root {
   height: 100vh;
-}
-
-.sidebar_content {
-  border: 1px black solid;
-}
-
-.sidebar-container {
-  width: 250px;
-  min-width: 50px;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #333;
-  transition: transform 0.3s ease, width 0.3s ease;
-  transform: translateX(-250px);
-}
-
-.sidebar-container.sidebar-open {
-  transform: translateX(0);
-  width: 200px;
-}
-
-.sidebar-container.sidebar-closed {
-  transform: translateX(0);
-  width: 50px;
-}
-
-.toggle-button {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50px;
 }
 
 .sidebar_content {
