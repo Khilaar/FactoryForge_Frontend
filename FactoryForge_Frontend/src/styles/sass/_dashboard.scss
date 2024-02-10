@@ -2,7 +2,7 @@
   background: #4E8098;
   display: flex;
   flex-direction: column;
-  height: 96vh;
+  //height: 96vh;
   padding: 2vh;
   gap: 2vh;
 
@@ -25,19 +25,63 @@
         border-radius: 20px;
         padding: 2vh;
 
-      .products {
-
+      .product {
+        display: flex;
+        gap: 2vh;
+        margin: 1vh;
       }
     }
       .tasks {
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+
         border: 2px solid black;
         border-radius: 20px;
         padding: 2vh;
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .task {
+          display: flex;
+          justify-content: space-between;
+          border: 1px solid black;
+          border-radius: 10px;
+          padding: 2vh;
+          box-shadow: 1px 1px 1px 1px #092327;
+
+
+        }
+        .task:hover {
+            box-shadow: 2px 2px 2px 2px #092327;
+          }
     }
       .suppliers {
         border: 2px solid black;
         border-radius: 20px;
         padding: 2vh;
+
+        .supplier_container {
+          display: flex;
+          gap: 2vh;
+          padding: 1vh;
+
+          .supplier {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid black;
+            border-radius: 20px;
+            padding: 2vh;
+            gap: 1vh;
+            box-shadow: 1px 1px 1px 1px #092327;
+          }
+          .supplier:hover {
+            box-shadow: 2px 2px 2px 2px #092327;
+          }
+        }
     }
     }
     .right {
