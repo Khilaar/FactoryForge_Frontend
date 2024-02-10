@@ -61,32 +61,16 @@ const Inventory = () => {
           </ul>
           {/*###########################*/}
         </section>
-        <button
-          style={{
-            display: "inline-block",
-            borderRadius: "7px",
-            border: "none",
-            background: "#FCFF00",
-            color: "black",
-            fontFamily: "inherit",
-            textAlign: "center",
-            fontSize: "13px",
-            boxShadow: "0px 14px 56px -11px #FCFF00",
-            width: "8em",
-            transition: "all 0.4s",
-            cursor: "pointer",
-          }}
-        >
-          <span
-            style={{
-              display: "inline-block",
-              position: "relative",
-              transition: "0.4s",
-            }}
-          >
-            ADD
-          </span>
-        </button>
+
+        <section className="inventory-background-buttons">
+          <button className="see-more-button">
+            <span>SEE</span>
+          </button>
+
+          <button>
+            <span>ADD</span>
+          </button>
+        </section>
 
         <section>
           {/*###########################*/}
@@ -108,32 +92,16 @@ const Inventory = () => {
           </ul>
           {/*###########################*/}
         </section>
-        <button
-          style={{
-            display: "inline-block",
-            borderRadius: "7px",
-            border: "none",
-            background: "#FCFF00",
-            color: "black",
-            fontFamily: "inherit",
-            textAlign: "center",
-            fontSize: "13px",
-            boxShadow: "0px 14px 56px -11px #FCFF00",
-            width: "8em",
-            transition: "all 0.4s",
-            cursor: "pointer",
-          }}
-        >
-          <span
-            style={{
-              display: "inline-block",
-              position: "relative",
-              transition: "0.4s",
-            }}
-          >
-            ADD
-          </span>
-        </button>
+
+        <section className="inventory-background-buttons">
+          <button className="see-more-button">
+            <span>SEE</span>
+          </button>
+
+          <button>
+            <span>ADD</span>
+          </button>
+        </section>
       </div>
 
       {/*###########################*/}
@@ -142,16 +110,11 @@ const Inventory = () => {
         <div className="low-on-inventory">
           <ul>
             <h2>Low on Raw Materials</h2>
-            {rawMaterials.map((rawMaterials) => (
+            {rawMaterials.slice(0, 5).map((rawMaterials) => (
               <li key={rawMaterials.id} className="product-item">
                 <span>id {rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
-                <span>cost: {rawMaterials.cost}</span>
                 <span>quantity: {rawMaterials.quantity_available}</span>
-                <span>
-                  restock required{" "}
-                  {rawMaterials.restock_required ? "Yes" : "No"}
-                </span>
               </li>
             ))}
           </ul>
@@ -169,31 +132,8 @@ const Inventory = () => {
               className="inventory-order-form-mat-quantity-input"
               type="text"
             />
-            <button
-              style={{
-                display: "inline-block",
-                borderRadius: "7px",
-                border: "none",
-                background: "#FCFF00",
-                color: "black",
-                fontFamily: "inherit",
-                textAlign: "center",
-                fontSize: "13px",
-                boxShadow: "0px 14px 56px -11px #FCFF00",
-                width: "8em",
-                transition: "all 0.4s",
-                cursor: "pointer",
-              }}
-            >
-              <span
-                style={{
-                  display: "inline-block",
-                  position: "relative",
-                  transition: "0.4s",
-                }}
-              >
-                SEND
-              </span>
+            <button>
+              <span>SEND</span>
             </button>
           </div>
 

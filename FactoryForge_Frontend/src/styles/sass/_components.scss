@@ -19,16 +19,14 @@
   -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   button {
+    background: #fcff00;
     display: inline-block;
     border-radius: 7px;
     border: none;
-    background: #7b37d1;
-    color: white;
     font-family: inherit;
     text-align: center;
     font-size: 13px;
-    box-shadow: 0px 14px 56px -11px #1875ff;
-    width: 10em;
+    width: 9em;
     transition: all 0.4s;
     height: 2rem;
     cursor: pointer;
@@ -63,13 +61,23 @@
     font-size: 20px;
     font-weight: 400;
   }
+  .see-more-button {
+    margin-right: 3rem;
+  }
+  .see-more-button span:after {
+    content: "more";
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.7s;
+  }
 }
-
 .product-item {
   margin-bottom: 10px;
   padding: 10px;
   /* From https://css.glass */
-  background: #151724;
+  background: #191a24;
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(2.9px);
@@ -159,13 +167,12 @@
     display: inline-block;
     border-radius: 7px;
     border: none;
-    background: #7b37d1;
-    color: white;
+    background: #fcff00;
+    color: black;
     font-family: inherit;
     text-align: center;
     font-size: 13px;
-    box-shadow: 0px 14px 56px -11px #1875ff;
-    width: 10em;
+    width: 9em;
     transition: all 0.4s;
     height: 2rem;
     cursor: pointer;
