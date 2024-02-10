@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../../styles/sass/_components.scss";
+import API from "../../api/API";
 
 const Inventory = () => {
   const [products, setProducts] = useState([]);
@@ -11,9 +12,7 @@ const Inventory = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "https://factoryforge-5f88b931d18d.herokuapp.com/api/products/",
-        );
+        const response = await API.get("/products/");
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching Products: ", error);
@@ -29,9 +28,7 @@ const Inventory = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "https://factoryforge-5f88b931d18d.herokuapp.com/api/raw_materials/",
-        );
+        const response = await API.get("/raw_materials/");
         setRawMaterials(response.data);
       } catch (error) {
         console.error("Error fetching raw materials: ", error);
@@ -52,7 +49,7 @@ const Inventory = () => {
           {/*Products Inventory*/}
           <ul>
             <h2>Products</h2>
-            {products.map((product) => (
+            {products.slice(0, 5).map((product) => (
               <li key={product.id} className="product-item">
                 <span>id: {product.id}</span>
                 <span>{product.title}</span>
@@ -96,7 +93,7 @@ const Inventory = () => {
           {/*Raw Materials Inventory*/}
           <ul>
             <h2>Raw Materials</h2>
-            {rawMaterials.map((rawMaterials) => (
+            {rawMaterials.slice(0, 5).map((rawMaterials) => (
               <li key={rawMaterials.id} className="product-item">
                 <span>id {rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
