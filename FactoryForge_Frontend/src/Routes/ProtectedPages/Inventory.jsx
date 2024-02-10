@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../../styles/sass/_components.scss";
+import API from "../../api/API";
 
 const Inventory = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [rawMaterials, setRawMaterials] = useState([]);
 
@@ -11,9 +13,7 @@ const Inventory = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "https://factoryforge-5f88b931d18d.herokuapp.com/api/products/",
-        );
+        const response = await API.get("/products/");
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching Products: ", error);
@@ -29,9 +29,7 @@ const Inventory = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "https://factoryforge-5f88b931d18d.herokuapp.com/api/raw_materials/",
-        );
+        const response = await API.get("/raw_materials/");
         setRawMaterials(response.data);
       } catch (error) {
         console.error("Error fetching raw materials: ", error);
@@ -52,7 +50,7 @@ const Inventory = () => {
           {/*Products Inventory*/}
           <ul>
             <h2>Products</h2>
-            {products.map((product) => (
+            {products.slice(0, 5).map((product) => (
               <li key={product.id} className="product-item">
                 <span>id: {product.id}</span>
                 <span>{product.title}</span>
@@ -64,44 +62,31 @@ const Inventory = () => {
           </ul>
           {/*###########################*/}
         </section>
-        <button
-          style={{
-            display: "inline-block",
-            borderRadius: "7px",
-            border: "none",
-            background: "#FCFF00",
-            color: "black",
-            fontFamily: "inherit",
-            textAlign: "center",
-            fontSize: "13px",
-            boxShadow: "0px 14px 56px -11px #FCFF00",
-            width: "8em",
-            transition: "all 0.4s",
-            cursor: "pointer",
-          }}
-        >
-          <span
-            style={{
-              display: "inline-block",
-              position: "relative",
-              transition: "0.4s",
-            }}
+
+        <section className="inventory-background-buttons">
+          <button
+            className="see-more-button"
+            onClick={() => navigate("/productinventory")}
           >
-            ADD
-          </span>
-        </button>
+            <span>SEE</span>
+          </button>
+
+          <button>
+            <span>ADD</span>
+          </button>
+        </section>
 
         <section>
           {/*###########################*/}
           {/*Raw Materials Inventory*/}
           <ul>
             <h2>Raw Materials</h2>
-            {rawMaterials.map((rawMaterials) => (
+            {rawMaterials.slice(0, 5).map((rawMaterials) => (
               <li key={rawMaterials.id} className="product-item">
                 <span>id {rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
                 <span>cost: {rawMaterials.cost}</span>
-                <span>quantity: {rawMaterials.quantity_available}</span>
+                <span>available: {rawMaterials.quantity_available}</span>
                 <span>
                   restock required{" "}
                   {rawMaterials.restock_required ? "Yes" : "No"}
@@ -111,32 +96,16 @@ const Inventory = () => {
           </ul>
           {/*###########################*/}
         </section>
-        <button
-          style={{
-            display: "inline-block",
-            borderRadius: "7px",
-            border: "none",
-            background: "#FCFF00",
-            color: "black",
-            fontFamily: "inherit",
-            textAlign: "center",
-            fontSize: "13px",
-            boxShadow: "0px 14px 56px -11px #FCFF00",
-            width: "8em",
-            transition: "all 0.4s",
-            cursor: "pointer",
-          }}
-        >
-          <span
-            style={{
-              display: "inline-block",
-              position: "relative",
-              transition: "0.4s",
-            }}
-          >
-            ADD
-          </span>
-        </button>
+
+        <section className="inventory-background-buttons">
+          <button className="see-more-button">
+            <span>SEE</span>
+          </button>
+
+          <button>
+            <span>ADD</span>
+          </button>
+        </section>
       </div>
 
       {/*###########################*/}
@@ -145,16 +114,11 @@ const Inventory = () => {
         <div className="low-on-inventory">
           <ul>
             <h2>Low on Raw Materials</h2>
-            {rawMaterials.map((rawMaterials) => (
+            {rawMaterials.slice(0, 5).map((rawMaterials) => (
               <li key={rawMaterials.id} className="product-item">
                 <span>id {rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
-                <span>cost: {rawMaterials.cost}</span>
                 <span>quantity: {rawMaterials.quantity_available}</span>
-                <span>
-                  restock required{" "}
-                  {rawMaterials.restock_required ? "Yes" : "No"}
-                </span>
               </li>
             ))}
           </ul>
@@ -172,31 +136,8 @@ const Inventory = () => {
               className="inventory-order-form-mat-quantity-input"
               type="text"
             />
-            <button
-              style={{
-                display: "inline-block",
-                borderRadius: "7px",
-                border: "none",
-                background: "#FCFF00",
-                color: "black",
-                fontFamily: "inherit",
-                textAlign: "center",
-                fontSize: "13px",
-                boxShadow: "0px 14px 56px -11px #FCFF00",
-                width: "8em",
-                transition: "all 0.4s",
-                cursor: "pointer",
-              }}
-            >
-              <span
-                style={{
-                  display: "inline-block",
-                  position: "relative",
-                  transition: "0.4s",
-                }}
-              >
-                SEND
-              </span>
+            <button>
+              <span>SEND</span>
             </button>
           </div>
 
