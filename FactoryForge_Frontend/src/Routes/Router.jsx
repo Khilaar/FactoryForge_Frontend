@@ -3,6 +3,7 @@ import Layout from "./Layout.jsx";
 import NotFound from "./NotFound.jsx";
 
 import LoginPage from "./Authentication/LoginPage.jsx";
+import ProductInventory from "./ProtectedPages/ProductInventory.jsx";
 import RegisterPage from "./Authentication/RegisterPage.jsx";
 import ValidationPage from "./Authentication/Validation.jsx";
 import ProtectedRoutes from "./ProtectedRoutes.jsx";
@@ -25,6 +26,7 @@ const RouterComponent = () => {
         <Route path="" element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/inventory" element={<Inventory />} />
+          <Route path="/productinventory" element={<ProductInventory />} />
           <Route path="/rawmatsorders" element={<RawMaterialOrders />}>
             {/* <Route path=':rawmaterialorderID' element={<rmoID/>} /> */}
           </Route>
