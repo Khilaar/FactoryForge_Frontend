@@ -2,3 +2,25 @@
   margin: 0;
   padding: 0;
 }
+
+.layout_container {
+  display: flex;
+}
+
+main {
+  flex: 1;
+  transition: margin-left 0.3s ease;
+  margin-left: 0;
+}
+
+.sidebar-container.sidebar-open {
+  transform: translateX(0);
+}
+
+.sidebar-container.sidebar-open + main {
+  margin-left: 200px;
+}
+
+.sidebar-container.sidebar-closed + main {
+  margin-left: 50px;
+}

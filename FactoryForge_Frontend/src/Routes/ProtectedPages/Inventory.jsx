@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../styles/sass/_components.scss";
 import API from "../../api/API";
 
 const Inventory = () => {
