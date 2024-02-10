@@ -14,8 +14,6 @@ function LoginPage() {
   const dispatch = useDispatch();
 
   const retrieveUser = async () => {
-      
-
     if (data) {
       const userId = data.user.id;
       const userAvatar = data.user.avatar;
@@ -28,7 +26,7 @@ function LoginPage() {
       dispatch(set_avatar(userAvatar));
       navigate("/dashboard");
     }
-  }
+  };
 
   useEffect(() => {
     retrieveUser();
