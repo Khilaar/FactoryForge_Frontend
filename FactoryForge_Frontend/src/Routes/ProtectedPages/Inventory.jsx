@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../../styles/sass/_components.scss";
 import API from "../../api/API";
 
 const Inventory = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [rawMaterials, setRawMaterials] = useState([]);
 
@@ -63,7 +64,10 @@ const Inventory = () => {
         </section>
 
         <section className="inventory-background-buttons">
-          <button className="see-more-button">
+          <button
+            className="see-more-button"
+            onClick={() => navigate("/productinventory")}
+          >
             <span>SEE</span>
           </button>
 
@@ -82,7 +86,7 @@ const Inventory = () => {
                 <span>id {rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
                 <span>cost: {rawMaterials.cost}</span>
-                <span>quantity: {rawMaterials.quantity_available}</span>
+                <span>available: {rawMaterials.quantity_available}</span>
                 <span>
                   restock required{" "}
                   {rawMaterials.restock_required ? "Yes" : "No"}
