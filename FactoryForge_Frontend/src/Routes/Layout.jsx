@@ -3,7 +3,7 @@ import Sidebar from "../Components/Sidebar";
 
 export default function Layout() {
   return (
-    <div className="layout_container">
+    <div className="layout-container">
       <Sidebar />
       <main>
         <Outlet />
