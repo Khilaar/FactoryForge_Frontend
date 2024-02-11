@@ -172,10 +172,10 @@ main {
   padding: 2rem 2rem 2rem 2rem;
   gap: 50rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  background: rgba(255, 255, 255, 0.03); /* Background with transparency */
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
-  backdrop-filter: blur(2.4px); /* Backdrop filter with blur */
-  -webkit-backdrop-filter: blur(2.4px); /* For Safari */
+  backdrop-filter: blur(2.4px);
+  -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .inventory-order-form input {
