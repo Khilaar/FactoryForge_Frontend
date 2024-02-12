@@ -134,6 +134,10 @@ main {
 .product-item span:last-child {
   text-align: right;
 }
+.product-item button {
+  background-color: #191a24;
+  color: whitesmoke;
+}
 
 .product-item:hover {
   color: whitesmoke;

@@ -55,19 +55,19 @@ const ProductInventory = () => {
           {
             <li key="sort-item" className="product-item">
               <span>
-                <button>id</button>
+                <button className="sort-button">id</button>
               </span>
               <span>
-                <button>name</button>
+                <button className="sort-button">name</button>
               </span>
               <span>
-                <button>production cost</button>
+                <button className="sort-button">production cost</button>
               </span>
               <span>
-                <button>available amount</button>
+                <button className="sort-button">available amount</button>
               </span>
               <span>
-                <button>price</button>
+                <button className="sort-button">price</button>
               </span>
             </li>
           }
