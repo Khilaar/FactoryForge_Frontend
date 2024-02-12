@@ -62,7 +62,7 @@ const Inventory = () => {
   /*###########################*/
   /*Fetch all the raw materials and save them with use state*/
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchRawMaterials = async () => {
       try {
         const response = await API.get("/raw_materials/");
         setRawMaterials(response.data);
@@ -71,7 +71,7 @@ const Inventory = () => {
       }
     };
 
-    fetchProducts();
+    fetchRawMaterials();
   }, []);
   /*###########################*/
 
@@ -84,13 +84,36 @@ const Inventory = () => {
           {/*Products Inventory Small*/}
           <ul>
             <h2>Products</h2>
-            {products.slice(0, 5).map((product) => (
+            {/*Products List sort fields*/}
+            <ul className="product-list" id="sort-list">
+              {
+                <li key="sort-item" className="product-item">
+                  <span>
+                    <button className="sort-button">id</button>
+                  </span>
+                  <span>
+                    <button className="sort-button">name</button>
+                  </span>
+                  <span>
+                    <button className="sort-button">production cost</button>
+                  </span>
+                  <span>
+                    <button className="sort-button">available amount</button>
+                  </span>
+                  <span>
+                    <button className="sort-button">price</button>
+                  </span>
+                </li>
+              }
+            </ul>
+            {/*Products List sort fields End*/}
+            {products.slice(0, 4).map((product) => (
               <li key={product.id} className="product-item">
-                <span>id: {product.id}</span>
+                <span>{product.id}</span>
                 <span>{product.title}</span>
-                <span>production cost: {product.production_cost}</span>
-                <span>available: {product.quantity_available}</span>
-                <span>price: {product.price}</span>
+                <span>{product.production_cost}</span>
+                <span>{product.quantity_available}</span>
+                <span>{product.price}</span>
               </li>
             ))}
           </ul>
@@ -206,16 +229,36 @@ const Inventory = () => {
           {/*Raw Materials Inventory*/}
           <ul>
             <h2>Raw Materials</h2>
-            {rawMaterials.slice(0, 5).map((rawMaterials) => (
+            {/*Products List sort fields*/}
+            <ul className="product-list" id="sort-list">
+              {
+                <li key="sort-item" className="product-item">
+                  <span>
+                    <button className="sort-button">id</button>
+                  </span>
+                  <span>
+                    <button className="sort-button">name</button>
+                  </span>
+                  <span>
+                    <button className="sort-button">cost</button>
+                  </span>
+                  <span>
+                    <button className="sort-button">available amount</button>
+                  </span>
+                  <span>
+                    <button className="sort-button">restock required?</button>
+                  </span>
+                </li>
+              }
+            </ul>
+            {/*Products List sort fields End*/}
+            {rawMaterials.slice(0, 4).map((rawMaterials) => (
               <li key={rawMaterials.id} className="product-item">
-                <span>id {rawMaterials.id}</span>
+                <span>{rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
-                <span>cost: {rawMaterials.cost}</span>
-                <span>available: {rawMaterials.quantity_available}</span>
-                <span>
-                  restock required{" "}
-                  {rawMaterials.restock_required ? "Yes" : "No"}
-                </span>
+                <span>{rawMaterials.cost}</span>
+                <span>{rawMaterials.quantity_available}</span>
+                <span>{rawMaterials.restock_required ? "Yes" : "No"}</span>
               </li>
             ))}
           </ul>
@@ -226,7 +269,7 @@ const Inventory = () => {
         <section className="inventory-background-buttons">
           <button
             className="see-more-button"
-            onClick={() => navigate("/productinventory")}
+            onClick={() => navigate("/rawmaterialinventory")}
           >
             <span>SEE</span>
           </button>
@@ -287,8 +330,8 @@ const Inventory = () => {
         {/*Products Add and See Button End*/}
       </div>
 
-      {/*Low-on Inventory*/}
       <div className="inventory-bottom-part">
+        {/*Low-on Inventory*/}
         <div className="low-on-inventory">
           <ul>
             <h2>Low on Raw Materials</h2>
@@ -297,6 +340,18 @@ const Inventory = () => {
                 <span>id {rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
                 <span>quantity: {rawMaterials.quantity_available}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="low-on-inventory">
+          <ul>
+            <h2>Low on Product</h2>
+            {products.slice(0, 5).map((product) => (
+              <li key={product.id} className="product-item">
+                <span>id: {product.id}</span>
+                <span>{product.title}</span>
+                <span>available: {product.quantity_available}</span>
               </li>
             ))}
           </ul>

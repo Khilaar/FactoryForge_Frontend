@@ -1,6 +1,10 @@
 import { useState, useEffect, useMemo } from "react";
 import API from "../../api/API";
 
+/**
+   @todo: right your todo comment here
+**/
+
 const ProductInventory = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -9,7 +13,7 @@ const ProductInventory = () => {
   /*Fetch all the products and save them with use state*/
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchRawMaterials = async () => {
       try {
         const response = await API.get("/products/");
         setProducts(response.data);
@@ -18,7 +22,7 @@ const ProductInventory = () => {
       }
     };
 
-    fetchProducts();
+    fetchRawMaterials();
   }, [searchQuery]);
 
   const filteredProducts = useMemo(() => {
@@ -51,19 +55,19 @@ const ProductInventory = () => {
           {
             <li key="sort-item" className="product-item">
               <span>
-                <button>sort</button>
+                <button className="sort-button">id</button>
               </span>
               <span>
-                <button>sort</button>
+                <button className="sort-button">name</button>
               </span>
               <span>
-                <button>sort</button>
+                <button className="sort-button">production cost</button>
               </span>
               <span>
-                <button>sort</button>
+                <button className="sort-button">available amount</button>
               </span>
               <span>
-                <button>sort</button>
+                <button className="sort-button">price</button>
               </span>
             </li>
           }
@@ -74,11 +78,11 @@ const ProductInventory = () => {
         <ul className="product-list">
           {filteredProducts.map((product) => (
             <li key={product.id} className="product-item">
-              <span>id: {product.id}</span>
+              <span>{product.id}</span>
               <span>{product.title}</span>
-              <span>production cost: {product.production_cost}</span>
-              <span>available: {product.quantity_available}</span>
-              <span>price: {product.price}</span>
+              <span>{product.production_cost}</span>
+              <span>{product.quantity_available}</span>
+              <span>{product.price}</span>
             </li>
           ))}
         </ul>
