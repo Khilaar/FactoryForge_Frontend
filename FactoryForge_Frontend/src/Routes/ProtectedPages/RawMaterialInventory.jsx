@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import API from "../../api/API";
 
 const RawMaterialInventory = () => {
@@ -19,6 +19,12 @@ const RawMaterialInventory = () => {
 
     fetchProducts();
   }, []);
+
+  const filteredRawMaterials = useMemo(() => {
+    return rawMaterials.filter((rawMaterial) =>
+      rawMaterial.name.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+  }, [rawMaterials, searchQuery]);
 
   /*###########################*/
   return (
@@ -49,7 +55,7 @@ const RawMaterialInventory = () => {
                 <button>name</button>
               </span>
               <span>
-                <button>production cost</button>
+                <button>cost</button>
               </span>
               <span>
                 <button>available amount</button>
@@ -66,15 +72,13 @@ const RawMaterialInventory = () => {
         {/*Raw Materials Inventory*/}
         <ul>
           <h2>Raw Materials</h2>
-          {rawMaterials.map((rawMaterials) => (
+          {filteredRawMaterials.map((rawMaterials) => (
             <li key={rawMaterials.id} className="product-item">
-              <span>id {rawMaterials.id}</span>
+              <span>{rawMaterials.id}</span>
               <span>{rawMaterials.name}</span>
-              <span>cost: {rawMaterials.cost}</span>
-              <span>available: {rawMaterials.quantity_available}</span>
-              <span>
-                restock required {rawMaterials.restock_required ? "Yes" : "No"}
-              </span>
+              <span>{rawMaterials.cost}</span>
+              <span>{rawMaterials.quantity_available}</span>
+              <span>{rawMaterials.restock_required ? "Yes" : "No"}</span>
             </li>
           ))}
         </ul>

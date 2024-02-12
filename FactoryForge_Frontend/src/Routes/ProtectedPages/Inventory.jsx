@@ -226,7 +226,7 @@ const Inventory = () => {
         <section className="inventory-background-buttons">
           <button
             className="see-more-button"
-            onClick={() => navigate("/productinventory")}
+            onClick={() => navigate("/rawmaterialinventory")}
           >
             <span>SEE</span>
           </button>
