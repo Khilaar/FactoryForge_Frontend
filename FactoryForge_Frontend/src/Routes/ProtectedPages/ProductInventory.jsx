@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import API from "../../api/API";
 
 const ProductInventory = () => {
@@ -7,6 +7,7 @@ const ProductInventory = () => {
 
   /*###########################*/
   /*Fetch all the products and save them with use state*/
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -18,22 +19,22 @@ const ProductInventory = () => {
     };
 
     fetchProducts();
-  }, []);
-  /*###########################*/
+  }, [searchQuery]);
 
-  const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) =>
+      product.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+  }, [products, searchQuery]);
+
+  /*###########################*/
 
   return (
     <div className="inventory-background">
       <section>
-        {/*###########################*/}
-        {/*Products Inventory*/}
-
+        {/*Products Title and search*/}
         <div className="title-and-searchbar">
           <h3>All Products</h3>
-
           <span className="searchbar">
             <h3>search</h3>
             <input
@@ -43,6 +44,9 @@ const ProductInventory = () => {
             />
           </span>
         </div>
+        {/*Products Title and search End*/}
+
+        {/*Products List sort fields*/}
         <ul className="product-list" id="sort-list">
           {
             <li key="sort-item" className="product-item">
@@ -64,6 +68,9 @@ const ProductInventory = () => {
             </li>
           }
         </ul>
+        {/*Products List sort fields End*/}
+
+        {/*Products List*/}
         <ul className="product-list">
           {filteredProducts.map((product) => (
             <li key={product.id} className="product-item">
@@ -75,14 +82,16 @@ const ProductInventory = () => {
             </li>
           ))}
         </ul>
-        {/*###########################*/}
+        {/*Products List End*/}
       </section>
 
+      {/*Products Add Button*/}
       <section className="inventory-background-buttons">
         <button>
           <span>ADD</span>
         </button>
       </section>
+      {/*Products Add Button End*/}
     </div>
   );
 };
