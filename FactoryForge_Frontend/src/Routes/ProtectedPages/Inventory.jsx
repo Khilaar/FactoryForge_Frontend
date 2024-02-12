@@ -30,7 +30,6 @@ const Inventory = () => {
     e.preventDefault();
     try {
       await API.post("/products/", formDataProduct);
-      // Optionally, you can navigate to another page or perform any other action upon successful submission.
       navigate("/productinventory");
     } catch (error) {
       console.error("Error creating product: ", error);
@@ -56,7 +55,6 @@ const Inventory = () => {
         console.error("Error fetching Products: ", error);
       }
     };
-
     fetchProducts();
   }, []);
   /*###########################*/
