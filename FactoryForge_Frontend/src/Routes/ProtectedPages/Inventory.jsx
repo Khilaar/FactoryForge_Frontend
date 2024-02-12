@@ -62,7 +62,7 @@ const Inventory = () => {
   /*###########################*/
   /*Fetch all the raw materials and save them with use state*/
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchRawMaterials = async () => {
       try {
         const response = await API.get("/raw_materials/");
         setRawMaterials(response.data);
@@ -71,7 +71,7 @@ const Inventory = () => {
       }
     };
 
-    fetchProducts();
+    fetchRawMaterials();
   }, []);
   /*###########################*/
 
@@ -287,8 +287,8 @@ const Inventory = () => {
         {/*Products Add and See Button End*/}
       </div>
 
-      {/*Low-on Inventory*/}
       <div className="inventory-bottom-part">
+        {/*Low-on Inventory*/}
         <div className="low-on-inventory">
           <ul>
             <h2>Low on Raw Materials</h2>
@@ -297,6 +297,18 @@ const Inventory = () => {
                 <span>id {rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
                 <span>quantity: {rawMaterials.quantity_available}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="low-on-inventory">
+          <ul>
+            <h2>Low on Product</h2>
+            {products.slice(0, 5).map((product) => (
+              <li key={product.id} className="product-item">
+                <span>id: {product.id}</span>
+                <span>{product.title}</span>
+                <span>available: {product.quantity_available}</span>
               </li>
             ))}
           </ul>

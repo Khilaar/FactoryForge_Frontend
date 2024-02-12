@@ -1,38 +1,26 @@
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
 import API from "../../api/API";
 
-/**
-   @todo: right your todo comment here
-**/
-
-const ProductInventory = () => {
-  const [products, setProducts] = useState([]);
+const RawMaterialInventory = () => {
+  const [rawMaterials, setRawMaterials] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   /*###########################*/
-  /*Fetch all the products and save them with use state*/
-
+  /*Fetch all the raw materials and save them with use state*/
   useEffect(() => {
-    const fetchRawMaterials = async () => {
+    const fetchProducts = async () => {
       try {
-        const response = await API.get("/products/");
-        setProducts(response.data);
+        const response = await API.get("/raw_materials/");
+        setRawMaterials(response.data);
       } catch (error) {
-        console.error("Error fetching Products: ", error);
+        console.error("Error fetching raw materials: ", error);
       }
     };
 
-    fetchRawMaterials();
-  }, [searchQuery]);
-
-  const filteredProducts = useMemo(() => {
-    return products.filter((product) =>
-      product.title.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
-  }, [products, searchQuery]);
+    fetchProducts();
+  }, []);
 
   /*###########################*/
-
   return (
     <div className="inventory-background">
       <section>
@@ -73,31 +61,27 @@ const ProductInventory = () => {
           }
         </ul>
         {/*Products List sort fields End*/}
-
-        {/*Products List*/}
-        <ul className="product-list">
-          {filteredProducts.map((product) => (
-            <li key={product.id} className="product-item">
-              <span>{product.id}</span>
-              <span>{product.title}</span>
-              <span>{product.production_cost}</span>
-              <span>{product.quantity_available}</span>
-              <span>{product.price}</span>
+      </section>
+      <section>
+        {/*Raw Materials Inventory*/}
+        <ul>
+          <h2>Raw Materials</h2>
+          {rawMaterials.map((rawMaterials) => (
+            <li key={rawMaterials.id} className="product-item">
+              <span>id {rawMaterials.id}</span>
+              <span>{rawMaterials.name}</span>
+              <span>cost: {rawMaterials.cost}</span>
+              <span>available: {rawMaterials.quantity_available}</span>
+              <span>
+                restock required {rawMaterials.restock_required ? "Yes" : "No"}
+              </span>
             </li>
           ))}
         </ul>
-        {/*Products List End*/}
+        {/*Raw Materials Inventory End*/}
       </section>
-
-      {/*Products Add Button*/}
-      <section className="inventory-background-buttons">
-        <button>
-          <span>ADD</span>
-        </button>
-      </section>
-      {/*Products Add Button End*/}
     </div>
   );
 };
 
-export default ProductInventory;
+export default RawMaterialInventory;
