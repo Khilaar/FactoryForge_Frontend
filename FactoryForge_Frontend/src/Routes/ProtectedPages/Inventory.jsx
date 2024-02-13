@@ -79,15 +79,15 @@ const Inventory = () => {
     <div>
       <h1 className="route-title">Inventory</h1>
 
-      <div className="inventory-background">
+      <div className="background-frame">
         <section>
           {/*Products Inventory Small*/}
           <ul>
             <h2>Products</h2>
             {/*Products List sort fields*/}
-            <ul className="product-list" id="sort-list">
+            <ul className="items-list" id="sort-list">
               {
-                <li key="sort-item" className="product-item">
+                <li key="sort-product" className="list-item">
                   <span>
                     <button className="sort-button">id</button>
                   </span>
@@ -108,7 +108,7 @@ const Inventory = () => {
             </ul>
             {/*Products List sort fields End*/}
             {products.slice(0, 4).map((product) => (
-              <li key={product.id} className="product-item">
+              <li key={product.id} className="list-item">
                 <span>{product.id}</span>
                 <span>{product.title}</span>
                 <span>{product.production_cost}</span>
@@ -230,9 +230,9 @@ const Inventory = () => {
           <ul>
             <h2>Raw Materials</h2>
             {/*Products List sort fields*/}
-            <ul className="product-list" id="sort-list">
+            <ul className="items-list" id="sort-list">
               {
-                <li key="sort-item" className="product-item">
+                <li key="sort-product" className="list-item">
                   <span>
                     <button className="sort-button">id</button>
                   </span>
@@ -253,7 +253,7 @@ const Inventory = () => {
             </ul>
             {/*Products List sort fields End*/}
             {rawMaterials.slice(0, 4).map((rawMaterials) => (
-              <li key={rawMaterials.id} className="product-item">
+              <li key={rawMaterials.id} className="list-item">
                 <span>{rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
                 <span>{rawMaterials.cost}</span>
@@ -336,7 +336,7 @@ const Inventory = () => {
           <ul>
             <h2>Low on Raw Materials</h2>
             {rawMaterials.slice(0, 5).map((rawMaterials) => (
-              <li key={rawMaterials.id} className="product-item">
+              <li key={rawMaterials.id} className="list-item">
                 <span>id {rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
                 <span>quantity: {rawMaterials.quantity_available}</span>
@@ -348,7 +348,7 @@ const Inventory = () => {
           <ul>
             <h2>Low on Product</h2>
             {products.slice(0, 5).map((product) => (
-              <li key={product.id} className="product-item">
+              <li key={product.id} className="list-item">
                 <span>id: {product.id}</span>
                 <span>{product.title}</span>
                 <span>available: {product.quantity_available}</span>

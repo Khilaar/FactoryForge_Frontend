@@ -6,12 +6,12 @@ export default function Layout() {
 
   const showSidebar = () => {
     const { pathname } = location;
-    return !['/login', '/signup', '/validation'].includes(pathname);
+    return !["/login", "/register", "/validation"].includes(pathname);
   };
 
   return (
     <div className="layout-container">
-      {showSidebar() && <Sidebar /> }
+      {showSidebar() && <Sidebar />}
       <main>
         <Outlet />
       </main>

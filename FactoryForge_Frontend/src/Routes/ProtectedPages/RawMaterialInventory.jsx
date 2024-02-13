@@ -28,7 +28,7 @@ const RawMaterialInventory = () => {
 
   /*###########################*/
   return (
-    <div className="inventory-background">
+    <div className="background-frame">
       <section>
         {/*Products Title and search*/}
         <div className="title-and-searchbar">
@@ -45,9 +45,9 @@ const RawMaterialInventory = () => {
         {/*Products Title and search End*/}
 
         {/*Products List sort fields*/}
-        <ul className="product-list" id="sort-list">
+        <ul className="items-list" id="sort-list">
           {
-            <li key="sort-item" className="product-item">
+            <li key="sort-product" className="list-item">
               <span>
                 <button>id</button>
               </span>
@@ -73,7 +73,7 @@ const RawMaterialInventory = () => {
         <ul>
           <h2>Raw Materials</h2>
           {filteredRawMaterials.map((rawMaterials) => (
-            <li key={rawMaterials.id} className="product-item">
+            <li key={rawMaterials.id} className="list-item">
               <span>{rawMaterials.id}</span>
               <span>{rawMaterials.name}</span>
               <span>{rawMaterials.cost}</span>
