@@ -6,20 +6,28 @@ import API from "../../api/API.js";
 export default function RegisterPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [confirmPassword, setConfirmPassword] = useState();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
+    type_of_user: "A",
   });
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const triggerRegister = async (e) => {
     e.preventDefault();
-    try {
-      const res = await API.post();
-
-      navigate("/");
-    } catch (error) {
-      console.log("Error during login:", error);
+    if (confirmPassword != formData.password) {
+      setErrorMessage("Passwords do not match.");
+      console.log("Passwords do not match.");
+    } else {
+      try {
+        const res = await API.post("auth/register/, formData");
+        navigate("/login");
+      } catch (error) {
+        setErrorMessage("An error occurred during registration.");
+        console.log("Error during login:", error);
+      }
     }
   };
 
@@ -39,7 +47,7 @@ export default function RegisterPage() {
             />
           </div>
           <div className="input-container">
-          <i className="fi fi-rr-envelope" />
+            <i className="fi fi-rr-envelope" />
             <input
               type="text"
               placeholder="Email"
@@ -60,6 +68,17 @@ export default function RegisterPage() {
               }
             />
           </div>
+          <div className="input-container">
+            <i className="fi fi-rr-lock"></i>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              autoComplete="off"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <button>Submit</button>
         </form>
       </div>
     </>
