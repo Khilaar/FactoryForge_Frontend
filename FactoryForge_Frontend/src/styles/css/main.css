@@ -677,4 +677,10 @@ main {
   font-size: 16px;
 }
 
+#sign-up {
+  border-radius: 5px;
+  padding: 2.5px;
+  color: white;
+}
+
 /*# sourceMappingURL=main.css.map */

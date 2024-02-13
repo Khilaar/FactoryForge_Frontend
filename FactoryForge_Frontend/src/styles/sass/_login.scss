@@ -32,7 +32,6 @@
     display: flex;
     align-items: center;
 
-
     i {
       position: absolute;
       left: 10px;
@@ -60,3 +59,10 @@
     font-size: 16px;
   }
 }
+
+#sign-up {
+  border-radius: 5px;
+  padding: 2.5px;
+  color: white;
+}
+

@@ -10,14 +10,12 @@ import Dashboard from "./ProtectedPages/Dashboard.jsx";
 import Inventory from "./ProtectedPages/Inventory.jsx";
 import RawMaterialOrders from "./ProtectedPages/RawMaterialOrders.jsx";
 import ProfilePage from "./ProtectedPages/ProfilePage.jsx";
-import Home from "./Home.jsx";
 import RawMaterialInventory from "./ProtectedPages/RawMaterialInventory.jsx";
 
 const RouterComponent = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register">
           <Route index element={<RegisterPage />} />
