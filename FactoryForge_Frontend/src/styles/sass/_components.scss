@@ -511,23 +511,3 @@
     right: 0;
   }
 }
-
-.title-close-button-pop-up-form {
-  display: flex;
-  justify-content: space-between;
-  button {
-    width: 20px;
-    height: 20px;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    margin-bottom: 2rem;
-  }
-  button:hover {
-    background-color: #6e248a;
-  }
-
-  button:active {
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-  }
-}
