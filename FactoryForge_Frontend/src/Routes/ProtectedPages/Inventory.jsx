@@ -44,6 +44,15 @@ const Inventory = () => {
     setShowFormProduct(!showFormProduct);
   };
 
+  const handleCloseProductForm = () => {
+    setShowFormProduct(false);
+    console.log(showFormProduct);
+  };
+
+  const handleCloseRawMatForm = () => {
+    setShowFormRawMat(false);
+  };
+
   /*###########################*/
   /*Fetch all the products and save them with use state*/
   useEffect(() => {
@@ -138,7 +147,10 @@ const Inventory = () => {
                 {/*Inventory Order Form Raw Material*/}
                 <div className="inventory-add-form-product">
                   <span>
-                    <h3>Title</h3>
+                    <span className="title-close-button-pop-up-form">
+                      <h3>Add Product</h3>
+                      <button onClick={handleCloseProductForm}>X</button>
+                    </span>
                     <input
                       className="inventory-add-product-title-input"
                       type="text"
@@ -281,6 +293,10 @@ const Inventory = () => {
             <div className="order-form">
               <form>
                 {/*Inventory Order Form Raw Material*/}
+                <span className="title-close-button-pop-up-form">
+                  <h2>Order Raw Material</h2>
+                  <button onClick={handleCloseRawMatForm}>X</button>
+                </span>
                 <div className="inventory-order-form-raw-material">
                   <span>
                     <h3>Raw Material </h3>
