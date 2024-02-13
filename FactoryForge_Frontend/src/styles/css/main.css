@@ -558,6 +558,12 @@ main {
   display: flex;
 }
 
+.logout-button {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 50px;
+}
+
 .toggle-button:hover {
   background-color: #6e248a;
 }
@@ -616,8 +622,59 @@ main {
   color: black;
 }
 
-.login_container {
-  border: 1px solid black;
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  color: white;
+  flex-direction: column;
+}
+.login-container a,
+.login-container a:visited {
+  text-decoration: none;
+  font-size: 14px;
+}
+.login-container a:hover {
+  color: rgb(130, 33, 172);
+}
+
+.login-form {
+  height: 700px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 25px;
+}
+.login-form .input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.login-form .input-container i {
+  position: absolute;
+  left: 10px;
+  color: black;
+}
+.login-form input {
+  border: none;
+  padding: 8px 8px 8px 35px;
+  border-radius: 5px;
+  width: 225px;
+  min-width: 50px;
+  font-size: 16px;
+}
+.login-form input:focus {
+  outline: none;
+}
+.login-form button {
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -44,6 +44,11 @@
   transition: background-color 0.3s ease;
 }
 
+.logout-button {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 50px;
+}
 .toggle-button:hover {
   background-color: #6e248a;
 }
