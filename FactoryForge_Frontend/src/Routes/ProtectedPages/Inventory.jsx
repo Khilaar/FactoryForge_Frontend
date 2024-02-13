@@ -10,12 +10,12 @@ const Inventory = () => {
   const [showFormProduct, setShowFormProduct] = useState(false);
   const [formDataProduct, setFormDataProduct] = useState({
     title: "",
-    production_cost: "",
-    price: "",
-    category: "",
-    quantity_available: "",
-    raw_material_requirements: "",
     description: "",
+    quantity_available: "",
+    price: "",
+    production_cost: "",
+    category: "",
+    raw_material_requirements: "",
   });
 
   const handleInputChange = (e) => {
@@ -29,8 +29,40 @@ const Inventory = () => {
   const handleSubmitProduct = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/products/", formDataProduct);
-      navigate("/productinventory");
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+      /*###########################*/
+      const rawMaterialRequirements = formDataProduct.raw_material_requirements
+        .split(",")
+        .reduce((acc, pair) => {
+          const [material, quantity] = pair.trim().split(":");
+          acc[material.trim()] = parseInt(quantity.trim());
+          return acc;
+        }, {});
+      /*###########################*/
+
+      const updatedFormDataProduct = {
+        ...formDataProduct,
+        raw_material_requirements: rawMaterialRequirements,
+      };
+
+      const response = await API.post(
+        "/products/",
+        updatedFormDataProduct,
+        config,
+      );
+      toggleFormProduct();
+      console.log("Product created:", response.data);
     } catch (error) {
       console.error("Error creating product: ", error);
     }
@@ -208,10 +240,11 @@ const Inventory = () => {
                     <h3>Raw Material Requirements</h3>
                     <input
                       className="inventory-add-product-raw-material-requirements-input"
-                      type="textarea"
+                      type="text"
                       name="raw_material_requirements"
                       value={formDataProduct.raw_material_requirements}
                       onChange={handleInputChange}
+                      placeholder="Product Name: amount, Product Name: amount"
                     />
                   </span>
 
