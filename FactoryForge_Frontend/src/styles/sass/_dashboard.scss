@@ -1,11 +1,34 @@
 .dashboard {
-  background: #4E8098;
+  color: white;
   display: flex;
   flex-direction: column;
-  //height: 96vh;
   padding: 2vh;
   gap: 2vh;
 
+.search {
+  display: flex;
+  justify-content: space-between;
+
+
+        input {
+          border: none;
+          border-radius: 20px;
+          height: 2vh;
+          width: 20vw;
+          padding: 2vh;
+          margin-right: 1vh;
+          background-color: silver;
+        }
+        button {
+          border: none;
+          border-radius: 20px;
+          width: 7vw;
+          height: 6vh;
+          padding: 2vh;
+          background-color: silver;
+        }
+
+      }
 
   .dash_top {
     display: flex;
@@ -21,22 +44,26 @@
       .top_products {
         display: flex;
         flex-direction: column;
-        border: 2px solid black;
+        border: 5px solid black;
         border-radius: 20px;
         padding: 2vh;
+        
 
       .product {
         display: flex;
+        border: 1px solid grey;
+        border-radius: 10px;
+        padding: 2vh;
         gap: 2vh;
         margin: 1vh;
+        background: #191a24;
       }
     }
       .tasks {
         display: flex;
         flex-direction: column;
         gap: 1vh;
-
-        border: 2px solid black;
+        border: 5px solid black;
         border-radius: 20px;
         padding: 2vh;
 
@@ -48,19 +75,19 @@
         .task {
           display: flex;
           justify-content: space-between;
-          border: 1px solid black;
+          border: 1px solid grey;
           border-radius: 10px;
           padding: 2vh;
-          box-shadow: 1px 1px 1px 1px #092327;
-
+          margin: 1vh;
+          background: #191a24;
 
         }
         .task:hover {
-            box-shadow: 2px 2px 2px 2px #092327;
+            
           }
     }
       .suppliers {
-        border: 2px solid black;
+        border: 5px solid black;
         border-radius: 20px;
         padding: 2vh;
 
@@ -72,14 +99,15 @@
           .supplier {
             display: flex;
             flex-direction: column;
-            border: 2px solid black;
+            border: 2px solid grey;
             border-radius: 20px;
             padding: 2vh;
             gap: 1vh;
-            box-shadow: 1px 1px 1px 1px #092327;
+            
+            background: #191a24;
           }
           .supplier:hover {
-            box-shadow: 2px 2px 2px 2px #092327;
+            
           }
         }
     }
@@ -90,11 +118,36 @@
       gap: 2vh;
       width: 50%;
 
-      .search {}
-      .customer_order {
-        border: 2px solid black;
+
+      .customer_orders {
+        border: 5px solid black;
         border-radius: 20px;
         padding: 2vh;
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          margin: 2vh;
+        }
+
+        .order {
+          display: flex;
+          justify-content: space-between;
+          border: 1px solid grey;
+          border-radius: 10px;
+          padding: 2vh;
+          gap: 2vh;
+          margin: 1vh;
+          background: #191a24;
+
+          .tracking {
+            min-width: 6vw;
+          }
+        }
+
+        .tracking {
+            min-width: 11vw;
+        }
       }
 
       .raw_material_inventory {
@@ -143,7 +196,7 @@
   position: absolute;
   left: 8px;
   width: 16px;
-  background: #092327;
+  background: white;
   animation: loading 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
 .loading div:nth-child(1) {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import API from "../api/API.js";
 
 
 export default function useFetch(endpoint) {
@@ -7,12 +8,11 @@ export default function useFetch(endpoint) {
 	
 	async function fetchData() {
 		try {
-			const response = await fetch(`https://factoryforge-5f88b931d18d.herokuapp.com/api/${endpoint}`)
-			const data = await response.json()
-			setData(data)
+			const response = await API.get(`${endpoint}`)
+			setData(response.data)
 		}
 		catch(error) {
-			alert(error.message)
+			console.log(error.message)
 		}
 		finally {
 			setLoading(false)
