@@ -38,7 +38,6 @@ export default function ProtectedRoutes() {
   }
 
   if (!isAuthenticated) {
-    console.log(isAuthenticated);
     return <Navigate to="/login" state={{ origin: location }} />;
   } else {
     return <Outlet />;
