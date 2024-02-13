@@ -34,7 +34,7 @@ const ProductInventory = () => {
   /*###########################*/
 
   return (
-    <div className="inventory-background">
+    <div className="background-frame">
       <section>
         {/*Products Title and search*/}
         <div className="title-and-searchbar">
@@ -51,9 +51,9 @@ const ProductInventory = () => {
         {/*Products Title and search End*/}
 
         {/*Products List sort fields*/}
-        <ul className="product-list" id="sort-list">
+        <ul className="items-list" id="sort-list">
           {
-            <li key="sort-item" className="product-item">
+            <li key="sort-item" className="list-item">
               <span>
                 <button className="sort-button">id</button>
               </span>
@@ -75,9 +75,9 @@ const ProductInventory = () => {
         {/*Products List sort fields End*/}
 
         {/*Products List*/}
-        <ul className="product-list">
+        <ul className="items-list">
           {filteredProducts.map((product) => (
-            <li key={product.id} className="product-item">
+            <li key={product.id} className="list-item">
               <span>{product.id}</span>
               <span>{product.title}</span>
               <span>{product.production_cost}</span>

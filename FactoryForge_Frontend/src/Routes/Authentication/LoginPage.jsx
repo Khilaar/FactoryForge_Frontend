@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login_user, logout_user } from "../../store/slices/userSlice.js";
+import { login_user } from "../../store/slices/userSlice.js";
 import API from "../../api/API.js";
 import { NavLink } from "react-router-dom";
 
@@ -31,8 +31,6 @@ function LoginPage() {
       const localAccessToken = localStorage.getItem("access_token");
       if (localAccessToken) {
         navigate("/");
-      } else {
-        console.log("Error: No access token found.");
       }
     };
     retrieveUser();
