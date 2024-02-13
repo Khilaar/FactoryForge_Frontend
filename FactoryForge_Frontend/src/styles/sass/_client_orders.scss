@@ -1,0 +1,39 @@
+.list-item-clientorders {
+  @extend .list-item;
+  height: 75px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  span:last-child {
+    text-align: none; // or any other value you want
+  }
+
+  button {
+    box-shadow:
+    inset 0 0 1px #7b37d1,
+    0 0 2px 1px #7b37d1;
+  }
+}
+
+.co-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.co-productlist {
+  height: 100%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5px;
+
+  li {
+    list-style: none;
+  }
+}

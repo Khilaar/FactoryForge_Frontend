@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../api/API";
+import ClientOrderCard from "../../Components/ClientOrderCard";
 
 const ClientOrders = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const ClientOrders = () => {
       try {
         const response = await API.get("client_orders/");
         setOrders(response.data);
-        console.log(response.data)
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching raw materials: ", error);
       }
@@ -22,9 +23,13 @@ const ClientOrders = () => {
 
   return (
     <div>
-      <h1 className="route-title">Orders</h1>
+      <h1 className="route-title">Client Orders</h1>
       <div className="background-frame">
-
+        <section>
+          {orders.map((order) => (
+            <ClientOrderCard order={order} key={order.id} />
+          ))}
+        </section>
       </div>
     </div>
   );
