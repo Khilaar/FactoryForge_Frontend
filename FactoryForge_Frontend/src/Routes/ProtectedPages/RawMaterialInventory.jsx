@@ -47,7 +47,7 @@ const RawMaterialInventory = () => {
         {/*Products List sort fields*/}
         <ul className="items-list" id="sort-list">
           {
-            <li key="sort-item" className="list-item">
+            <li key="sort-product" className="list-item">
               <span>
                 <button>id</button>
               </span>

@@ -232,7 +232,7 @@ const Inventory = () => {
             {/*Products List sort fields*/}
             <ul className="items-list" id="sort-list">
               {
-                <li key="sort-item" className="list-item">
+                <li key="sort-product" className="list-item">
                   <span>
                     <button className="sort-button">id</button>
                   </span>
