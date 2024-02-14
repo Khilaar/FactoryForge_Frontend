@@ -179,7 +179,7 @@ const Inventory = () => {
                 {/*Inventory Order Form Raw Material*/}
                 <div className="inventory-add-form-product">
                   <span>
-                  <span className="title-close-button-pop-up-form">
+                    <span className="title-close-button-pop-up-form">
                       <h3>Add Product</h3>
                       <button onClick={handleCloseProductForm}>X</button>
                     </span>
