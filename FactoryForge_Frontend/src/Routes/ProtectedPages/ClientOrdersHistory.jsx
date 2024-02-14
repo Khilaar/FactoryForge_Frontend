@@ -11,7 +11,7 @@ const ClientOrders = () => {
   useEffect(() => {
     const fetchClientOrders = async () => {
       try {
-        const response = await API.get("client_orders/");
+        const response = await API.get("client_orders/history/");
         setOrders(response.data);
         console.log(response.data);
       } catch (error) {
@@ -28,14 +28,14 @@ const ClientOrders = () => {
   };
 
   const handleNavigate = () => {
-    navigate("/clientorders/history/");
+    navigate("/clientorders/");
   };
 
   return (
     <div>
       <div className="topBar">
         <h1 className="route-title">Client Orders</h1>
-        <button className="pastOrders" onClick={handleNavigate}>
+        <button className="pastOrders active" onClick={handleNavigate}>
           Past Orders
         </button>
       </div>
