@@ -28,7 +28,7 @@ export default function Sidebar() {
         <nav className="aside-nav">
           {showSidebar ? (
             <>
-              <NavLink to="/dashboard">
+              <NavLink to="/">
                 <i className="fi fi-rr-home"></i>
                 <span>Dasboard</span>
               </NavLink>
@@ -59,7 +59,7 @@ export default function Sidebar() {
             </>
           ) : (
             <>
-              <NavLink to="/dashboard">
+              <NavLink to="/">
                 <i className="fi fi-rr-home"></i>
               </NavLink>
               <NavLink to="/inventory">
