@@ -45,7 +45,8 @@ main {
 .background-frame {
   color: whitesmoke;
   overflow: hidden;
-  margin: 2rem 1rem 0rem 1rem;
+  margin: 2rem auto;
+  margin-bottom: 0;
   padding: 1rem 2rem 2rem 2rem;
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.03);
@@ -54,6 +55,13 @@ main {
   backdrop-filter: blur(2.4px);
   -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 60%;
+  align-self: center;
+}
+@media screen and (max-width: 768px) {
+  .background-frame {
+    width: 90%;
+  }
 }
 .background-frame button {
   background: #fcff00;

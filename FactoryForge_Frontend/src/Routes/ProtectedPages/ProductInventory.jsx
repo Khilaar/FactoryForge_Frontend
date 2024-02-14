@@ -1,34 +1,29 @@
 import { useState, useEffect, useMemo } from "react";
 import API from "../../api/API";
 
+/**
+   @todo: right your todo comment here
+**/
+
 const ProductInventory = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchProducts = async () => {
-    try {
-      const response = await API.get("/products/", {
-        params: {
-          _page: currentPage,
-          _limit: 20, // Limit to 20 products per page
-        },
-      });
-      setProducts((prevProducts) => [...prevProducts, ...response.data]);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error fetching Products: ", error);
-    }
-  };
+  /*###########################*/
+  /*Fetch all the products and save them with use state*/
 
   useEffect(() => {
-    fetchProducts();
-  }, [currentPage]);
+    const fetchRawMaterials = async () => {
+      try {
+        const response = await API.get("/products/");
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching Products: ", error);
+      }
+    };
 
-  const handleLoadMore = () => {
-    setCurrentPage((prevPage) => prevPage + 1); // Increment current page to load next 20 products
-  };
+    fetchRawMaterials();
+  }, [searchQuery]);
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) =>
@@ -36,9 +31,7 @@ const ProductInventory = () => {
     );
   }, [products, searchQuery]);
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+  /*###########################*/
 
   return (
     <div className="background-frame">
@@ -51,7 +44,7 @@ const ProductInventory = () => {
             <input
               type="text"
               value={searchQuery}
-              onChange={handleSearchChange}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </span>
         </div>
@@ -62,19 +55,19 @@ const ProductInventory = () => {
           {
             <li key="sort-product" className="list-item">
               <span>
-                <button className="sort-button">id</button>
+                <p>id</p>
               </span>
               <span>
-                <button className="sort-button">name</button>
+                <p>name</p>
               </span>
               <span>
-                <button className="sort-button">production cost</button>
+                <p>production cost</p>
               </span>
               <span>
-                <button className="sort-button">available amount</button>
+                <p>available amount</p>
               </span>
               <span>
-                <button className="sort-button">price</button>
+                <p>price</p>
               </span>
             </li>
           }
@@ -94,14 +87,15 @@ const ProductInventory = () => {
           ))}
         </ul>
         {/*Products List End*/}
-
-        {/* Load More Button */}
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <button onClick={handleLoadMore}>Load More</button>
-        )}
       </section>
+
+      {/*Products Add Button*/}
+      <section className="inventory-background-buttons">
+        <button>
+          <span>ADD</span>
+        </button>
+      </section>
+      {/*Products Add Button End*/}
     </div>
   );
 };
