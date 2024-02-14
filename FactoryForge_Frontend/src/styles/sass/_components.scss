@@ -525,10 +525,11 @@
   padding: 20px;
   z-index: 1000;
   color: whitesmoke;
-  width: 60%;
+  width: 70%;
   margin: 2rem 1rem 2rem 1rem;
   padding: 2rem 2rem 2rem 2rem;
   gap: 50rem;
+  min-width: 35rem;
   /* From https://css.glass */
   background: rgba(65, 41, 90, 0.83);
   border-radius: 16px;
@@ -589,6 +590,15 @@
   }
 }
 
+@media (max-width: 960px) {
+  .add-form {
+    display: block;
+    margin-bottom: 2rem;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .title-close-button-pop-up-form {
   display: flex;
   justify-content: space-between;
@@ -612,6 +622,12 @@
 .input-fields-add-product {
   display: flex;
   justify-content: space-between;
+  gap: 2rem;
+}
+@media (max-width: 1200px) {
+  .input-fields-add-product {
+    display: block;
+  }
 }
 
 .list-required-raw-mat {
@@ -687,11 +703,25 @@ input::-webkit-inner-spin-button {
   width: 50%;
 }
 
+@media (max-width: 960px) {
+  .right-side-add-product {
+    display: block;
+    margin-bottom: 2rem;
+  }
+}
+
 .left-side-add-product {
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   margin-bottom: 3rem;
   input {
     margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .left-side-add-product {
+    display: block;
+    margin-bottom: 2rem;
   }
 }
