@@ -72,6 +72,15 @@ const Inventory = () => {
   const handleCloseProductForm = () => {
     setShowFormProduct(false);
     setRequiredMat([]);
+    setFormDataProduct({
+      title: "",
+      description: "",
+      quantity_available: "",
+      price: "",
+      production_cost: "",
+      category: "",
+      raw_material_requirements: {},
+    });
   };
 
   const handleCloseRawMatForm = () => {
