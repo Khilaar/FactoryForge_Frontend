@@ -1,13 +1,22 @@
-import useFetch from "../../hooks/useFetch.jsx";
+
+import Chart from "chart.js/auto";
+import { CategoryScale } from "chart.js";
+import {BarChart} from "../../Components/BarChart"
 import {useEffect, useState} from "react";
 import API from "../../api/API.js";
+
+
+Chart.register(CategoryScale);
 
 const Dashboard = () => {
 
     // const {data, loading} = useFetch('products/')
+    const [rawMaterials, setRawMaterials] = useState([])
     const [products, setProducts] = useState([])
     const [clientOrders, setClientOrders] = useState([])
     const [loading, setLoading] = useState(true)
+    const [rawMaterialChartData, setRawMaterialChartData] = useState({datasets: []})
+
 
     const tasks = [
         {
@@ -75,10 +84,43 @@ const Dashboard = () => {
                 setLoading(false)
             }
         }
+async function fetchRawMaterials() {
+            try {
+                const response = await API.get(`raw_materials/`)
+                setRawMaterials(response.data)
+                setRawMaterialChartData({
+                    labels: response.data.map((data) => data.name),
+                    datasets: [
+                      {
+                        label: "Quantity Available ",
+                        data: response.data.map((data) => data.quantity_available),
+                        backgroundColor: [
+                          "rgba(75,192,192,1)",
+                          "#ecf0f1",
+                          "#50AF95",
+                          "#f3ba2f",
+                          "#2a71d0",
+                        ],
+                        borderColor: "black",
+                        borderWidth: 2
+                      },
+                    ]
+                })
+            }
+            catch(error) {
+                console.log(error.message)
+            }
+            finally {
+                setLoading(false)
+            }
+        }
 
 	useEffect(() => {
 		fetchProducts()
         fetchClientOrders()
+        fetchRawMaterials()
+
+
 	}, [])
 
 
@@ -150,7 +192,10 @@ const Dashboard = () => {
                               </div>
                           )}
                       </div>
-                      <div className={'raw_material_inventory'}><h3>Raw Material Inventory</h3></div>
+                      <div className={'raw_material_inventory'}>
+                          <h3>Raw Material Inventory</h3>
+                          <BarChart chartdata={rawMaterialChartData} />
+                      </div>
                   </div>
               </div>
               <div className='weekly_budget'><h3>Weekly Budget</h3></div>
