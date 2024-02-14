@@ -34,7 +34,7 @@ const ProductInventory = () => {
   /*###########################*/
 
   return (
-    <div className="background-frame" id="productinventory">
+    <div className="background-frame-productinventory">
       <section>
         {/*Products Title and search*/}
         <div className="title-and-searchbar">
