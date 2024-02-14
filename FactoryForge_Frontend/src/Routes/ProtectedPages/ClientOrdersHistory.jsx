@@ -13,7 +13,6 @@ const ClientOrders = () => {
       try {
         const response = await API.get("client_orders/history/");
         setOrders(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching raw materials: ", error);
       }
