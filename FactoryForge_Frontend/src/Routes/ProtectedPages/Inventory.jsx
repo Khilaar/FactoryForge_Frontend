@@ -84,6 +84,12 @@ const Inventory = () => {
     }
   };
 
+  const handleDeleteRequiredMaterial = (index) => {
+    setRequiredMat((prevRequiredMat) =>
+      prevRequiredMat.filter((_, i) => i !== index),
+    );
+  };
+
   /*###########################*/
   /*Fetch all the products and save them with use state*/
   useEffect(() => {
@@ -262,21 +268,28 @@ const Inventory = () => {
                     <span className="right-side-add-product">
                       <span>
                         <h3>List of Raw Materials</h3>
-                        <ul>
-                          {rawMaterials.map((material) => (
-                            <li key={material.id}>
-                              {material.name}{" "}
+                        <ul className="list-required-raw-mat">
+                          {requiredMat.map((material, index) => (
+                            <li key={index}>
+                              {material}{" "}
                               <input
                                 type="number"
                                 value={
                                   formDataProduct.raw_material_requirements[
-                                    material.name
+                                    material
                                   ] || ""
                                 }
                                 onChange={(e) =>
-                                  handleRawMaterialChange(e, material.name)
+                                  handleRawMaterialChange(e, material)
                                 }
                               />
+                              <button
+                                onClick={() =>
+                                  handleDeleteRequiredMaterial(index)
+                                }
+                              >
+                                X
+                              </button>
                             </li>
                           ))}
                         </ul>
