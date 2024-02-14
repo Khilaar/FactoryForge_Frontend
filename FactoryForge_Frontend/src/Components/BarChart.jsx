@@ -2,7 +2,7 @@
 import { Bar } from "react-chartjs-2";
 
 
-export const BarChart = ({ chartdata }) => {
+const BarChart = ({ chartdata }) => {
   return (
     <div className="chart-container">
       {/*<h2 style={{ textAlign: "center" }}>Bar Chart</h2>*/}
@@ -23,3 +23,5 @@ export const BarChart = ({ chartdata }) => {
     </div>
   );
 };
+
+export default BarChart;

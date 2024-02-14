@@ -162,6 +162,22 @@
     border: 5px solid black;
     border-radius: 20px;
     padding: 2vh;
+
+    .budget_container {
+      display: flex;
+      gap: 2vh;
+      padding: 1vh;
+
+      .spendings h2{
+        margin: 2vh;
+        color: red;
+      }
+
+      .earnings h2{
+        margin: 2vh;
+        color: green;
+      }
+    }
   }
 }
 

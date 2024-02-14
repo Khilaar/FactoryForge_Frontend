@@ -1,7 +1,8 @@
 
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import {BarChart} from "../../Components/BarChart"
+import BarChart from "../../Components/BarChart.jsx"
+import PieChart from "../../Components/PieChart.jsx"
 import {useEffect, useState} from "react";
 import API from "../../api/API.js";
 
@@ -11,11 +12,13 @@ Chart.register(CategoryScale);
 const Dashboard = () => {
 
     // const {data, loading} = useFetch('products/')
+    const [profit, setProfit] = useState([])
     const [rawMaterials, setRawMaterials] = useState([])
     const [products, setProducts] = useState([])
     const [clientOrders, setClientOrders] = useState([])
     const [loading, setLoading] = useState(true)
     const [rawMaterialChartData, setRawMaterialChartData] = useState({datasets: []})
+    const [profitChartData, setProfitChartData] = useState({datasets: []})
 
 
     const tasks = [
@@ -114,12 +117,41 @@ async function fetchRawMaterials() {
                 setLoading(false)
             }
         }
+async function fetchProfit() {
+            try {
+                const response = await API.get(`analytics/profit/?start_date=2024-01-01&end_date=2025-01-01`)
+                setProfit(response.data)
+                setProfitChartData({
+                    labels: ['Income', 'Expenses'],
+                    datasets: [
+                      {
+                        data: [response.data.profit, response.data["Total Cost"]],
+                        backgroundColor: [
+                          "rgba(75,192,192,1)",
+                          "#ecf0f1",
+                          "#50AF95",
+                          "#f3ba2f",
+                          "#2a71d0",
+                        ],
+                        borderColor: "black",
+                        borderWidth: 2
+                      },
+                    ]
+                })
+            }
+            catch(error) {
+                console.log(error.message)
+            }
+            finally {
+                setLoading(false)
+            }
+        }
 
 	useEffect(() => {
 		fetchProducts()
         fetchClientOrders()
         fetchRawMaterials()
-
+        fetchProfit()
 
 	}, [])
 
@@ -198,7 +230,20 @@ async function fetchRawMaterials() {
                       </div>
                   </div>
               </div>
-              <div className='weekly_budget'><h3>Weekly Budget</h3></div>
+              <div className='weekly_budget'>
+                  <h3>YTD Budget</h3>
+                  <div className={'budget_container'}>
+                      <div className={'earnings'}>
+                          <h4>Income</h4>
+                          <h2>{profit.profit.toLocaleString()}</h2>
+                      </div>
+                      <div className={'spendings'}>
+                          <h4>Expenses</h4>
+                          <h2>{profit['Total Cost'].toLocaleString()}</h2>
+                      </div>
+                      <PieChart chartData={profitChartData}/>
+                  </div>
+              </div>
           </div>}
       </>
   );
