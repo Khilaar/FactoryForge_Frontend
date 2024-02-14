@@ -24,8 +24,8 @@
 .background-frame {
   color: whitesmoke;
   overflow: hidden;
-  margin: 2rem 1rem 0rem 1rem;
   padding: 1rem 2rem 2rem 2rem;
+  margin: 2rem 1rem 0rem 1rem;
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
@@ -33,6 +33,7 @@
   backdrop-filter: blur(2.4px);
   -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+
   button {
     background: #fcff00;
     display: inline-block;
@@ -88,6 +89,82 @@
     transition: 0.7s;
   }
 }
+
+.background-frame-productinventory {
+  color: whitesmoke;
+  overflow: hidden;
+  padding: 1rem 2rem 2rem 2rem;
+  margin: 2rem auto;
+  margin-bottom: 0;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.4px);
+  -webkit-backdrop-filter: blur(2.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 60%;
+
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
+
+  button {
+    background: #fcff00;
+    display: inline-block;
+    border-radius: 7px;
+    border: none;
+    font-family: inherit;
+    text-align: center;
+    font-size: 13px;
+    width: 9em;
+    transition: all 0.4s;
+    height: 2rem;
+    cursor: pointer;
+  }
+
+  button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.4s;
+  }
+
+  button span:after {
+    content: "now";
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.7s;
+  }
+
+  button:hover span {
+    padding-right: 3.55em;
+  }
+
+  button:hover span:after {
+    opacity: 4;
+    right: 0;
+  }
+  h2 {
+    padding: 10px 0px;
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .see-more-button {
+    margin-right: 3rem;
+  }
+  .see-more-button span:after {
+    content: "more";
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.7s;
+  }
+}
+
 .list-item {
   margin-bottom: 10px;
   padding: 10px;
@@ -329,7 +406,7 @@
   }
 }
 
-.product-item:hover {
+.list-item:hover {
   color: whitesmoke;
   box-shadow:
     inset 0 0 1px #7b37d1,
@@ -515,6 +592,29 @@
 .title-close-button-pop-up-form {
   display: flex;
   justify-content: space-between;
+  button {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 2rem;
+  }
+  button:hover {
+    background-color: #6e248a;
+  }
+
+  button:active {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.input-fields-add-product {
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-required-raw-mat {
   button {
     width: 20px;
     height: 20px;
