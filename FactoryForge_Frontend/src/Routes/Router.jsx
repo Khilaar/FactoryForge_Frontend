@@ -22,7 +22,7 @@ const RouterComponent = () => {
           <Route index element={<RegisterPage />} />
           <Route path="validation" element={<ValidationPage />} />
         </Route>
-        <Route path="" element={<ProtectedRoutes />}>
+        <Route element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/productinventory" element={<ProductInventory />} />
