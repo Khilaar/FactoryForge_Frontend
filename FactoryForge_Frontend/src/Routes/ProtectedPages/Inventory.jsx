@@ -130,19 +130,19 @@ const Inventory = () => {
               {
                 <li key="sort-product" className="list-item">
                   <span>
-                    <button className="sort-button">id</button>
+                    <p>id</p>
                   </span>
                   <span>
-                    <button className="sort-button">name</button>
+                    <p>name</p>
                   </span>
                   <span>
-                    <button className="sort-button">production cost</button>
+                    <p>production cost</p>
                   </span>
                   <span>
-                    <button className="sort-button">available amount</button>
+                    <p>available amount</p>
                   </span>
                   <span>
-                    <button className="sort-button">price</button>
+                    <p>price</p>
                   </span>
                 </li>
               }
@@ -279,19 +279,19 @@ const Inventory = () => {
               {
                 <li key="sort-product" className="list-item">
                   <span>
-                    <button className="sort-button">id</button>
+                    <p>id</p>
                   </span>
                   <span>
-                    <button className="sort-button">name</button>
+                    <p>name</p>
                   </span>
                   <span>
-                    <button className="sort-button">cost</button>
+                    <p>cost</p>
                   </span>
                   <span>
-                    <button className="sort-button">available amount</button>
+                    <p>available amount</p>
                   </span>
                   <span>
-                    <button className="sort-button">restock required?</button>
+                    <p>restock required?</p>
                   </span>
                 </li>
               }

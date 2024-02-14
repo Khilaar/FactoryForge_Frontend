@@ -24,9 +24,9 @@
 .background-frame {
   color: whitesmoke;
   overflow: hidden;
+  padding: 1rem 2rem 2rem 2rem;
   margin: 2rem auto;
   margin-bottom: 0;
-  padding: 1rem 2rem 2rem 2rem;
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
@@ -35,7 +35,6 @@
   -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   width: 60%;
-  align-self: center;
 
   @media screen and (max-width: 768px) {
     width: 90%;
@@ -96,6 +95,7 @@
     transition: 0.7s;
   }
 }
+
 .list-item {
   margin-bottom: 10px;
   padding: 10px;
