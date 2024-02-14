@@ -10,12 +10,12 @@ const Inventory = () => {
   const [showFormProduct, setShowFormProduct] = useState(false);
   const [formDataProduct, setFormDataProduct] = useState({
     title: "",
-    production_cost: "",
-    price: "",
-    category: "",
-    quantity_available: "",
-    raw_material_requirements: "",
     description: "",
+    quantity_available: "",
+    price: "",
+    production_cost: "",
+    category: "",
+    raw_material_requirements: "",
   });
 
   const handleInputChange = (e) => {
@@ -29,8 +29,40 @@ const Inventory = () => {
   const handleSubmitProduct = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/products/", formDataProduct);
-      navigate("/productinventory");
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+      /*###########################*/
+      const rawMaterialRequirements = formDataProduct.raw_material_requirements
+        .split(",")
+        .reduce((acc, pair) => {
+          const [material, quantity] = pair.trim().split(":");
+          acc[material.trim()] = parseInt(quantity.trim());
+          return acc;
+        }, {});
+      /*###########################*/
+
+      const updatedFormDataProduct = {
+        ...formDataProduct,
+        raw_material_requirements: rawMaterialRequirements,
+      };
+
+      const response = await API.post(
+        "/products/",
+        updatedFormDataProduct,
+        config,
+      );
+      toggleFormProduct();
+      console.log("Product created:", response.data);
     } catch (error) {
       console.error("Error creating product: ", error);
     }
@@ -42,6 +74,15 @@ const Inventory = () => {
 
   const toggleFormProduct = () => {
     setShowFormProduct(!showFormProduct);
+  };
+
+  const handleCloseProductForm = () => {
+    setShowFormProduct(false);
+    console.log(showFormProduct);
+  };
+
+  const handleCloseRawMatForm = () => {
+    setShowFormRawMat(false);
   };
 
   /*###########################*/
@@ -79,15 +120,15 @@ const Inventory = () => {
     <div>
       <h1 className="route-title">Inventory</h1>
 
-      <div className="inventory-background">
+      <div className="background-frame">
         <section>
           {/*Products Inventory Small*/}
           <ul>
             <h2>Products</h2>
             {/*Products List sort fields*/}
-            <ul className="product-list" id="sort-list">
+            <ul className="items-list" id="sort-list">
               {
-                <li key="sort-item" className="product-item">
+                <li key="sort-product" className="list-item">
                   <span>
                     <button className="sort-button">id</button>
                   </span>
@@ -108,7 +149,7 @@ const Inventory = () => {
             </ul>
             {/*Products List sort fields End*/}
             {products.slice(0, 4).map((product) => (
-              <li key={product.id} className="product-item">
+              <li key={product.id} className="list-item">
                 <span>{product.id}</span>
                 <span>{product.title}</span>
                 <span>{product.production_cost}</span>
@@ -138,7 +179,10 @@ const Inventory = () => {
                 {/*Inventory Order Form Raw Material*/}
                 <div className="inventory-add-form-product">
                   <span>
-                    <h3>Title</h3>
+                  <span className="title-close-button-pop-up-form">
+                      <h3>Add Product</h3>
+                      <button onClick={handleCloseProductForm}>X</button>
+                    </span>
                     <input
                       className="inventory-add-product-title-input"
                       type="text"
@@ -196,10 +240,11 @@ const Inventory = () => {
                     <h3>Raw Material Requirements</h3>
                     <input
                       className="inventory-add-product-raw-material-requirements-input"
-                      type="textarea"
+                      type="text"
                       name="raw_material_requirements"
                       value={formDataProduct.raw_material_requirements}
                       onChange={handleInputChange}
+                      placeholder="Product Name: amount, Product Name: amount"
                     />
                   </span>
 
@@ -230,9 +275,9 @@ const Inventory = () => {
           <ul>
             <h2>Raw Materials</h2>
             {/*Products List sort fields*/}
-            <ul className="product-list" id="sort-list">
+            <ul className="items-list" id="sort-list">
               {
-                <li key="sort-item" className="product-item">
+                <li key="sort-product" className="list-item">
                   <span>
                     <button className="sort-button">id</button>
                   </span>
@@ -253,7 +298,7 @@ const Inventory = () => {
             </ul>
             {/*Products List sort fields End*/}
             {rawMaterials.slice(0, 4).map((rawMaterials) => (
-              <li key={rawMaterials.id} className="product-item">
+              <li key={rawMaterials.id} className="list-item">
                 <span>{rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
                 <span>{rawMaterials.cost}</span>
@@ -281,6 +326,10 @@ const Inventory = () => {
             <div className="order-form">
               <form>
                 {/*Inventory Order Form Raw Material*/}
+                <span className="title-close-button-pop-up-form">
+                  <h2>Order Raw Material</h2>
+                  <button onClick={handleCloseRawMatForm}>X</button>
+                </span>
                 <div className="inventory-order-form-raw-material">
                   <span>
                     <h3>Raw Material </h3>
@@ -336,7 +385,7 @@ const Inventory = () => {
           <ul>
             <h2>Low on Raw Materials</h2>
             {rawMaterials.slice(0, 5).map((rawMaterials) => (
-              <li key={rawMaterials.id} className="product-item">
+              <li key={rawMaterials.id} className="list-item">
                 <span>id {rawMaterials.id}</span>
                 <span>{rawMaterials.name}</span>
                 <span>quantity: {rawMaterials.quantity_available}</span>
@@ -348,7 +397,7 @@ const Inventory = () => {
           <ul>
             <h2>Low on Product</h2>
             {products.slice(0, 5).map((product) => (
-              <li key={product.id} className="product-item">
+              <li key={product.id} className="list-item">
                 <span>id: {product.id}</span>
                 <span>{product.title}</span>
                 <span>available: {product.quantity_available}</span>

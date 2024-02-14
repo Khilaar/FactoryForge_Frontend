@@ -1,11 +1,20 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { logout_user } from "../store/slices/userSlice";
 
 export default function Sidebar() {
   const [showSidebar, setShowSidebar] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setShowSidebar((prevShowSidebar) => !prevShowSidebar);
+  };
+
+  const triggerLogout = () => {
+    dispatch(logout_user());
+    navigate("/login");
   };
 
   return (
@@ -50,7 +59,11 @@ export default function Sidebar() {
             </>
           ) : (
             <>
+<<<<<<< HEAD
               <NavLink to="/dashboard">
+=======
+              <NavLink to="/">
+>>>>>>> c875431813a744d7b35b410a04ee33ea7136d110
                 <i className="fi fi-rr-home"></i>
               </NavLink>
               <NavLink to="/inventory">
@@ -74,6 +87,9 @@ export default function Sidebar() {
             </>
           )}
         </nav>
+        <button className="toggle-button logout-button" onClick={triggerLogout}>
+          <i className="fi fi-rr-sign-out-alt"></i>
+        </button>
       </aside>
     </>
   );
