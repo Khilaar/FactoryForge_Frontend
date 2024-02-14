@@ -59,11 +59,7 @@ export default function Sidebar() {
             </>
           ) : (
             <>
-<<<<<<< HEAD
               <NavLink to="/dashboard">
-=======
-              <NavLink to="/">
->>>>>>> c875431813a744d7b35b410a04ee33ea7136d110
                 <i className="fi fi-rr-home"></i>
               </NavLink>
               <NavLink to="/inventory">
