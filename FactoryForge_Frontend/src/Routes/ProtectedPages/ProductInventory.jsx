@@ -34,7 +34,7 @@ const ProductInventory = () => {
   /*###########################*/
 
   return (
-    <div className="background-frame">
+    <div className="background-frame-productinventory">
       <section>
         {/*Products Title and search*/}
         <div className="title-and-searchbar">
@@ -55,19 +55,19 @@ const ProductInventory = () => {
           {
             <li key="sort-product" className="list-item">
               <span>
-                <button className="sort-button">id</button>
+                <p>id</p>
               </span>
               <span>
-                <button className="sort-button">name</button>
+                <p>name</p>
               </span>
               <span>
-                <button className="sort-button">production cost</button>
+                <p>production cost</p>
               </span>
               <span>
-                <button className="sort-button">available amount</button>
+                <p>available amount</p>
               </span>
               <span>
-                <button className="sort-button">price</button>
+                <p>price</p>
               </span>
             </li>
           }
