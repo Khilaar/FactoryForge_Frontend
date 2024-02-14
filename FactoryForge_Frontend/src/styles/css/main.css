@@ -903,11 +903,12 @@ main {
   }
 }
 .list-item-clientorders {
-  height: 75px;
+  height: 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  min-width: 725px;
 }
 .list-item-clientorders span:last-child {
   text-align: none;
@@ -924,16 +925,22 @@ main {
 }
 
 .co-productlist {
-  height: 100%;
+  height: 80%;
   overflow: scroll;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
   gap: 2.5px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  margin-top: 10px;
 }
 .co-productlist li {
   list-style: none;
+}
+
+.co-productlist::-webkit-scrollbar {
+  display: none;
 }
 
 /*# sourceMappingURL=main.css.map */

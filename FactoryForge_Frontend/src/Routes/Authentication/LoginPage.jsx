@@ -20,7 +20,7 @@ function LoginPage() {
       const accessToken = res.data.access;
       localStorage.setItem("access_token", accessToken);
       dispatch(login_user(accessToken));
-      navigate("/dashboard");
+      navigate("/");
     } catch (error) {
       console.log("Error during login:", error);
     }
@@ -30,7 +30,7 @@ function LoginPage() {
     const retrieveUser = async () => {
       const localAccessToken = localStorage.getItem("access_token");
       if (localAccessToken) {
-        navigate("/dashboard");
+        navigate("/");
       }
     };
     retrieveUser();
