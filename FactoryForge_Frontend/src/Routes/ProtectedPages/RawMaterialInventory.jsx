@@ -28,11 +28,11 @@ const RawMaterialInventory = () => {
 
   /*###########################*/
   return (
-    <div className="background-frame">
+    <div className="background-frame-productinventory">
       <section>
         {/*Products Title and search*/}
         <div className="title-and-searchbar">
-          <h3>All Products</h3>
+          <h3>All Raw Materials</h3>
           <span className="searchbar">
             <h3>search</h3>
             <input
@@ -49,19 +49,19 @@ const RawMaterialInventory = () => {
           {
             <li key="sort-product" className="list-item">
               <span>
-                <button>id</button>
+                <p>id</p>
               </span>
               <span>
-                <button>name</button>
+                <p>name</p>
               </span>
               <span>
-                <button>cost</button>
+                <p>cost</p>
               </span>
               <span>
-                <button>available amount</button>
+                <p>available amount</p>
               </span>
               <span>
-                <button>price</button>
+                <p>restock required?</p>
               </span>
             </li>
           }
@@ -71,7 +71,6 @@ const RawMaterialInventory = () => {
       <section>
         {/*Raw Materials Inventory*/}
         <ul>
-          <h2>Raw Materials</h2>
           {filteredRawMaterials.map((rawMaterials) => (
             <li key={rawMaterials.id} className="list-item">
               <span>{rawMaterials.id}</span>

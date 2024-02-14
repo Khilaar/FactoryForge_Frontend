@@ -301,20 +301,38 @@
   }
 }
 
+.quantity-span-add-raw-mat {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  input {
+    margin: 0;
+    text-align: center;
+  }
+}
+
 .inventory-order-form-raw-material {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
   gap: 2rem;
   span {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 50%;
   }
   button {
     margin-left: auto;
   }
 }
+
 .inventory-order-form-supplier {
   margin-top: 3rem;
   display: flex;
@@ -324,6 +342,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     width: 50%;
   }
 }
@@ -355,7 +374,7 @@
 }
 
 .inventory-order-form-mat-quantity-input {
-  width: 5%;
+  width: 2rem;
 }
 .inventory-order-form-mat-quantity-input:focus {
   color: whitesmoke;
@@ -723,5 +742,12 @@ input::-webkit-inner-spin-button {
   .left-side-add-product {
     display: block;
     margin-bottom: 2rem;
+  }
+}
+
+.inner-part-form {
+  margin-bottom: 3rem;
+  button {
+    margin-top: 3rem;
   }
 }
