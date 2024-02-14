@@ -6,8 +6,9 @@
   align-items: center;
   justify-content: space-between;
   min-width: 750px;
+
   span:last-child {
-    text-align: none; // or any other value you want
+    text-align: none;
   }
 
   button {
@@ -15,6 +16,13 @@
       inset 0 0 1px #7b37d1,
       0 0 2px 1px #7b37d1;
   }
+}
+
+.showDetails {
+  @extend .list-item-clientorders;
+  transition: height 0.5s ease;
+  overflow: hidden;
+  height: 200px;
 }
 
 .co-fields {

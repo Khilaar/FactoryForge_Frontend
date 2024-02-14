@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import API from "../../api/API";
 import ClientOrderCard from "../../Components/ClientOrderCard";
 
 const ClientOrders = () => {
-  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
+  const [openedOrderId, setOpenedOrderId] = useState(null);
 
   useEffect(() => {
     const fetchClientOrders = async () => {
@@ -17,9 +16,14 @@ const ClientOrders = () => {
         console.error("Error fetching raw materials: ", error);
       }
     };
-
     fetchClientOrders();
   }, []);
+
+  const toggleOrderDetails = (orderId) => {
+    setOpenedOrderId((prevOpenedOrderId) =>
+      prevOpenedOrderId === orderId ? null : orderId,
+    );
+  };
 
   return (
     <div>
@@ -27,7 +31,12 @@ const ClientOrders = () => {
       <div className="background-frame">
         <section>
           {orders.map((order) => (
-            <ClientOrderCard order={order} key={order.id} />
+            <ClientOrderCard
+              order={order}
+              key={order.id}
+              isOpen={order.id === openedOrderId}
+              toggleDetails={() => toggleOrderDetails(order.id)}
+            />
           ))}
         </section>
       </div>

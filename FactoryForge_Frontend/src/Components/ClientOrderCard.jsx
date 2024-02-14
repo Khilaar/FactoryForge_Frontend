@@ -1,5 +1,8 @@
-const ClientOrderCard = ({ order }) => {
-  
+import { useState } from "react";
+
+const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
+  const [showDetails, setShowDetails] = useState(false);
+
   const getStatusLabel = (statusKey) => {
     const statusChoices = {
       1: "Created",
@@ -14,7 +17,9 @@ const ClientOrderCard = ({ order }) => {
 
   return (
     <>
-      <div className="list-item-clientorders">
+      <div
+        className={`list-item-clientorders ${showDetails ? "expanded" : ""}`}
+      >
         <div className="co-fields">
           <span>Client: {order.client.username}</span>
           <span>{order.tracking_number}</span>
@@ -31,9 +36,23 @@ const ClientOrderCard = ({ order }) => {
           <span>Status: {getStatusLabel(order.order_status)}</span>
         </div>
         <div>
-          <button>Details</button>
+          <button
+            onClick={() => {
+              toggleDetails();
+              setShowDetails(!showDetails);
+            }}
+          >
+            Details
+          </button>
         </div>
       </div>
+      {isOpen && (
+        <>
+          <div className="showDetails">
+            
+          </div>
+        </>
+      )}
     </>
   );
 };
