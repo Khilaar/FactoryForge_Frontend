@@ -706,12 +706,209 @@ main {
   color: red;
 }
 
+.dashboard {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 2vh;
+  gap: 2vh;
+}
+.dashboard .search {
+  display: flex;
+  justify-content: space-between;
+}
+.dashboard .search input {
+  border: none;
+  border-radius: 20px;
+  height: 2vh;
+  width: 20vw;
+  padding: 2vh;
+  margin-right: 1vh;
+  background-color: silver;
+}
+.dashboard .search button {
+  border: none;
+  border-radius: 20px;
+  width: 7vw;
+  height: 6vh;
+  padding: 2vh;
+  background-color: silver;
+}
+.dashboard .dash_top {
+  display: flex;
+  gap: 5vh;
+}
+.dashboard .dash_top .left {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 2vh;
+}
+.dashboard .dash_top .left .top_products {
+  display: flex;
+  flex-direction: column;
+  border: 5px solid black;
+  border-radius: 20px;
+  padding: 2vh;
+}
+.dashboard .dash_top .left .top_products .product {
+  display: flex;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 2vh;
+  gap: 2vh;
+  margin: 1vh;
+  background: #191a24;
+}
+.dashboard .dash_top .left .tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  border: 5px solid black;
+  border-radius: 20px;
+  padding: 2vh;
+}
+.dashboard .dash_top .left .tasks .header {
+  display: flex;
+  justify-content: space-between;
+}
+.dashboard .dash_top .left .tasks .task {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 2vh;
+  margin: 1vh;
+  background: #191a24;
+}
+.dashboard .dash_top .left .suppliers {
+  border: 5px solid black;
+  border-radius: 20px;
+  padding: 2vh;
+}
+.dashboard .dash_top .left .suppliers .supplier_container {
+  display: flex;
+  gap: 2vh;
+  padding: 1vh;
+}
+.dashboard .dash_top .left .suppliers .supplier_container .supplier {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid grey;
+  border-radius: 20px;
+  padding: 2vh;
+  gap: 1vh;
+  background: #191a24;
+}
+.dashboard .dash_top .right {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  width: 50%;
+}
+.dashboard .dash_top .right .customer_orders {
+  border: 5px solid black;
+  border-radius: 20px;
+  padding: 2vh;
+}
+.dashboard .dash_top .right .customer_orders .header {
+  display: flex;
+  justify-content: space-between;
+  margin: 2vh;
+}
+.dashboard .dash_top .right .customer_orders .order {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 2vh;
+  gap: 2vh;
+  margin: 1vh;
+  background: #191a24;
+}
+.dashboard .dash_top .right .customer_orders .order .tracking {
+  min-width: 6vw;
+}
+.dashboard .dash_top .right .customer_orders .tracking {
+  min-width: 11vw;
+}
+.dashboard .dash_top .right .raw_material_inventory {
+  border: 5px solid black;
+  border-radius: 20px;
+  padding: 2vh;
+}
+.dashboard .weekly_budget {
+  border: 5px solid black;
+  border-radius: 20px;
+  padding: 2vh;
+}
+.dashboard .weekly_budget .budget_container {
+  display: flex;
+  gap: 2vh;
+  padding: 3vh;
+}
+.dashboard .weekly_budget .budget_container .spendings h2 {
+  margin: 2vh;
+  color: red;
+}
+.dashboard .weekly_budget .budget_container .earnings h2 {
+  margin: 2vh;
+  color: green;
+}
+
+.loadingSpinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.loading div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: white;
+  animation: loading 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.loading div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+
+.loading div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+
+.loading div:nth-child(3) {
+  left: 56px;
+}
+
+@keyframes loading {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
 .list-item-clientorders {
-  height: 75px;
+  height: 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  min-width: 725px;
 }
 .list-item-clientorders span:last-child {
   text-align: none;
@@ -728,16 +925,22 @@ main {
 }
 
 .co-productlist {
-  height: 100%;
+  height: 80%;
   overflow: scroll;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
   gap: 2.5px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  margin-top: 10px;
 }
 .co-productlist li {
   list-style: none;
+}
+
+.co-productlist::-webkit-scrollbar {
+  display: none;
 }
 
 /*# sourceMappingURL=main.css.map */
