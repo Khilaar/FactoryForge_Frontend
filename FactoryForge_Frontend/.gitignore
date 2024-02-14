@@ -23,5 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 
-/styles/css/main.css
+/styles/css/
 *.map
