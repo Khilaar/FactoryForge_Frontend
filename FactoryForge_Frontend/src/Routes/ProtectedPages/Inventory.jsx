@@ -202,66 +202,71 @@ const Inventory = () => {
                   <span className="input-fields-add-product">
                     <span className="left-side-add-product">
                       <span>
-                        <h3>Name</h3>
-                        <input
-                          className="inventory-add-product-title-input"
-                          type="text"
-                          name="title"
-                          value={formDataProduct.title}
-                          onChange={handleInputChange}
-                        />
+                        <span>
+                          <h3>Name</h3>
+                          <input
+                            className="inventory-add-product-title-input"
+                            type="text"
+                            name="title"
+                            value={formDataProduct.title}
+                            onChange={handleInputChange}
+                          />
+                        </span>
+
+                        <span>
+                          <h3>Price</h3>
+                          <input
+                            className="inventory-add-product-price-input"
+                            type="textarea"
+                            name="price"
+                            value={formDataProduct.price}
+                            onChange={handleInputChange}
+                          />
+                        </span>
+
+                        <span>
+                          <h3>Category</h3>
+                          <input
+                            className="inventory-add-product-category-input"
+                            type="textarea"
+                            name="category"
+                            value={formDataProduct.category}
+                            onChange={handleInputChange}
+                          />
+                        </span>
                       </span>
 
                       <span>
-                        <h3>Price</h3>
-                        <input
-                          className="inventory-add-product-price-input"
-                          type="textarea"
-                          name="price"
-                          value={formDataProduct.price}
-                          onChange={handleInputChange}
-                        />
-                      </span>
+                        <span>
+                          <h3>Quantity available</h3>
+                          <input
+                            className="inventory-add-product-quantity-available-input"
+                            type="text"
+                            name="quantity_available"
+                            value={formDataProduct.quantity_available}
+                            onChange={handleInputChange}
+                          />
+                        </span>
 
-                      <span>
-                        <h3>Category</h3>
-                        <input
-                          className="inventory-add-product-category-input"
-                          type="textarea"
-                          name="category"
-                          value={formDataProduct.category}
-                          onChange={handleInputChange}
-                        />
-                      </span>
-
-                      <span>
-                        <h3>Quantity available</h3>
-                        <input
-                          className="inventory-add-product-quantity-available-input"
-                          type="text"
-                          name="quantity_available"
-                          value={formDataProduct.quantity_available}
-                          onChange={handleInputChange}
-                        />
-                      </span>
-
-                      <span>
-                        <h3>Test</h3>
-                        <select
-                          value={requiredMat}
-                          onChange={(e) =>
-                            handleRequiredMatChange(e.target.value)
-                          }
-                        >
-                          <option value="requiredMat">
-                            Select Raw Material
-                          </option>
-                          {rawMaterials.map((material) => (
-                            <option key={material.id} value={material.name}>
-                              {material.name}
+                        <span>
+                          <h3>Test</h3>
+                          <select
+                            value={requiredMat}
+                            onChange={(e) =>
+                              handleRequiredMatChange(e.target.value)
+                            }
+                            className="required-raw-mat-select"
+                          >
+                            <option value="requiredMat">
+                              Select Raw Material
                             </option>
-                          ))}
-                        </select>
+                            {rawMaterials.map((material) => (
+                              <option key={material.id} value={material.name}>
+                                {material.name}
+                              </option>
+                            ))}
+                          </select>
+                        </span>
                       </span>
                     </span>
                     {/*<span>
@@ -280,18 +285,23 @@ const Inventory = () => {
                         <ul className="list-required-raw-mat">
                           {requiredMat.map((material, index) => (
                             <li key={index}>
-                              {material}{" "}
-                              <input
-                                type="number"
-                                value={
-                                  formDataProduct.raw_material_requirements[
-                                    material
-                                  ] || ""
-                                }
-                                onChange={(e) =>
-                                  handleRawMaterialChange(e, material)
-                                }
-                              />
+                              <span className="name-and-quantity-required-mat">
+                                <div className="name-required-mat-added">
+                                  {material}
+                                </div>
+                                <input
+                                  type="number"
+                                  placeholder="qty"
+                                  value={
+                                    formDataProduct.raw_material_requirements[
+                                      material
+                                    ] || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleRawMaterialChange(e, material)
+                                  }
+                                />
+                              </span>
                               <button
                                 onClick={() =>
                                   handleDeleteRequiredMaterial(index)
