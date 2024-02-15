@@ -18,6 +18,13 @@ const Inventory = () => {
     category: "",
     raw_material_requirements: "",
   });
+  const [rawMaterialFormData, setRawMaterialFormData] = useState({
+    name: "",
+    quantity_available: "",
+    inventory: "",
+    max_quantity: "",
+    cost: "",
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +43,14 @@ const Inventory = () => {
         [materialName]: parseInt(value) || 0,
       },
     }));
+  };
+
+  const handleRawMaterialInputChange = (e) => {
+    const { name, value } = e.target;
+    setRawMaterialFormData({
+      ...rawMaterialFormData,
+      [name]: value,
+    });
   };
 
   const handleSubmitProduct = async (e) => {
@@ -58,6 +73,39 @@ const Inventory = () => {
       console.log("Product created:", response.data);
     } catch (error) {
       console.error("Error creating product: ", error);
+    }
+  };
+
+  const handleSubmitRawMaterial = async (e) => {
+    e.preventDefault();
+    try {
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(rawMaterialFormData),
+      };
+
+      const response = await fetch(
+        "https://factoryforge-5f88b931d18d.herokuapp.com/api/raw_materials/",
+        config,
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Raw material created:", data);
+    } catch (error) {
+      console.error("Error creating raw material: ", error);
     }
   };
 
@@ -202,66 +250,71 @@ const Inventory = () => {
                   <span className="input-fields-add-product">
                     <span className="left-side-add-product">
                       <span>
-                        <h3>Name</h3>
-                        <input
-                          className="inventory-add-product-title-input"
-                          type="text"
-                          name="title"
-                          value={formDataProduct.title}
-                          onChange={handleInputChange}
-                        />
+                        <span>
+                          <h3>Name</h3>
+                          <input
+                            className="inventory-add-product-title-input"
+                            type="text"
+                            name="title"
+                            value={formDataProduct.title}
+                            onChange={handleInputChange}
+                          />
+                        </span>
+
+                        <span>
+                          <h3>Price</h3>
+                          <input
+                            className="inventory-add-product-price-input"
+                            type="textarea"
+                            name="price"
+                            value={formDataProduct.price}
+                            onChange={handleInputChange}
+                          />
+                        </span>
+
+                        <span>
+                          <h3>Category</h3>
+                          <input
+                            className="inventory-add-product-category-input"
+                            type="textarea"
+                            name="category"
+                            value={formDataProduct.category}
+                            onChange={handleInputChange}
+                          />
+                        </span>
                       </span>
 
                       <span>
-                        <h3>Price</h3>
-                        <input
-                          className="inventory-add-product-price-input"
-                          type="textarea"
-                          name="price"
-                          value={formDataProduct.price}
-                          onChange={handleInputChange}
-                        />
-                      </span>
+                        <span>
+                          <h3>Quantity available</h3>
+                          <input
+                            className="inventory-add-product-quantity-available-input"
+                            type="text"
+                            name="quantity_available"
+                            value={formDataProduct.quantity_available}
+                            onChange={handleInputChange}
+                          />
+                        </span>
 
-                      <span>
-                        <h3>Category</h3>
-                        <input
-                          className="inventory-add-product-category-input"
-                          type="textarea"
-                          name="category"
-                          value={formDataProduct.category}
-                          onChange={handleInputChange}
-                        />
-                      </span>
-
-                      <span>
-                        <h3>Quantity available</h3>
-                        <input
-                          className="inventory-add-product-quantity-available-input"
-                          type="text"
-                          name="quantity_available"
-                          value={formDataProduct.quantity_available}
-                          onChange={handleInputChange}
-                        />
-                      </span>
-
-                      <span>
-                        <h3>Test</h3>
-                        <select
-                          value={requiredMat}
-                          onChange={(e) =>
-                            handleRequiredMatChange(e.target.value)
-                          }
-                        >
-                          <option value="requiredMat">
-                            Select Raw Material
-                          </option>
-                          {rawMaterials.map((material) => (
-                            <option key={material.id} value={material.name}>
-                              {material.name}
+                        <span>
+                          <h3>Test</h3>
+                          <select
+                            value={requiredMat}
+                            onChange={(e) =>
+                              handleRequiredMatChange(e.target.value)
+                            }
+                            className="required-raw-mat-select"
+                          >
+                            <option value="requiredMat">
+                              Select Raw Material
                             </option>
-                          ))}
-                        </select>
+                            {rawMaterials.map((material) => (
+                              <option key={material.id} value={material.name}>
+                                {material.name}
+                              </option>
+                            ))}
+                          </select>
+                        </span>
                       </span>
                     </span>
                     {/*<span>
@@ -280,18 +333,23 @@ const Inventory = () => {
                         <ul className="list-required-raw-mat">
                           {requiredMat.map((material, index) => (
                             <li key={index}>
-                              {material}{" "}
-                              <input
-                                type="number"
-                                value={
-                                  formDataProduct.raw_material_requirements[
-                                    material
-                                  ] || ""
-                                }
-                                onChange={(e) =>
-                                  handleRawMaterialChange(e, material)
-                                }
-                              />
+                              <span className="name-and-quantity-required-mat">
+                                <div className="name-required-mat-added">
+                                  {material}
+                                </div>
+                                <input
+                                  type="number"
+                                  placeholder="qty"
+                                  value={
+                                    formDataProduct.raw_material_requirements[
+                                      material
+                                    ] || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleRawMaterialChange(e, material)
+                                  }
+                                />
+                              </span>
                               <button
                                 onClick={() =>
                                   handleDeleteRequiredMaterial(index)
@@ -368,12 +426,15 @@ const Inventory = () => {
           </button>
 
           <button onClick={toggleFormRawMat}>
-            <span>ORDER</span>
+            <span>ADD</span>
           </button>
           {showFormRawMat && (
             <div className="order-form">
-              <form>
-                {/*Inventory Order Form Raw Material*/}
+              <form
+                className="inner-part-form"
+                onSubmit={handleSubmitRawMaterial}
+              >
+                {/* Inventory Order Form Raw Material */}
                 <span className="title-close-button-pop-up-form">
                   <h2>Order Raw Material</h2>
                   <button onClick={handleCloseRawMatForm}>X</button>
@@ -384,42 +445,67 @@ const Inventory = () => {
                     <input
                       className="inventory-order-form-mat-input"
                       type="text"
+                      name="name"
+                      value={rawMaterialFormData.name}
+                      onChange={handleRawMaterialInputChange}
                     />
                   </span>
-                  <h3>Quantity: </h3>
-                  <input
-                    className="inventory-order-form-mat-quantity-input"
-                    type="text"
-                  />
-                  <button>
-                    <span>SEND</span>
-                  </button>
-                </div>
-                {/*Inventory Order Form Raw Material End*/}
+                  <div className="quantity-span-add-raw-mat">
+                    <div>
+                      <h3>Quantity </h3>
+                      <input
+                        className="inventory-order-form-mat-quantity-input"
+                        type="text"
+                        name="quantity_available"
+                        value={rawMaterialFormData.quantity_available}
+                        onChange={handleRawMaterialInputChange}
+                      />
+                    </div>
 
-                {/*Inventory Order Form Supplier*/}
+                    <span>
+                      <div>
+                        <h3>Max Quantity </h3>
+                        <input
+                          className="inventory-order-form-mat-quantity-input"
+                          type="text"
+                          name="max_quantity"
+                          value={rawMaterialFormData.max_quantity}
+                          onChange={handleRawMaterialInputChange}
+                        />
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                {/* Inventory Order Form Raw Material End */}
+
+                {/* Inventory Order Form Supplier */}
                 <div className="inventory-order-form-supplier">
                   <span>
                     <h3>Supplier </h3>
                     <input
                       className="inventory-order-form-mat-input"
                       type="text"
+                      name="supplier"
                     />
                   </span>
                 </div>
-                {/*Inventory Order Form Supplier End*/}
+                {/* Inventory Order Form Supplier End */}
 
-                {/*Inventory Order Form Message*/}
-                <div className="inventory-order-form-message">
+                <div className="inventory-order-form-supplier">
                   <span>
-                    <h3>Message </h3>
-                    <textarea
-                      className="inventory-order-form-message-input"
+                    <h3>Cost</h3>
+                    <input
+                      className="inventory-order-form-mat-input"
                       type="text"
+                      name="cost"
+                      value={rawMaterialFormData.cost}
+                      onChange={handleRawMaterialInputChange}
                     />
                   </span>
                 </div>
-                {/*Inventory Order Form Message End*/}
+                <button type="submit">
+                  <span>SEND</span>
+                </button>
               </form>
             </div>
           )}
@@ -432,13 +518,16 @@ const Inventory = () => {
         <div className="low-on-inventory">
           <ul>
             <h2>Low on Raw Materials</h2>
-            {rawMaterials.slice(0, 5).map((rawMaterials) => (
-              <li key={rawMaterials.id} className="list-item">
-                <span>id {rawMaterials.id}</span>
-                <span>{rawMaterials.name}</span>
-                <span>quantity: {rawMaterials.quantity_available}</span>
-              </li>
-            ))}
+            {rawMaterials
+              .filter((material) => material.restock_required)
+              .slice(0, 5)
+              .map((rawMaterial) => (
+                <li key={rawMaterial.id} className="list-item">
+                  <span>id {rawMaterial.id}</span>
+                  <span>{rawMaterial.name}</span>
+                  <span>quantity: {rawMaterial.quantity_available}</span>
+                </li>
+              ))}
           </ul>
         </div>
         <div className="low-on-inventory">

@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 
-const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
+const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [activeStatus, setActiveStatus] = useState(null);
+  const deliveryyDate = new Date(order.delivery_date);
+  const formattedDeliveryDate = deliveryyDate.toISOString().slice(0, 10);
+  const formattedDeliveryTime = deliveryyDate.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   const statusChoices = {
-    1: "Created",
-    2: "In Progress",
-    3: "Quality Control",
-    4: "Ready for Shipping",
-    5: "In Transit",
-    6: "Completed",
+    1: "Ordered",
+    2: "In Transit",
+    3: "Delivered",
   };
 
   useEffect(() => {
-    setActiveStatus(getStatusLabel(order.order_status));
-  }, [order.order_status]);
+    setActiveStatus(getStatusLabel(order.status));
+  }, [order.status]);
 
   const getStatusLabel = (statusKey) => {
     return statusChoices[statusKey];
@@ -28,28 +31,30 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
   const handleCloseDetails = () => {
     toggleDetails();
     setShowDetails(false);
-    setActiveStatus(getStatusLabel(order.order_status));
+    setActiveStatus(getStatusLabel(order.status));
   };
 
   return (
     <>
-      <div
-        className={`list-item-orders ${showDetails ? "expanded" : ""}`}
-      >
+      <div className={`list-item-orders ${showDetails ? "expanded" : ""}`}>
         <div className="co-fields">
-          <span>Client: {order.client.username}</span>
-          <span>{order.tracking_number}</span>
+          <span>Supplier: {order.supplier.username}</span>
+          <span>Order ID: {order.id}</span>
         </div>
         <div className="co-productlist">
-          {order.ordered_products.map((product) => (
-            <li key={product.product}>
-              Product ID: {product.product}. Quantity: {product.quantity}
-            </li>
-          ))}
+          {order.raw_materials_order != null &&
+            Object.entries(order.raw_materials_order).map(
+              ([rawMatID, quantity]) => (
+                <li key={rawMatID}>
+                  Raw Material ID: {rawMatID}. Quantity: {quantity}
+                </li>
+              ),
+            )}
         </div>
         <div className="co-fields">
-          <span>Due Date: {order.due_date}</span>
-          <span>Status: {getStatusLabel(order.order_status)}</span>
+          <span> Due Date: {formattedDeliveryDate}</span>
+          <span>Delivery Time: {formattedDeliveryTime}</span>
+          <span>Status: {getStatusLabel(order.status)}</span>
         </div>
         <div>
           {!isOpen ? (
@@ -71,6 +76,7 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
           )}
         </div>
       </div>
+
       {isOpen && (
         <>
           <div className="showDetails">
@@ -79,11 +85,11 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
                 <h2>Client Details</h2>
                 <div className="clientDetails">
                   <span>
-                    Name: {order.client.first_name || "N/A"}{" "}
-                    {order.client.last_name}
+                    Name: {order.supplier.first_name || "N/A"}{" "}
+                    {order.supplier.last_name}
                   </span>
-                  <span>Username: {order.client.username}</span>
-                  <span>Email: {order.client.email || "N/A"}</span>
+                  <span>Username: {order.supplier.username}</span>
+                  <span>Email: {order.supplier.email || "N/A"}</span>
                 </div>
               </div>
               <div className="orderStatus">
@@ -107,14 +113,17 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
                 <h2>Ordered Products</h2>
                 <div className="orderedProductsList">
                   <ul>
-                    {order.ordered_products.map((product) => (
-                      <li key={product.product} className="list-item">
-                        <span className="idSpan">ID: {product.product}</span>
-                        <span className="quantitySpan">
-                          Quantity: {product.quantity}
-                        </span>
-                      </li>
-                    ))}
+                    {order.raw_materials_order != null &&
+                      Object.entries(order.raw_materials_order).map(
+                        ([rawMatID, quantity]) => (
+                          <li key={rawMatID} className="list-item">
+                            <span className="idSpan">ID: {rawMatID}</span>
+                            <span className="quantitySpan">
+                              Quantity: {quantity}
+                            </span>
+                          </li>
+                        ),
+                      )}
                   </ul>
                 </div>
               </div>
@@ -126,4 +135,4 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
   );
 };
 
-export default ClientOrderCard;
+export default RawMaterialOrderCard;

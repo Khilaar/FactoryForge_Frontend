@@ -12,7 +12,7 @@ const Suppliers = () => {
     first_name: "",
     last_name: "",
     email: "",
-    description: "",
+    type_of_user: "S",
   });
 
 
@@ -26,11 +26,26 @@ const Suppliers = () => {
 
   const handleSubmitSupplier = async (e) => {
     e.preventDefault();
+    console.log("Form submitted!");
     try {
-      await API.post("/suppliers/", formDataSupplier);
-//      navigate("/productinventory");
+      const accessToken = localStorage.getItem("access_token");
+      if(!accessToken) {
+        throw new Error("Access token not found");
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+      const response = await API.post("/users/", formDataSupplier, config);
+      toggleFormSupplier();
+      console.log("Supplier created:", response.data);
+      window.location.reload();
     } catch (error) {
-      console.error("Error creating suppliers: ", error);
+      console.error("Error creating supplier", error);
     }
   };
 
@@ -39,6 +54,13 @@ const Suppliers = () => {
   };
 
   const handleCloseSupplierForm = () => {
+    setFormDataSupplier({
+      username: "",
+      first_name: "",
+      last_name: "",
+      email: "",
+      type_of_user: "S",
+    });
     setShowFormSupplier(false);
     console.log(showFormSupplier);
   };
@@ -80,18 +102,18 @@ useEffect(() => {
                         <p className="header-text">last name</p>
                       </span>
                       <span>
-                        <p className="header-text">description</p>
+                        <p className="header-text">email</p>
                       </span>
                     </li>
                   }
               </ul>
               {suppliers.slice(0.4).map((supplier) => (
-                <li className="list-item-suppliers">
+                <li key={supplier.id} className="list-item-suppliers">
                   <span>{supplier.id}</span>
                   <span>{supplier.username}</span>
                   <span>{supplier.first_name}</span>
                   <span>{supplier.last_name}</span>
-                  <span>{supplier.description}</span>
+                  <span>{supplier.email}</span>
                 </li>
               ))}
             </ul>
@@ -99,9 +121,9 @@ useEffect(() => {
           <section>
             <button className="supplier-button" onClick={toggleFormSupplier}>ADD SUPPLIER</button>
             {showFormSupplier && (
-              <div className="add-form">
+              <div className="add-form-supply">
                 <form onSubmit={handleSubmitSupplier}>
-                  <div className="inventory-add-form-product">
+                  <div className="add-form">
                       <span className="title-close-button-pop-up-form">
                         <h3>Add Supplier</h3>
                         <button onClick={handleCloseSupplierForm}>X</button>
@@ -111,7 +133,7 @@ useEffect(() => {
                         <input 
                           className="input"
                           type="text"
-                          name="title"
+                          name="username"
                           value={formDataSupplier.username}
                           onChange={handleInputChange} 
                         />
@@ -121,7 +143,7 @@ useEffect(() => {
                         <input 
                           className="input"
                           type="text"
-                          name="title"
+                          name="first_name"
                           value={formDataSupplier.first_name}
                           onChange={handleInputChange} 
                         />
@@ -131,7 +153,7 @@ useEffect(() => {
                         <input 
                           className="input"
                           type="text"
-                          name="title"
+                          name="last_name"
                           value={formDataSupplier.last_name}
                           onChange={handleInputChange} 
                         />
@@ -141,23 +163,13 @@ useEffect(() => {
                         <input 
                           className="input"
                           type="text"
-                          name="title"
+                          name="email"
                           value={formDataSupplier.email}
                           onChange={handleInputChange} 
                         />
                       </span>
-                      <span>
-                        <h3 className="h3-header">Description</h3>
-                        <input 
-                          className="input-description"
-                          type="text"
-                          name="title"
-                          value={formDataSupplier.description}
-                          onChange={handleInputChange} 
-                        />
-                      </span>
-                      <button type="submit">
-                      <span>SEND</span>
+                      <button className="send-button-supply" type="submit">
+                      <span>SUBMIT</span>
                       </button>
                   </div>
                 </form>

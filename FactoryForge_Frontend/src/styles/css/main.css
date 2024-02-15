@@ -42,7 +42,7 @@ main {
 }
 
 /* Inventory Component */
-.background-frame {
+.background-frame, .background-frame-orders {
   color: whitesmoke;
   overflow: hidden;
   padding: 1rem 2rem 2rem 2rem;
@@ -55,7 +55,7 @@ main {
   -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
-.background-frame button, .background-frame .supplier-button {
+.background-frame button, .background-frame .supplier-button, .background-frame-orders button, .background-frame-orders .supplier-button {
   background: #fcff00;
   display: inline-block;
   border-radius: 7px;
@@ -68,13 +68,13 @@ main {
   height: 2rem;
   cursor: pointer;
 }
-.background-frame button span, .background-frame .supplier-button span {
+.background-frame button span, .background-frame .supplier-button span, .background-frame-orders button span, .background-frame-orders .supplier-button span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.4s;
 }
-.background-frame button span:after, .background-frame .supplier-button span:after {
+.background-frame button span:after, .background-frame .supplier-button span:after, .background-frame-orders button span:after, .background-frame-orders .supplier-button span:after {
   content: "now";
   position: absolute;
   opacity: 0;
@@ -82,22 +82,22 @@ main {
   right: -20px;
   transition: 0.7s;
 }
-.background-frame button:hover span, .background-frame .supplier-button:hover span {
+.background-frame button:hover span, .background-frame .supplier-button:hover span, .background-frame-orders button:hover span, .background-frame-orders .supplier-button:hover span {
   padding-right: 3.55em;
 }
-.background-frame button:hover span:after, .background-frame .supplier-button:hover span:after {
+.background-frame button:hover span:after, .background-frame .supplier-button:hover span:after, .background-frame-orders button:hover span:after, .background-frame-orders .supplier-button:hover span:after {
   opacity: 4;
   right: 0;
 }
-.background-frame h2 {
+.background-frame h2, .background-frame-orders h2 {
   padding: 10px 0px;
   font-size: 20px;
   font-weight: 400;
 }
-.background-frame .see-more-button {
+.background-frame .see-more-button, .background-frame-orders .see-more-button {
   margin-right: 3rem;
 }
-.background-frame .see-more-button span:after {
+.background-frame .see-more-button span:after, .background-frame-orders .see-more-button span:after {
   content: "more";
   position: absolute;
   opacity: 0;
@@ -177,7 +177,7 @@ main {
   transition: 0.7s;
 }
 
-.list-item, .list-item-suppliers, .list-item-clientorders {
+.list-item, .list-item-suppliers, .list-item-orders, .showDetails {
   margin-bottom: 10px;
   padding: 10px;
   /* From https://css.glass */
@@ -198,19 +198,19 @@ main {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   transition: all 1.5s ease;
 }
-.list-item span, .list-item-suppliers span, .list-item-clientorders span {
+.list-item span, .list-item-suppliers span, .list-item-orders span, .showDetails span {
   flex: 1;
   margin-right: 1rem;
 }
-.list-item span:last-child, .list-item-suppliers span:last-child, .list-item-clientorders span:last-child {
+.list-item span:last-child, .list-item-suppliers span:last-child, .list-item-orders span:last-child, .showDetails span:last-child {
   text-align: right;
 }
-.list-item button, .list-item .supplier-button, .list-item-suppliers button, .list-item-suppliers .supplier-button, .list-item-clientorders button, .list-item-clientorders .supplier-button {
+.list-item button, .list-item .supplier-button, .list-item-suppliers button, .list-item-suppliers .supplier-button, .list-item-orders button, .list-item-orders .supplier-button, .showDetails button, .showDetails .supplier-button {
   background-color: #191a24;
   color: whitesmoke;
 }
 
-.list-item:hover, .list-item-suppliers:hover, .list-item-clientorders:hover {
+.list-item:hover, .list-item-suppliers:hover, .list-item-orders:hover, .showDetails:hover {
   color: whitesmoke;
   box-shadow: inset 0 0 1px #7b37d1, 0 0 2px 1px #7b37d1;
   background: #180c25;
@@ -230,7 +230,7 @@ main {
   margin: 2rem 1rem 2rem 1rem;
   padding: 2rem 2rem 2rem 2rem;
   /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 254, 254, 0.03);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(2.4px);
@@ -306,6 +306,21 @@ main {
   right: 0;
 }
 
+.quantity-span-add-raw-mat {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
+.quantity-span-add-raw-mat div {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.quantity-span-add-raw-mat input {
+  margin: 0;
+  text-align: center;
+}
+
 .inventory-order-form-raw-material {
   display: flex;
   flex-direction: row;
@@ -315,6 +330,7 @@ main {
 .inventory-order-form-raw-material span {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 50%;
 }
 .inventory-order-form-raw-material button, .inventory-order-form-raw-material .supplier-button {
@@ -331,6 +347,7 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   width: 50%;
 }
 
@@ -359,7 +376,7 @@ main {
 }
 
 .inventory-order-form-mat-quantity-input {
-  width: 5%;
+  width: 2rem;
 }
 
 .inventory-order-form-mat-quantity-input:focus {
@@ -407,7 +424,7 @@ main {
   display: none;
 }
 
-.list-item:hover, .list-item-suppliers:hover, .list-item-clientorders:hover {
+.list-item:hover, .list-item-suppliers:hover, .list-item-orders:hover, .showDetails:hover {
   color: whitesmoke;
   box-shadow: inset 0 0 1px #7b37d1, 0 0 2px 1px #7b37d1;
   background: #180c25;
@@ -520,10 +537,11 @@ main {
   padding: 20px;
   z-index: 1000;
   color: whitesmoke;
-  width: 60%;
+  width: 70%;
   margin: 2rem 1rem 2rem 1rem;
   padding: 2rem 2rem 2rem 2rem;
   gap: 50rem;
+  min-width: 35rem;
   /* From https://css.glass */
   background: rgba(65, 41, 90, 0.83);
   border-radius: 16px;
@@ -580,6 +598,14 @@ main {
   right: 0;
 }
 
+@media (max-width: 960px) {
+  .add-form {
+    display: block;
+    margin-bottom: 2rem;
+    align-items: center;
+    justify-content: center;
+  }
+}
 .title-close-button-pop-up-form {
   display: flex;
   justify-content: space-between;
@@ -602,21 +628,109 @@ main {
 .input-fields-add-product {
   display: flex;
   justify-content: space-between;
+  gap: 2rem;
 }
 
+@media (max-width: 1200px) {
+  .input-fields-add-product {
+    display: block;
+  }
+}
+.list-required-raw-mat span {
+  width: 50%;
+  padding: 0 1rem 0 1rem;
+}
 .list-required-raw-mat button, .list-required-raw-mat .supplier-button {
   width: 20px;
   height: 20px;
   border: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
-  margin-bottom: 2rem;
 }
 .list-required-raw-mat button:hover, .list-required-raw-mat .supplier-button:hover {
   background-color: #6e248a;
 }
 .list-required-raw-mat button:active, .list-required-raw-mat .supplier-button:active {
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.list-required-raw-mat li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.4px);
+  -webkit-backdrop-filter: blur(2.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.2rem 0 0.2rem 0;
+  margin-bottom: 0.2rem;
+  padding-right: 1rem;
+}
+
+.name-and-quantity-required-mat {
+  display: flex;
+  align-items: center;
+}
+.name-and-quantity-required-mat .name-required-mat-added {
+  margin-right: 3rem;
+  flex: 1;
+}
+.name-and-quantity-required-mat input {
+  width: 3rem;
+  margin-left: auto;
+  display: flex;
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.required-raw-mat-select {
+  background-color: #151724;
+  border: none;
+  color: whitesmoke;
+  height: 2rem;
+  font-size: 1.3rem;
+  border: solid #464646 1px;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+}
+
+.right-side-add-product {
+  width: 50%;
+}
+
+@media (max-width: 960px) {
+  .right-side-add-product {
+    display: block;
+    margin-bottom: 2rem;
+  }
+}
+.left-side-add-product {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+.left-side-add-product input {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 960px) {
+  .left-side-add-product {
+    display: block;
+    margin-bottom: 2rem;
+  }
+}
+.inner-part-form {
+  margin-bottom: 3rem;
+}
+.inner-part-form button, .inner-part-form .supplier-button {
+  margin-top: 3rem;
 }
 
 #root {
@@ -993,26 +1107,33 @@ main {
     height: 32px;
   }
 }
-.list-item-clientorders {
+.list-item-orders, .showDetails {
   height: 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  min-width: 725px;
+  min-width: 800px;
 }
-.list-item-clientorders span:last-child {
+.list-item-orders span:last-child, .showDetails span:last-child {
   text-align: none;
 }
-.list-item-clientorders button, .list-item-clientorders .supplier-button {
+.list-item-orders button, .list-item-orders .supplier-button, .showDetails button, .showDetails .supplier-button {
   box-shadow: inset 0 0 1px #7b37d1, 0 0 2px 1px #7b37d1;
+  margin-left: 15px;
+}
+
+.background-frame-orders {
+  overflow: scroll;
 }
 
 .co-fields {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 15px;
+  gap: 10px;
+  min-width: 175px;
+  max-width: 175px;
 }
 
 .co-productlist {
@@ -1025,6 +1146,8 @@ main {
   -ms-overflow-style: none;
   scrollbar-width: none;
   margin-top: 10px;
+  min-width: 260px;
+  max-width: 260px;
 }
 .co-productlist li {
   list-style: none;
@@ -1032,6 +1155,142 @@ main {
 
 .co-productlist::-webkit-scrollbar {
   display: none;
+}
+
+.showDetails {
+  transition: height 0.5s ease;
+  overflow: hidden;
+  height: 275px;
+  display: flex;
+  gap: 50px;
+}
+
+.leftContainer {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.clientDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.orderStatus {
+  display: flex;
+  flex-direction: column;
+}
+
+.orderStatusSelection {
+  height: 100px;
+  max-width: 400px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+}
+.orderStatusSelection button, .orderStatusSelection .supplier-button {
+  height: 45px;
+  margin: 5px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.orderStatusSelection button.active, .orderStatusSelection .active.supplier-button {
+  background-color: green;
+}
+.orderStatusSelection button:hover, .orderStatusSelection .supplier-button:hover {
+  background-color: #7b37d1;
+}
+
+.rightContainer {
+  height: 100%;
+  width: 50%;
+}
+
+.orderedProducts {
+  height: 100%;
+}
+
+.orderedProductsList {
+  display: flex;
+  min-width: 250px;
+  overflow: scroll;
+}
+.orderedProductsList li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.idSpan {
+  max-width: 50px;
+}
+
+.quantitySpan {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 15px;
+  min-width: 125px;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.xSave {
+  display: flex;
+  gap: 7px;
+  position: relative;
+}
+.xSave .xButton {
+  background: #fcff00;
+  color: black;
+  width: 35px;
+  position: absolute;
+  right: 125px;
+}
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  min-width: 500px;
+}
+
+.pastOrders {
+  color: white;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  padding: 8px 24px;
+  border-radius: 5px;
+  background: #191a24;
+  margin-right: 80px;
+  min-width: 120px;
+  border: none;
+  box-shadow: inset 0 0 1px #7b37d1, 0 0 2px 1px #7b37d1;
+}
+.pastOrders.active {
+  background-color: #7b37d1;
+}
+
+.selectPage {
+  display: flex;
+  max-width: 650px;
+  min-width: 650px;
+}
+.selectPage h1 {
+  margin-right: -10px;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  color: whitesmoke;
+  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.selectPage h1.active {
+  text-decoration: underline;
+}
+.selectPage h1:hover {
+  cursor: pointer;
 }
 
 .list-item-suppliers {
@@ -1053,14 +1312,22 @@ main {
   margin-top: 10px;
 }
 
-.input, .input-description {
-  margin-bottom: 10px;
+.input {
+  margin-bottom: 20px;
 }
 
-.input-description {
-  min-height: 80px;
-  vertical-align: top;
-  text-decoration: aliceblue;
+.send-button-supply {
+  margin-left: 50px;
+}
+
+.add-form-supply {
+  min-width: 20rem;
+  max-width: 25rem;
+  width: 30vw;
+}
+
+.add-form {
+  width: 50vw;
 }
 
 /*# sourceMappingURL=main.css.map */

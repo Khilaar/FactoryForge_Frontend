@@ -21,13 +21,23 @@
 }
 
 .input{
-    @extend .inventory-add-product-title-input !optional;
-    margin-bottom: 10px;
+    @extend .inventory-add-product-input !optional;
+    margin-bottom: 20px;
 }
 
-.input-description{
-    @extend .input;
-    min-height: 80px;
-    vertical-align: top;
-    text-decoration: aliceblue;
+
+.send-button-supply{
+    margin-left: 50px;
+}
+
+.add-form-supply{
+    @extend .supply-form !optional;
+    min-width: 20rem;
+    max-width: 25rem;
+    width: 30vw;
+}
+
+.add-form{
+    @extend .inventory-add-form-product !optional;
+    width: 50vw;
 }

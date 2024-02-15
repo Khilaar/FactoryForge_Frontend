@@ -220,7 +220,7 @@
   margin: 2rem 1rem 2rem 1rem;
   padding: 2rem 2rem 2rem 2rem;
   /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 254, 254, 0.03);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(2.4px);
@@ -301,20 +301,38 @@
   }
 }
 
+.quantity-span-add-raw-mat {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  input {
+    margin: 0;
+    text-align: center;
+  }
+}
+
 .inventory-order-form-raw-material {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
   gap: 2rem;
   span {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 50%;
   }
   button {
     margin-left: auto;
   }
 }
+
 .inventory-order-form-supplier {
   margin-top: 3rem;
   display: flex;
@@ -324,6 +342,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     width: 50%;
   }
 }
@@ -355,7 +374,7 @@
 }
 
 .inventory-order-form-mat-quantity-input {
-  width: 5%;
+  width: 2rem;
 }
 .inventory-order-form-mat-quantity-input:focus {
   color: whitesmoke;
@@ -525,10 +544,11 @@
   padding: 20px;
   z-index: 1000;
   color: whitesmoke;
-  width: 60%;
+  width: 70%;
   margin: 2rem 1rem 2rem 1rem;
   padding: 2rem 2rem 2rem 2rem;
   gap: 50rem;
+  min-width: 35rem;
   /* From https://css.glass */
   background: rgba(65, 41, 90, 0.83);
   border-radius: 16px;
@@ -589,6 +609,15 @@
   }
 }
 
+@media (max-width: 960px) {
+  .add-form {
+    display: block;
+    margin-bottom: 2rem;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .title-close-button-pop-up-form {
   display: flex;
   justify-content: space-between;
@@ -612,16 +641,26 @@
 .input-fields-add-product {
   display: flex;
   justify-content: space-between;
+  gap: 2rem;
+}
+@media (max-width: 1200px) {
+  .input-fields-add-product {
+    display: block;
+  }
 }
 
 .list-required-raw-mat {
+  span {
+    width: 50%;
+
+    padding: 0 1rem 0 1rem;
+  }
   button {
     width: 20px;
     height: 20px;
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    margin-bottom: 2rem;
   }
   button:hover {
     background-color: #6e248a;
@@ -629,5 +668,86 @@
 
   button:active {
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2.4px);
+    -webkit-backdrop-filter: blur(2.4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.2rem 0 0.2rem 0;
+    margin-bottom: 0.2rem;
+    padding-right: 1rem;
+  }
+}
+.name-and-quantity-required-mat {
+  display: flex;
+  align-items: center;
+
+  .name-required-mat-added {
+    margin-right: 3rem;
+    flex: 1;
+  }
+
+  input {
+    width: 3rem;
+    margin-left: auto;
+    display: flex;
+    text-align: center;
+  }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.required-raw-mat-select {
+  background-color: #151724;
+  border: none;
+  color: whitesmoke;
+  height: 2rem;
+  font-size: 1.3rem;
+  border: solid #464646 1px;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+}
+
+.right-side-add-product {
+  width: 50%;
+}
+
+@media (max-width: 960px) {
+  .right-side-add-product {
+    display: block;
+    margin-bottom: 2rem;
+  }
+}
+
+.left-side-add-product {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  input {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .left-side-add-product {
+    display: block;
+    margin-bottom: 2rem;
+  }
+}
+
+.inner-part-form {
+  margin-bottom: 3rem;
+  button {
+    margin-top: 3rem;
   }
 }

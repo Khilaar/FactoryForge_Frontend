@@ -8,10 +8,11 @@ import ValidationPage from "./Authentication/Validation.jsx";
 import ProtectedRoutes from "./ProtectedRoutes.jsx";
 import Dashboard from "./ProtectedPages/Dashboard.jsx";
 import Inventory from "./ProtectedPages/Inventory.jsx";
-import RawMaterialOrders from "./ProtectedPages/RawMaterialOrders.jsx";
+import Clients from "./ProtectedPages/Clients.jsx";
 import ProfilePage from "./ProtectedPages/ProfilePage.jsx";
 import RawMaterialInventory from "./ProtectedPages/RawMaterialInventory.jsx";
-import ClientOrders from "./ProtectedPages/ClientOrders.jsx";
+import Orders from "./ProtectedPages/Orders.jsx";
+import OrdersHistory from "./ProtectedPages/OrdersHistory.jsx";
 import Suppliers from "./ProtectedPages/Suppliers.jsx";
 
 const RouterComponent = () => {
@@ -27,15 +28,14 @@ const RouterComponent = () => {
           <Route path="" element={<Dashboard />} />
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/productinventory" element={<ProductInventory />} />
-          <Route path="/clientorders" element={<ClientOrders />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/orders/history" element={<OrdersHistory />} />
           <Route path="/suppliers" element={<Suppliers />} />
           <Route
             path="/rawmaterialinventory"
             element={<RawMaterialInventory />}
           />
-          <Route path="/rawmatsorders" element={<RawMaterialOrders />}>
-            {/* <Route path=':rawmaterialorderID' element={<rmoID/>} /> */}
-          </Route>
+          <Route path="/clients" element={<Clients />} />
           <Route path="/users/me" element={<ProfilePage />} />
         </Route>
       </Route>
