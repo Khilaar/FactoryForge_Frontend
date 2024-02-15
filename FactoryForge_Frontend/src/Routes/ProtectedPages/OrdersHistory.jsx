@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import API from "../../api/API";
 import ClientOrderCard from "../../Components/ClientOrderCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import RawMaterialOrderCard from "../../Components/RawMaterialOrderCard";
 
 const Orders = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [orders, setOrders] = useState([]);
   const [rawMaterialOrders, setRawMaterialOrders] = useState([]);
   const [openedOrderId, setOpenedOrderId] = useState(null);
-  const [displayPage, setDisplayPage] = useState();
+  const [displayPage, setDisplayPage] = useState(
+    location.state ? location.state.displayPage : "Client Orders",
+  );
 
   const fetchClientOrders = async () => {
     try {
@@ -41,7 +44,7 @@ const Orders = () => {
   };
 
   const handleNavigate = () => {
-    navigate("/orders/");
+    navigate("/orders/", { state: { displayPage } });
   };
 
   const togglePage = (page) => {
