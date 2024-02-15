@@ -22,6 +22,7 @@
 .background-frame-orders {
   @extend .background-frame;
   overflow: scroll;
+  min-height: 700px;
 }
 
 .co-fields {
@@ -29,8 +30,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  min-width: 175px;
-  max-width: 175px;
+  min-width: 180px;
+  max-width: 180px;
 }
 
 .co-productlist {
@@ -170,19 +171,36 @@
   min-width: 500px;
 }
 
+.headerButtons {
+  display: flex;
+  max-width: 350px;
+  gap: 50px;
+  margin-right: 80px;
+}
+
 .pastOrders {
   color: white;
   margin-top: 15px;
-  margin-bottom: 5px;
-  padding: 8px 24px;
+
   border-radius: 5px;
   background: #191a24;
-  margin-right: 80px;
   min-width: 120px;
   border: none;
   box-shadow:
     inset 0 0 1px #7b37d1,
     0 0 2px 1px #7b37d1;
+
+  &.active {
+    background-color: #7b37d1;
+  }
+}
+
+.pastOrders:hover {
+  cursor: pointer;
+}
+
+.createOrder {
+  @extend .pastOrders;
 
   &.active {
     background-color: #7b37d1;
@@ -209,4 +227,25 @@
   h1:hover {
     cursor: pointer;
   }
+}
+
+.createOrderForm-container {
+}
+
+.add-order-form {
+  @extend .add-form;
+  margin-top: -50px;
+  height: 500px;
+  width: 750px;
+}
+
+.formdata_inputfields {
+  border: 5px white solid;
+  height: 90%;
+}
+
+.sendButton {
+  position: absolute;
+  width: 80px !important;
+  right: 80px !important;
 }
