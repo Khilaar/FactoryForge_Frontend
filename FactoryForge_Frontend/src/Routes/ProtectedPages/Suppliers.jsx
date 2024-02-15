@@ -64,30 +64,29 @@ useEffect(() => {
         <div className="background-frame">
           <section>
             <ul>
-              <h2>Suppliers</h2>
               <ul className="items-list">
                   {
-                    <li key="sort-product" className="list-item">
+                    <li className="list-item-suppliers">
                       <span>
-                        <button className="sort-button">id</button>
+                        <p className="header-text">id</p>
                       </span>
                       <span>
-                        <button className="sort-button">username</button>
+                        <p className="header-text">username</p>
                       </span>
                       <span>
-                        <button className="sort-button">first name</button>
+                        <p className="header-text">first name</p>
                       </span>
                       <span>
-                        <button className="sort-button">last name</button>
+                        <p className="header-text">last name</p>
                       </span>
                       <span>
-                        <button className="sort-button">description</button>
+                        <p className="header-text">description</p>
                       </span>
                     </li>
                   }
               </ul>
               {suppliers.slice(0.4).map((supplier) => (
-                <li key={supplier.id} className="list-item">
+                <li className="list-item-suppliers">
                   <span>{supplier.id}</span>
                   <span>{supplier.username}</span>
                   <span>{supplier.first_name}</span>
@@ -98,7 +97,7 @@ useEffect(() => {
             </ul>
           </section>
           <section>
-            <button onClick={toggleFormSupplier}>ADD SUPPLIER</button>
+            <button className="supplier-button" onClick={toggleFormSupplier}>ADD SUPPLIER</button>
             {showFormSupplier && (
               <div className="add-form">
                 <form onSubmit={handleSubmitSupplier}>
@@ -108,9 +107,9 @@ useEffect(() => {
                         <button onClick={handleCloseSupplierForm}>X</button>
                       </span>
                       <span>
-                        <h3>Username</h3>
+                        <h3 className="h3-header">Username</h3>
                         <input 
-                          className="inventory-add-product-title-input"
+                          className="input"
                           type="text"
                           name="title"
                           value={formDataSupplier.username}
@@ -118,9 +117,9 @@ useEffect(() => {
                         />
                       </span>
                       <span>
-                        <h3>First Name</h3>
+                        <h3 className="h3-header">First Name</h3>
                         <input 
-                          className="inventory-add-product-title-input"
+                          className="input"
                           type="text"
                           name="title"
                           value={formDataSupplier.first_name}
@@ -128,9 +127,9 @@ useEffect(() => {
                         />
                       </span>
                       <span>
-                        <h3>Last Name</h3>
+                        <h3 className="h3-header">Last Name</h3>
                         <input 
-                          className="inventory-add-product-title-input"
+                          className="input"
                           type="text"
                           name="title"
                           value={formDataSupplier.last_name}
@@ -138,9 +137,9 @@ useEffect(() => {
                         />
                       </span>
                       <span>
-                        <h3>Email</h3>
+                        <h3 className="h3-header">Email</h3>
                         <input 
-                          className="inventory-add-product-title-input"
+                          className="input"
                           type="text"
                           name="title"
                           value={formDataSupplier.email}
@@ -148,9 +147,9 @@ useEffect(() => {
                         />
                       </span>
                       <span>
-                        <h3>Description</h3>
+                        <h3 className="h3-header">Description</h3>
                         <input 
-                          className="inventory-add-product-title-input"
+                          className="input-description"
                           type="text"
                           name="title"
                           value={formDataSupplier.description}
