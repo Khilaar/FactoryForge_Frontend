@@ -1,4 +1,4 @@
-.list-item-clientorders {
+.list-item-orders {
   @extend .list-item;
   height: 80px;
   display: flex;
@@ -45,7 +45,7 @@
 }
 
 .showDetails {
-  @extend .list-item-clientorders;
+  @extend .list-item-orders;
   transition: height 0.5s ease;
   overflow: hidden;
   height: 275px;
@@ -190,9 +190,13 @@
     margin-left: 2rem;
     color: whitesmoke;
     text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  
+    
     &.active {
       text-decoration: underline;
     }
+  }
+
+  h1:hover {
+    cursor: pointer;
   }
 }

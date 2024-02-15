@@ -4,21 +4,16 @@ import ClientOrderCard from "../../Components/ClientOrderCard";
 import { useNavigate } from "react-router-dom";
 import RawMaterialOrderCard from "../../Components/RawMaterialOrderCard";
 
-const ClientOrders = () => {
+const Orders = () => {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
-  const [rawMaterailOrders, setRawMaterialOrders] = useState([]);
+  const [rawMaterialOrders, setRawMaterialOrders] = useState([]);
   const [openedOrderId, setOpenedOrderId] = useState(null);
-  const [displayPage, setDisplayPage] = useState("Client Orders");
-
-  useEffect(() => {
-    fetchClientOrders();
-    fetchRawMaterialOrders();
-  }, []);
+  const [displayPage, setDisplayPage] = useState();
 
   const fetchClientOrders = async () => {
     try {
-      const response = await API.get("client_orders/");
+      const response = await API.get("client_orders/history/");
       setOrders(response.data);
     } catch (error) {
       console.error("Error fetching raw materials: ", error);
@@ -27,13 +22,17 @@ const ClientOrders = () => {
 
   const fetchRawMaterialOrders = async () => {
     try {
-      const response = await API.get("raw_materials_orders/");
+      const response = await API.get("raw_materials_orders/history/");
       setRawMaterialOrders(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching raw materials: ", error);
     }
   };
+
+  useEffect(() => {
+    fetchClientOrders();
+    fetchRawMaterialOrders();
+  }, []);
 
   const toggleOrderDetails = (orderId) => {
     setOpenedOrderId((prevOpenedOrderId) =>
@@ -42,7 +41,7 @@ const ClientOrders = () => {
   };
 
   const handleNavigate = () => {
-    navigate("/clientorders/history/");
+    navigate("/orders/");
   };
 
   const togglePage = (page) => {
@@ -67,7 +66,7 @@ const ClientOrders = () => {
             Raw Material Orders
           </h1>
         </div>
-        <button className="pastOrders" onClick={handleNavigate}>
+        <button className="pastOrders active" onClick={handleNavigate}>
           Past Orders
         </button>
       </div>
@@ -85,12 +84,12 @@ const ClientOrders = () => {
           </section>
         ) : (
           <section>
-            {rawMaterailOrders.map((order) => (
+            {rawMaterialOrders.map((order) => (
               <RawMaterialOrderCard
-              // order={order}
-              key={order.id}
-              // isOpen={order.id === openedOrderId}
-              // toggleDetails={() => toggleOrderDetails(order.id)}
+                order={order}
+                key={order.id}
+                isOpen={order.id === openedOrderId}
+                toggleDetails={() => toggleOrderDetails(order.id)}
               />
             ))}
           </section>
@@ -100,4 +99,4 @@ const ClientOrders = () => {
   );
 };
 
-export default ClientOrders;
+export default Orders;

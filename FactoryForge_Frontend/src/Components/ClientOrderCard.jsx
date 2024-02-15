@@ -34,7 +34,7 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
   return (
     <>
       <div
-        className={`list-item-clientorders ${showDetails ? "expanded" : ""}`}
+        className={`list-item-orders ${showDetails ? "expanded" : ""}`}
       >
         <div className="co-fields">
           <span>Client: {order.client.username}</span>
