@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import API from "../api/API";
 
 const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
-  const [clientFormData, setClientFormData] = useState({
-    supplier: "",
+  const [clientOrderFormData, setClientOrderFormData] = useState({
+    client: "",
     ordered_products: [],
     client_note: "",
     due_date: "",
@@ -12,7 +12,7 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
   const [rawMaterialFormData, setRawMaterialFormData] = useState({});
   const [productsList, setProductsList] = useState([]); // for fetching, DONT USE
   const [addedProductsList, setAddedProductsList] = useState([]);
-  const [suppliersList, setSuppliersList] = useState([]);
+  const [clientsList, setClientsList] = useState([]);
   const accessToken = localStorage.getItem("access_token");
   const config = {
     headers: {
@@ -30,18 +30,18 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
     }
   };
 
-  const fetchSuppliersList = async () => {
+  const fetchClientsList = async () => {
     try {
-      const response = await API.get("suppliers/");
-      setSuppliersList(response.data);
+      const response = await API.get("users/clients/");
+      setClientsList(response.data);
     } catch (error) {
-      console.error("Error fetching suppliers: ", error);
+      console.error("Error fetching clients: ", error);
     }
   };
 
   useEffect(() => {
     fetchProductsList();
-    fetchSuppliersList();
+    fetchClientsList();
   }, []);
 
   const handleClientOrderSubmit = async (e) => {
@@ -49,9 +49,9 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
     if (!accessToken) {
       throw new Error("Access Token not found.");
     }
-    console.log(clientFormData);
+    console.log(clientOrderFormData);
     try {
-      const res = await API.post("client_orders/", clientFormData, config);
+      const res = await API.post("client_orders/", clientOrderFormData, config);
       toggleCreateOrder();
       console.log("Client Order created:", res.data);
       console.log("Form Submitted!");
@@ -73,31 +73,31 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
   };
 
   const handleProductListChange = (e, productName) => {
-    const { value } = e.target;
-
-    setClientFormData((prevData) => {
-      const newOrderedProducts = [...prevData.ordered_products];
-      newOrderedProducts.push({
-        product_name: productName,
-        quantity: parseInt(value) || 0,
-      });
-      return {
-        ...prevData,
-        ordered_products: newOrderedProducts,
-      };
-    });
+    // const value = e.target;
+    // setClientOrderFormData((prevData) => {
+    //   const newOrderedProducts = [...prevData.ordered_products];
+    //   newOrderedProducts.push({
+    //     product_name: productName,
+    //     quantity: value || 0,
+    //   });
+    //   console.log(newOrderedProducts)
+    //   return {
+    //     ...prevData,
+    //     ordered_products: newOrderedProducts,
+    //   };
+    // });
   };
 
-  const handleDeleteRequiredMaterial = (index) => {
+  const handleDeleteProductFromList = (index) => {
     setAddedProductsList((prevProductData) =>
       prevProductData.filter((_, i) => i !== index),
     );
   };
 
-  const handleSupplierChange = (e) => {
-    setClientFormData({
-      ...clientFormData,
-      supplier: e.target.value,
+  const handleClientChange = (e) => {
+    setClientOrderFormData({
+      ...clientOrderFormData,
+      client: e.target.value,
     });
   };
 
@@ -130,21 +130,21 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
             <form>
               <div className="left-side-order-form">
                 <select
-                  className="supplier-select"
-                  onChange={(e) => handleSupplierChange(e)}
+                  className="client-select"
+                  onChange={(e) => handleClientChange(e)}
                 >
-                  <option>Select Supplier</option>
-                  {suppliersList.map((supplier) => (
-                    <option key={supplier.id} value={supplier.id}>
-                      {supplier.username}
+                  <option>Select Client</option>
+                  {clientsList.map((client) => (
+                    <option key={client.id} value={client.id}>
+                      {client.username}
                     </option>
                   ))}
                 </select>
                 <textarea
                   placeholder="Client Note"
                   onChange={(e) =>
-                    setClientFormData({
-                      ...clientFormData,
+                    setClientOrderFormData({
+                      ...clientOrderFormData,
                       client_note: e.target.value,
                     })
                   }
@@ -153,8 +153,8 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
                   type="date"
                   placeholder="Due Date"
                   onChange={(e) =>
-                    setClientFormData({
-                      ...clientFormData,
+                    setClientOrderFormData({
+                      ...clientOrderFormData,
                       due_date: e.target.value,
                     })
                   }
@@ -163,8 +163,8 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
                   type="text"
                   placeholder="Processing Time"
                   onChange={(e) =>
-                    setClientFormData({
-                      ...clientFormData,
+                    setClientOrderFormData({
+                      ...clientOrderFormData,
                       processing_time: e.target.value,
                     })
                   }
@@ -193,11 +193,10 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
                       <input
                         type="number"
                         placeholder="qty"
-                        value={clientFormData.ordered_products[product] || ""}
                         onChange={(e) => handleProductListChange(e, product)}
                       />
                       <button
-                        onClick={() => handleDeleteRequiredMaterial(index)}
+                        onClick={() => handleDeleteProductFromList(index)}
                       >
                         X
                       </button>
