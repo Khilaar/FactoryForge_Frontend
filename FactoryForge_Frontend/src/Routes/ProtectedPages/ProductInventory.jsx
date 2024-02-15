@@ -65,6 +65,9 @@ const ProductInventory = () => {
               <span>
                 <p>price</p>
               </span>
+              <span>
+                <p>price</p>
+              </span>
             </li>
           }
         </ul>
@@ -79,6 +82,7 @@ const ProductInventory = () => {
               <span>{product.production_cost}</span>
               <span>{product.quantity_available}</span>
               <span>{product.price}</span>
+              <button>X</button>
             </li>
           ))}
         </ul>

@@ -132,6 +132,7 @@ const Clients = () => {
               <span>
                 {user.first_name} {user.last_name}
               </span>
+              <button>X</button>
             </li>
           ))}
         </ul>
