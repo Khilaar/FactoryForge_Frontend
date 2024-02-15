@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const RawMaterialOrderCard = ({ order, isOpen, toggleDetails  }) => {
+const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [activeStatus, setActiveStatus] = useState(null);
   const deliveryyDate = new Date(order.delivery_date);
@@ -16,9 +16,9 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails  }) => {
     3: "Delivered",
   };
 
-    useEffect(() => {
-      setActiveStatus(getStatusLabel(order.status));
-    }, [order.status]);
+  useEffect(() => {
+    setActiveStatus(getStatusLabel(order.status));
+  }, [order.status]);
 
   const getStatusLabel = (statusKey) => {
     return statusChoices[statusKey];
@@ -52,9 +52,8 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails  }) => {
             )}
         </div>
         <div className="co-fields">
-          <span>
-            Due Date: {formattedDeliveryDate} | {formattedDeliveryTime}
-          </span>
+          <span> Due Date: {formattedDeliveryDate}</span>
+          <span>Delivery Time: {formattedDeliveryTime}</span>
           <span>Status: {getStatusLabel(order.status)}</span>
         </div>
         <div>
@@ -77,7 +76,6 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails  }) => {
           )}
         </div>
       </div>
-
 
       {isOpen && (
         <>
@@ -115,16 +113,18 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails  }) => {
                 <h2>Ordered Products</h2>
                 <div className="orderedProductsList">
                   <ul>
-                    {order.raw_materials_order != null && Object.entries(order.raw_materials_order).map(([rawMatID, quantity]) => (
-                      <li key={rawMatID} className="list-item">
-                        <span className="idSpan">ID: {rawMatID}</span>
-                        <span className="quantitySpan">
-                          Quantity: {quantity}
-                        </span>
-                      </li>
-                    ))}
+                    {order.raw_materials_order != null &&
+                      Object.entries(order.raw_materials_order).map(
+                        ([rawMatID, quantity]) => (
+                          <li key={rawMatID} className="list-item">
+                            <span className="idSpan">ID: {rawMatID}</span>
+                            <span className="quantitySpan">
+                              Quantity: {quantity}
+                            </span>
+                          </li>
+                        ),
+                      )}
                   </ul>
-                  
                 </div>
               </div>
             </div>
