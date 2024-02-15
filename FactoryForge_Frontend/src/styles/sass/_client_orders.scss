@@ -123,6 +123,8 @@
 .orderedProductsList {
   display: flex;
   min-width: 250px;
+  height: 230px;
+  width: 100px;
   li {
     display: flex;
     align-items: center;
@@ -136,7 +138,8 @@
 }
 
 .idSpan {
-  max-width: 50px;
+  max-width: 70px;
+  min-width: 60px;
 }
 
 .quantitySpan {
@@ -237,19 +240,22 @@
   margin-top: -50px;
   height: 500px;
   width: 750px;
+  max-width: 550px;
 }
 
 .formdata_inputfields {
-  border: 5px white solid;
   height: 90%;
   display: flex;
+  width: 100%;
+  flex-direction: row;
 
   form {
-    padding: 10px;
     display: flex;
-    flex-direction: column;
-    width: 300px;
-    gap: 15px;
+    width: 100%;
+    gap: 45px;
+    input {
+      padding: 5px;
+    }
   }
 }
 
@@ -257,4 +263,62 @@
   position: absolute;
   width: 80px !important;
   right: 80px !important;
+}
+
+.left-side-order-form {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  gap: 15px;
+
+  textarea {
+    max-width: 265px;
+    background-color: #151724;
+    color: white;
+  }
+}
+
+.product-select {
+  @extend .required-raw-mat-select;
+}
+
+.supplier-select {
+  @extend .required-raw-mat-select;
+  margin: 0;
+  width: 270px;
+}
+.right-side-order-form {
+  height: 100%;
+  width: 100%;
+
+  input {
+    width: 50px;
+  }
+
+  ul {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    list-style: none;
+    height: 450px;
+    overflow: scroll;
+    div {
+      min-width: 150px;
+      max-width: 150px;
+    }
+    li {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    input {
+      width: 40px;
+      height: 20px;
+    }
+
+    button {
+      width: 35px;
+    }
+  }
 }

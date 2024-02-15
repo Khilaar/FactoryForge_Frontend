@@ -1,0 +1,43 @@
+.list-item-suppliers{
+    @extend .list-item;
+    font-size: 1.1rem;
+    min-height: 60px;
+}
+
+.header-text{
+    font-size: 1.4rem;
+    font-weight:bold;
+}
+
+.supplier-button{
+    @extend button;
+    margin-top: 10px;
+}
+
+.h3-header{
+    padding-left: 5px;
+    margin-top: 10px;
+
+}
+
+.input{
+    @extend .inventory-add-product-input !optional;
+    margin-bottom: 20px;
+}
+
+
+.send-button-supply{
+    margin-left: 50px;
+}
+
+.add-form-supply{
+    @extend .supply-form !optional;
+    min-width: 20rem;
+    max-width: 25rem;
+    width: 30vw;
+}
+
+.add-form{
+    @extend .inventory-add-form-product !optional;
+    width: 50vw;
+}

@@ -13,6 +13,7 @@ import ProfilePage from "./ProtectedPages/ProfilePage.jsx";
 import RawMaterialInventory from "./ProtectedPages/RawMaterialInventory.jsx";
 import Orders from "./ProtectedPages/Orders.jsx";
 import OrdersHistory from "./ProtectedPages/OrdersHistory.jsx";
+import Suppliers from "./ProtectedPages/Suppliers.jsx";
 
 const RouterComponent = () => {
   return (
@@ -29,6 +30,7 @@ const RouterComponent = () => {
           <Route path="/productinventory" element={<ProductInventory />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/orders/history" element={<OrdersHistory />} />
+          <Route path="/suppliers" element={<Suppliers />} />
           <Route
             path="/rawmaterialinventory"
             element={<RawMaterialInventory />}
