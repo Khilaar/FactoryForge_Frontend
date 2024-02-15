@@ -1,8 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import API from "../api/API";
 
 const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
-  const [clientFormData, setClientFormData] = useState({});
+  const [clientFormData, setClientFormData] = useState({
+    supplier: "",
+    ordered_products: [],
+    client_note: "",
+    due_date: "",
+    processing_time: "",
+  });
   const [rawMaterialFormData, setRawMaterialFormData] = useState({});
+  const [productsList, setProductsList] = useState([]);
+
+  const fetchProductsList = async () => {
+    try {
+      const response = await API.get("products/");
+      setProductsList(response.data);
+    } catch (error) {
+      console.error("Error fetching raw materials: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProductsList();
+  }, []);
 
   const handleClientOrderSubmit = (e) => {
     e.preventDefault();
@@ -38,16 +59,68 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
               SEND
             </button>
           )}
-
           <button onClick={toggleCreateOrder}>X</button>
         </span>
-
         {createOrderTitle === "Create Client Order" ? (
-          <form className="formdata_inputfields">
-            <div>test</div>
-          </form>
+          <div className="formdata_inputfields">
+            <form action="">
+              <input
+                type="text"
+                placeholder="Supplier"
+                onChange={(e) =>
+                  setClientFormData({
+                    ...clientFormData,
+                    supplier: e.target.value,
+                  })
+                }
+              />
+              <input
+                type="text"
+                placeholder="Client Note"
+                onChange={(e) =>
+                  setClientFormData({
+                    ...clientFormData,
+                    client_note: e.target.value,
+                  })
+                }
+              />
+              <input
+                type="text"
+                placeholder="Client Note"
+                onChange={(e) =>
+                  setClientFormData({
+                    ...clientFormData,
+                    due_date: e.target.value,
+                  })
+                }
+              />
+              <input
+                type="text"
+                placeholder="Processing Time"
+                onChange={(e) =>
+                  setClientFormData({
+                    ...clientFormData,
+                    processing_time: e.target.value,
+                  })
+                }
+              />
+              <div>
+                <select
+                  onChange={(e) => handleRequiredMatChange(e.target.value)}
+                  className="required-raw-mat-select"
+                >
+                  <option value="requiredMat">Select Raw Material</option>
+                  {rawMaterials.map((material) => (
+                    <option key={material.id} value={material.name}>
+                      {material.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </form>
+          </div>
         ) : (
-          <form action="" className="formdata_inputfields"></form>
+          <div action="" className="formdata_inputfields"></div>
         )}
       </div>
     </>

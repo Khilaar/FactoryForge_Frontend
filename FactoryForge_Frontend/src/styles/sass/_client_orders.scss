@@ -30,8 +30,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  min-width: 180px;
-  max-width: 180px;
+  min-width: 190px;
+  max-width: 190px;
 }
 
 .co-productlist {
@@ -242,6 +242,15 @@
 .formdata_inputfields {
   border: 5px white solid;
   height: 90%;
+  display: flex;
+
+  form {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 15px;
+  }
 }
 
 .sendButton {
