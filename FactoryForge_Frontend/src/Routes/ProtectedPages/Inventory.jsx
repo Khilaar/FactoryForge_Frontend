@@ -518,13 +518,16 @@ const Inventory = () => {
         <div className="low-on-inventory">
           <ul>
             <h2>Low on Raw Materials</h2>
-            {rawMaterials.slice(0, 5).map((rawMaterials) => (
-              <li key={rawMaterials.id} className="list-item">
-                <span>id {rawMaterials.id}</span>
-                <span>{rawMaterials.name}</span>
-                <span>quantity: {rawMaterials.quantity_available}</span>
-              </li>
-            ))}
+            {rawMaterials
+              .filter((material) => material.restock_required)
+              .slice(0, 5)
+              .map((rawMaterial) => (
+                <li key={rawMaterial.id} className="list-item">
+                  <span>id {rawMaterial.id}</span>
+                  <span>{rawMaterial.name}</span>
+                  <span>quantity: {rawMaterial.quantity_available}</span>
+                </li>
+              ))}
           </ul>
         </div>
         <div className="low-on-inventory">
