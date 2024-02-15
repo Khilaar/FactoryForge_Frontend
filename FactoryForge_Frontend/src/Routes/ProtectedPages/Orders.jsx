@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import API from "../../api/API";
 import ClientOrderCard from "../../Components/ClientOrderCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import RawMaterialOrderCard from "../../Components/RawMaterialOrderCard";
 
-const ClientOrders = () => {
+const Orders = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [orders, setOrders] = useState([]);
-  const [rawMaterailOrders, setRawMaterialOrders] = useState([]);
+  const [rawMaterialOrders, setRawMaterialOrders] = useState([]);
   const [openedOrderId, setOpenedOrderId] = useState(null);
-  const [displayPage, setDisplayPage] = useState("Client Orders");
+  const [displayPage, setDisplayPage] = useState(location.state ? location.state.displayPage : "Client Orders");
 
   useEffect(() => {
     fetchClientOrders();
@@ -29,7 +30,6 @@ const ClientOrders = () => {
     try {
       const response = await API.get("raw_materials_orders/");
       setRawMaterialOrders(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching raw materials: ", error);
     }
@@ -42,7 +42,7 @@ const ClientOrders = () => {
   };
 
   const handleNavigate = () => {
-    navigate("/clientorders/history/");
+    navigate("/orders/history/", { state: { displayPage }});
   };
 
   const togglePage = (page) => {
@@ -59,7 +59,9 @@ const ClientOrders = () => {
           >
             Client Orders
           </h1>
-          <h1 className="route-title">|</h1>
+          <h1 className="route-title" style={{ cursor: "default" }}>
+            |
+          </h1>
           <h1
             className={`" ${displayPage === "Raw Material Orders" ? "active" : ""}`}
             onClick={() => togglePage("Raw Material Orders")}
@@ -85,12 +87,12 @@ const ClientOrders = () => {
           </section>
         ) : (
           <section>
-            {rawMaterailOrders.map((order) => (
+            {rawMaterialOrders.map((order) => (
               <RawMaterialOrderCard
-              // order={order}
-              key={order.id}
-              // isOpen={order.id === openedOrderId}
-              // toggleDetails={() => toggleOrderDetails(order.id)}
+                order={order}
+                key={order.id}
+                isOpen={order.id === openedOrderId}
+                toggleDetails={() => toggleOrderDetails(order.id)}
               />
             ))}
           </section>
@@ -100,4 +102,4 @@ const ClientOrders = () => {
   );
 };
 
-export default ClientOrders;
+export default Orders;

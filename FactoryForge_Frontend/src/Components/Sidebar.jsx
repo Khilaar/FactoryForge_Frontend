@@ -36,12 +36,16 @@ export default function Sidebar() {
                 <i className="fi fi-rr-shop"></i>
                 <span>Inventory</span>
               </NavLink>
-              <NavLink to="/clientorders">
+              <NavLink to="/orders">
                 <i className="fi fi-rr-shopping-cart"></i>
                 <span>Orders</span>
               </NavLink>
-              <NavLink to="/suppliers">
+              <NavLink to="/clients">
                 <i className="fi fi-rr-users"></i>
+                <span>Clients</span>
+              </NavLink>
+              <NavLink to="/suppliers">
+                <i className="fi fi-rr-truck-loading"></i>
                 <span>Suppliers</span>
               </NavLink>
               <NavLink to="/analytics">
@@ -65,11 +69,14 @@ export default function Sidebar() {
               <NavLink to="/inventory">
                 <i className="fi fi-rr-shop"></i>
               </NavLink>
-              <NavLink to="/clientorders">
+              <NavLink to="/orders">
                 <i className="fi fi-rr-shopping-cart"></i>
               </NavLink>
-              <NavLink to="/suppliers">
+              <NavLink to="/clients">
                 <i className="fi fi-rr-users"></i>
+              </NavLink>
+              <NavLink to="/suppliers">
+                <i className="fi fi-rr-truck-loading"></i>
               </NavLink>
               <NavLink to="/analytics">
                 <i className="fi fi-rr-chart-histogram"></i>
