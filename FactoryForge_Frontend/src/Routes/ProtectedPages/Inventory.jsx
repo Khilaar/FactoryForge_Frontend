@@ -530,18 +530,6 @@ const Inventory = () => {
               ))}
           </ul>
         </div>
-        <div className="low-on-inventory">
-          <ul>
-            <h2>Low on Product</h2>
-            {products.slice(0, 5).map((product) => (
-              <li key={product.id} className="list-item">
-                <span>id: {product.id}</span>
-                <span>{product.title}</span>
-                <span>available: {product.quantity_available}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
         {/*Low-on Inventory End*/}
       </div>
     </div>
