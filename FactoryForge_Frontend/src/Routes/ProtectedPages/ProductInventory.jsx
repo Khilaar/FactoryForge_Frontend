@@ -1,10 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import API from "../../api/API";
 
-/**
-   @todo: right your todo comment here
-**/
-
 const ProductInventory = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -69,6 +65,9 @@ const ProductInventory = () => {
               <span>
                 <p>price</p>
               </span>
+              <span>
+                <p>price</p>
+              </span>
             </li>
           }
         </ul>
@@ -83,6 +82,7 @@ const ProductInventory = () => {
               <span>{product.production_cost}</span>
               <span>{product.quantity_available}</span>
               <span>{product.price}</span>
+              <button>X</button>
             </li>
           ))}
         </ul>
