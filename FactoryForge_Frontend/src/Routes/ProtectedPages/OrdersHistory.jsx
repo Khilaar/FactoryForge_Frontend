@@ -3,6 +3,7 @@ import API from "../../api/API";
 import ClientOrderCard from "../../Components/ClientOrderCard";
 import { useNavigate, useLocation } from "react-router-dom";
 import RawMaterialOrderCard from "../../Components/RawMaterialOrderCard";
+import CreateOrderForm from "../../Components/CreateOrderForm";
 
 const Orders = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [rawMaterialOrders, setRawMaterialOrders] = useState([]);
   const [openedOrderId, setOpenedOrderId] = useState(null);
+  const [showCreateOrder, setShowCreateOrder] = useState(false);
   const [displayPage, setDisplayPage] = useState(
     location.state ? location.state.displayPage : "Client Orders",
   );
@@ -36,6 +38,10 @@ const Orders = () => {
     fetchClientOrders();
     fetchRawMaterialOrders();
   }, []);
+
+  const toggleCreateOrder = () => {
+    setShowCreateOrder((prevShowCreateOrder) => !prevShowCreateOrder);
+  };
 
   const toggleOrderDetails = (orderId) => {
     setOpenedOrderId((prevOpenedOrderId) =>
@@ -69,9 +75,17 @@ const Orders = () => {
             Raw Material Orders
           </h1>
         </div>
-        <button className="pastOrders active" onClick={handleNavigate}>
-          Past Orders
-        </button>
+        <div className="headerButtons">
+          <button
+            className={`createOrder ${showCreateOrder ? "active" : ""}`}
+            onClick={toggleCreateOrder}
+          >
+            Create Order
+          </button>
+          <button className="pastOrders active" onClick={handleNavigate}>
+            Past Orders
+          </button>
+        </div>
       </div>
       <div className="background-frame-orders">
         {displayPage === "Client Orders" ? (
@@ -96,6 +110,44 @@ const Orders = () => {
               />
             ))}
           </section>
+        )}
+        {showCreateOrder && (
+          <div className="createOrderForm-container">
+            {displayPage == "Client Orders" ? (
+              <>
+                <form className="add-order-form">
+                  <span className="title-close-button-pop-up-form">
+                    <h3>Create Client Order</h3>
+                    <button onClick={toggleCreateOrder}>X</button>
+                  </span>
+                </form>
+              </>
+            ) : (
+              <>
+                <div className="add-order-form">
+                  <span className="title-close-button-pop-up-form">
+                    <h3>Create Raw Material Order</h3>
+                    <button onClick={toggleCreateOrder}>X</button>
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+        {showCreateOrder && (
+          <div className="createOrderForm-container">
+            {displayPage == "Client Orders" ? (
+              <CreateOrderForm
+                toggleCreateOrder={() => toggleCreateOrder()}
+                createOrderTitle={"Create Client Order"}
+              />
+            ) : (
+              <CreateOrderForm
+                toggleCreateOrder={() => toggleCreateOrder()}
+                createOrderTitle={"Create Raw Material Order"}
+              />
+            )}
+          </div>
         )}
       </div>
     </>
