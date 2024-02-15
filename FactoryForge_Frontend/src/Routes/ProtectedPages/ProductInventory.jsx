@@ -1,10 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import API from "../../api/API";
 
-/**
-   @todo: right your todo comment here
-**/
-
 const ProductInventory = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");

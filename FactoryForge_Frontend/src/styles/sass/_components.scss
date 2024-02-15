@@ -750,4 +750,17 @@ input::-webkit-inner-spin-button {
   button {
     margin-top: 3rem;
   }
+  span {
+    display: flex;
+    gap: 2rem;
+  }
+}
+
+.add-client-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  input {
+    width: 15rem;
+  }
 }
