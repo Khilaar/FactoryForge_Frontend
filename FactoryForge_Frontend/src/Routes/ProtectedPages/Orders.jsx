@@ -50,7 +50,7 @@ const Orders = () => {
   };
 
   return (
-    <div>
+    <>
       <div className="topBar">
         <div className="selectPage">
           <h1
@@ -73,7 +73,7 @@ const Orders = () => {
           Past Orders
         </button>
       </div>
-      <div className="background-frame">
+      <div className="background-frame-orders">
         {displayPage === "Client Orders" ? (
           <section>
             {orders.map((order) => (
@@ -98,7 +98,7 @@ const Orders = () => {
           </section>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
