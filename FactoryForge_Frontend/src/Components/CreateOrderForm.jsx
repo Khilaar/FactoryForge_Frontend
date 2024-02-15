@@ -74,19 +74,29 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
 
   const handleProductListChange = (e, productName) => {
     const { value } = e.target;
-
-    setClientFormData((prevData) => {
-      const newOrderedProducts = [...prevData.ordered_products];
-      newOrderedProducts.push({
-        product_name: productName,
-        quantity: parseInt(value) || 0,
-      });
-      return {
-        ...prevData,
-        ordered_products: newOrderedProducts,
-      };
-    });
+    setClientFormData((prevData) => ({
+      ...prevData,
+      ordered_products: {
+        ...prevData.ordered_products,
+        [productName]: parseInt(value) || 0,
+      },
+    }));
   };
+
+//   const handleProductListChange = (e, productName) => {
+//     const { value } = e.target;
+//     setClientFormData((prevData) => {
+//       const newOrderedProducts = [...prevData.ordered_products];
+//       newOrderedProducts.push({
+//         product_name: productName,
+//         quantity: parseInt(value) || 0,
+//       });
+//       return {
+//         ...prevData,
+//         ordered_products: newOrderedProducts,
+//       };
+//     });
+//   };
 
   const handleDeleteRequiredMaterial = (index) => {
     setAddedProductsList((prevProductData) =>
