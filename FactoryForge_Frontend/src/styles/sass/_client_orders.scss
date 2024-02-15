@@ -19,6 +19,11 @@
   }
 }
 
+.background-frame-orders {
+  @extend .background-frame;
+  overflow: scroll;
+}
+
 .co-fields {
   display: flex;
   flex-direction: column;
@@ -172,8 +177,8 @@
   padding: 8px 24px;
   border-radius: 5px;
   background: #191a24;
-  margin-left: 20px;
   margin-right: 80px;
+  min-width: 120px;
   border: none;
   box-shadow:
     inset 0 0 1px #7b37d1,
