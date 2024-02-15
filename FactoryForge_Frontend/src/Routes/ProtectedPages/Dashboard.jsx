@@ -10,15 +10,37 @@ Chart.register(CategoryScale);
 
 const Dashboard = () => {
 
+    const token = localStorage.getItem('access_token')
     const [profitLoss, setProfitLoss] = useState({
-        profit: 100,
-        "Total Cost": 10
+        profit: 1000,
+        "Total Cost": 100
     })
+
+    const [showSearchResults, setShowSearchResults] = useState(false)
+    const [query, setQuery] = useState([])
+    const [searchResultsProducts, setSearchResultsProducts] = useState([])
+    const [searchResultsOrders, setSearchResultsOrders] = useState([])
+    const [searchResultsRawMaterials, setSearchResultsRawMaterials] = useState([])
+
+    const [rawMaterials, setRawMaterials] = useState([])
     const [products, setProducts] = useState([])
     const [clientOrders, setClientOrders] = useState([])
     const [loading, setLoading] = useState(true)
     const [rawMaterialChartData, setRawMaterialChartData] = useState({datasets: []})
-    const [profitChartData, setProfitChartData] = useState({datasets: []})
+    const [profitChartData, setProfitChartData] = useState({
+                labels: ['Income', 'Expenses'],
+                datasets: [
+                    {
+                        data: [1000, 100],
+                        backgroundColor: [
+                            "#008000FF",
+                            "#D0312D",
+                        ],
+                        borderColor: "black",
+                        borderWidth: 2
+                    },
+                ]
+            })
 
 
     const tasks = [
@@ -87,7 +109,12 @@ const Dashboard = () => {
 
     async function fetchRawMaterials() {
         try {
-            const response = await API.get(`raw_materials/`)
+            const response = await API.get(`raw_materials/`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setRawMaterials(response.data)
             setRawMaterialChartData({
                 labels: response.data.map((data) => data.name),
                 datasets: [
@@ -115,7 +142,11 @@ const Dashboard = () => {
 
     async function fetchProfit() {
         try {
-            const response = await API.get(`analytics/profit/?start_date=2024-01-01&end_date=2025-01-01`)
+            const response = await API.get(`/analytics/profit/?start_date=2024-01-01&end_date=2025-01-01`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             setProfitLoss(response.data)
             setProfitChartData({
                 labels: ['Income', 'Expenses'],
@@ -123,11 +154,8 @@ const Dashboard = () => {
                     {
                         data: [response.data.profit, response.data["Total Cost"]],
                         backgroundColor: [
-                            "rgba(75,192,192,1)",
-                            "#ecf0f1",
-                            "#50AF95",
-                            "#f3ba2f",
-                            "#2a71d0",
+                            "#008000FF",
+                            "#D0312D",
                         ],
                         borderColor: "black",
                         borderWidth: 2
@@ -135,10 +163,20 @@ const Dashboard = () => {
                 ]
             })
         } catch (error) {
-            console.log(error.message)
+            console.log('fetch profit error:', error.message)
+            console.log('token:', token)
         } finally {
             setLoading(false)
         }
+    }
+
+    function handleSearch(){
+        event.preventDefault()
+        event.target.reset()
+        setSearchResultsProducts(products.filter((product) => product.title.includes(query)))
+        setSearchResultsOrders(clientOrders.filter((order) => order.tracking_number.includes(query)))
+        setSearchResultsRawMaterials(rawMaterials.filter((item) => item.name.includes(query)))
+        setShowSearchResults(true)
     }
 
     useEffect(() => {
@@ -159,16 +197,13 @@ const Dashboard = () => {
                     <div></div>
                 </div>
             </div>}
-            {!loading && <div className='dashboard'>
-
+            {!loading && <div className='dashboard' onClick={() => setShowSearchResults(false)}>
                 <div className={'search'}>
-                    <h1>Dashboard</h1>
-                    <div>
-                        <input placeholder={'Search'}/>
+                <h1>Dashboard</h1>
+                    <form className={'search_bar'} onSubmit={handleSearch}>
+                        <input placeholder={'Search Anything'} onChange={(e) => setQuery(e.target.value)} />
                         <button>GO</button>
-                    </div>
-
-
+                    </form>
                 </div>
                 <div className='dash_top'>
                     <div className={'left'}>
@@ -199,45 +234,62 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={'right'}>
+                        <div className={'right'}>
 
-                        <div className={'customer_orders'}>
-                            <h3>Customer Orders</h3>
-                            <div className={'header'}>
-                                <h5 className={'tracking'}>Tracking Number</h5>
-                                <h5>Order Status</h5>
-                                <h5>Number of Products</h5>
-                                <h5>Due Date</h5>
+                            {showSearchResults && <div className={'search_results'}>
+                                <p>Search Results for: {query}</p>
+                                {searchResultsProducts.length > 0 && <h4>Products:</h4>}
+                                {searchResultsProducts.map((item) =>
+                                    <p className={'product'} key={searchResultsProducts.indexOf(item)}>{item.title}</p>
+                                )}
+                                {searchResultsOrders.length > 0 && <h4>Orders:</h4>}
+                                {searchResultsOrders.map((item) =>
+                                    <p className={'product'} key={searchResultsOrders.indexOf(item)}>{item.tracking_number}</p>
+                                )}
+                                {searchResultsRawMaterials.length > 0 && <h4>Raw Material:</h4>}
+                                {searchResultsRawMaterials.map((item) =>
+                                    <p className={'product'} key={searchResultsRawMaterials.indexOf(item)}>{item.name}</p>
+                                )}
+
+                            </div>}
+
+
+                            <div className='weekly_budget'>
+                                <h3>YTD Income & Expenses</h3>
+                                    <div className={'earnings'}>
+                                        {/*<h4>Income</h4>*/}
+                                        <h2 className={'income'}>{profitLoss.profit.toLocaleString()}</h2>
+                                        {/*<h4>Expenses</h4>*/}
+                                        <h2 className={'expenses'}>{profitLoss['Total Cost'].toLocaleString()}</h2>
+                                    </div>
+                                    <div className={'pie_chart'}> <PieChart chartData={profitChartData}/></div>
                             </div>
-                            {clientOrders.filter((item) => clientOrders.indexOf(item) < 5).map(order =>
-                                <div className={'order'} key={order.id}>
-                                    <p className={'tracking'}>{order.tracking_number.slice(-6)}</p>
-                                    <p>{order.order_status === 1 ? 'Working' : 'Completed'}</p>
-                                    <p>{order.nr_products}</p>
-                                    <p>{order.due_date ? order.due_date : 'None'}</p>
+                            <div className={'customer_orders'}>
+                                <h3>Customer Orders</h3>
+                                <div className={'header'}>
+                                    <h5 className={'tracking'}>Tracking Number</h5>
+                                    <h5>Order Status</h5>
+                                    <h5>Number of Products</h5>
+                                    <h5>Due Date</h5>
                                 </div>
-                            )}
+                                {clientOrders.filter((item) => clientOrders.indexOf(item) < 5).map(order =>
+                                    <div className={'order'} key={order.id}>
+                                        <p className={'tracking'}>{order.tracking_number.slice(-6)}</p>
+                                        <p>{order.order_status === 1 ? 'Working' : 'Completed'}</p>
+                                        <p>{order.nr_products}</p>
+                                        <p>{order.due_date ? order.due_date : 'None'}</p>
+                                    </div>
+                                )}
+                            </div>
+
                         </div>
-                        <div className={'raw_material_inventory'}>
-                            <h3>Raw Material Inventory</h3>
-                            <BarChart chartdata={rawMaterialChartData}/>
-                        </div>
-                    </div>
+
                 </div>
-                <div className='weekly_budget'>
-                    <h3>YTD Income & Expenses</h3>
-                    <div className={'budget_container'}>
-                        <div className={'earnings'}>
-                            <h4>Income</h4>
-                            <h2>{profitLoss.profit.toLocaleString()}</h2>
-                        </div>
-                        <div className={'spendings'}>
-                            <h4>Expenses</h4>
-                            <h2>{profitLoss['Total Cost'].toLocaleString()}</h2>
-                        </div>
-                        <PieChart chartData={profitChartData}/>
-                    </div>
+                <div className={'raw_material_inventory'}>
+                    <h3>Raw Material Inventory</h3>
+                    <BarChart chartdata={rawMaterialChartData}/>
                 </div>
+
             </div>}
         </>
     );

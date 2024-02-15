@@ -5,30 +5,59 @@
   padding: 2vh;
   gap: 2vh;
 
+  .search_results {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 35vw;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 2vh;
+    gap: 1vh;
+    margin: 1vh;
+    background: #191a24;
+    overflow-y: scroll;
+  }
+
   .search {
     display: flex;
     justify-content: space-between;
 
+    .search_bar {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2vh;
 
-    input {
-      border: none;
-      border-radius: 20px;
-      height: 2vh;
-      width: 20vw;
-      padding: 2vh;
-      margin-right: 1vh;
-      background-color: silver;
+      input {
+        border: none;
+        border-radius: 20px;
+        height: 2vh;
+        flex-grow: 1;
+        padding: 2vh;
+        margin-right: 1vh;
+        background-color: silver;
+      }
+
+      button {
+        border: none;
+        border-radius: 20px;
+        width: 7vw;
+        height: 6vh;
+        padding: 2vh;
+        background-color: silver;
+      }
     }
 
-    button {
-      border: none;
-      border-radius: 20px;
-      width: 7vw;
-      height: 6vh;
-      padding: 2vh;
-      background-color: silver;
-    }
 
+  }
+  .product {
+    display: flex;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 2vh;
+    gap: 2vh;
+    margin: 1vh;
+    background: #191a24;
   }
 
   .dash_top {
@@ -38,8 +67,8 @@
     .left {
       display: flex;
       flex-direction: column;
-      width: 50%;
       gap: 2vh;
+      //width: 50%;
 
 
       .top_products {
@@ -50,15 +79,6 @@
         padding: 2vh;
 
 
-        .product {
-          display: flex;
-          border: 1px solid grey;
-          border-radius: 10px;
-          padding: 2vh;
-          gap: 2vh;
-          margin: 1vh;
-          background: #191a24;
-        }
       }
 
       .tasks {
@@ -107,22 +127,22 @@
             border-radius: 20px;
             padding: 2vh;
             gap: 1vh;
-
             background: #191a24;
-          }
-
-          .supplier:hover {
-
           }
         }
       }
+
     }
 
     .right {
       display: flex;
       flex-direction: column;
       gap: 2vh;
-      width: 50%;
+      flex-grow: 1;
+      //width: 50%;
+
+  }
+
 
 
       .customer_orders {
@@ -155,35 +175,39 @@
           min-width: 11vw;
         }
       }
-
-      .raw_material_inventory {
-        border: 5px solid black;
-        border-radius: 20px;
-        padding: 2vh;
-      }
     }
+
 
   }
 
-  .weekly_budget {
-    border: 5px solid black;
-    border-radius: 20px;
-    padding: 2vh;
+.raw_material_inventory {
+  border: 5px solid black;
+  border-radius: 20px;
+  padding: 2vh;
+}
 
-    .budget_container {
-      display: flex;
-      gap: 2vh;
-      padding: 3vh;
+.weekly_budget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 5px solid black;
+  border-radius: 20px;
+  padding: 2vh;
 
-      .spendings h2 {
-        margin: 2vh;
-        color: red;
-      }
+  .pie_chart {
+    width: 50%;
+  }
 
-      .earnings h2 {
-        margin: 2vh;
-        color: green;
-      }
+  .earnings {
+    display: flex;
+    margin: 2vh;
+    gap: 10vh;
+
+    .income {
+      color: green;
+    }
+    .expenses {
+      color: red;
     }
   }
 }
