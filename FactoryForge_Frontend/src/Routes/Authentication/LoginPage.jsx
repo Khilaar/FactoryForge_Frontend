@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { login_user } from "../../store/slices/userSlice.js";
 import API from "../../api/API.js";
 import { NavLink } from "react-router-dom";
+import FactoryForgeLogo from "../../Assets/FactoryForgeLogo.png";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -40,31 +41,38 @@ function LoginPage() {
     <>
       <div className="login-container">
         <form className="login-form" onSubmit={(e) => triggerLogin(e)}>
-          <div className="input-container">
-            <i className="fi fi-rr-user" />
-            <input
-              type="text"
-              placeholder="Username"
-              onChange={(e) =>
-                setFormData({ ...formData, username: e.target.value })
-              }
-            />
-          </div>
-          <div className="input-container">
-            <i className="fi fi-rr-lock"></i>
-            <input
-              type="password"
-              placeholder="Password"
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
-            />
-          </div>
-          <button>Login</button>
+          <span className="title-span-login">
+            <img className="logo" src={FactoryForgeLogo} alt="" />
+          </span>
+          <span className="input-span-login">
+            <div className="input-container">
+              <i className="fi fi-rr-user" />
+              <input
+                type="text"
+                placeholder="Username"
+                onChange={(e) =>
+                  setFormData({ ...formData, username: e.target.value })
+                }
+              />
+            </div>
+            <div className="input-container">
+              <i className="fi fi-rr-lock"></i>
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+              />
+            </div>
+          </span>
+          <span className="button-span-login">
+            <button>Login</button>
+            <NavLink to="/register" id="sign-up">
+              SIGN UP
+            </NavLink>
+          </span>
         </form>
-        <NavLink to="/register" id="sign-up">
-          SIGN UP
-        </NavLink>
       </div>
     </>
   );

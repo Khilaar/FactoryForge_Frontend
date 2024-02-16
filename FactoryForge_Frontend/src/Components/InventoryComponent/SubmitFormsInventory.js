@@ -25,7 +25,10 @@ export const handleSubmitProduct = async (
   }
 };
 
-export const handleSubmitRawMaterial = async (rawMaterialFormData) => {
+export const handleSubmitRawMaterial = async (
+  rawMaterialFormData,
+  toggleFormRawMat,
+) => {
   try {
     const accessToken = localStorage.getItem("access_token");
     if (!accessToken) {
@@ -46,6 +49,7 @@ export const handleSubmitRawMaterial = async (rawMaterialFormData) => {
     );
     const data = response.data;
     console.log("Raw material created:", data);
+    toggleFormRawMat();
   } catch (error) {
     console.error("Error creating raw material: ", error);
   }
