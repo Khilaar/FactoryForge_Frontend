@@ -64,7 +64,7 @@ const ProductInventoryComponent = ({
           <span>SEE</span>
         </button>
 
-        <button onClick={toggleFormProduct}>
+        <button onClick={!showFormProduct ? toggleFormProduct : undefined}>
           <span>ADD</span>
         </button>
         {showFormProduct && (
@@ -187,7 +187,7 @@ const ProductInventoryComponent = ({
                 </span>
 
                 <button type="submit">
-                  <span>SEND</span>
+                  <span>ADD</span>
                 </button>
               </div>
 

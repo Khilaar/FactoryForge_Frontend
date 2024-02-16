@@ -59,7 +59,7 @@ const RawMaterialInventoryComponent = ({
           <span>SEE</span>
         </button>
 
-        <button onClick={toggleFormRawMat}>
+        <button onClick={!showFormRawMat ? toggleFormRawMat : undefined}>
           <span>ADD</span>
         </button>
         {showFormRawMat && (
@@ -138,7 +138,7 @@ const RawMaterialInventoryComponent = ({
                 </span>
               </div>
               <button type="submit">
-                <span>SEND</span>
+                <span>ADD</span>
               </button>
             </form>
           </div>

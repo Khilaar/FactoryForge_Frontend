@@ -36,26 +36,30 @@ const Inventory = () => {
     cost: "",
   });
 
-  /*Imported from other files*/
+  /*********************************************************************/
+  /*-----Imported from other files-----*/
 
+  /*Imported from ../../Components/InventoryComponent/FetchesInventory*/
   useFetchProducts(setProducts);
   useFetchRawMaterials(setRawMaterials);
 
+  /*Imported from ../../Components/InventoryComponent/SubmitFormsInventory*/
   const handleFormProductSubmit = async (e) => {
     e.preventDefault();
     await handleSubmitProduct(formDataProduct, toggleFormProduct);
   };
 
+  /*Imported from ../../Components/InventoryComponent/SubmitFormsInventory*/
   const handleFormRawMaterialSubmit = async (e) => {
     e.preventDefault();
     await handleSubmitRawMaterial(rawMaterialFormData);
   };
 
-  /*Imported from other files End*/
-
+  /*-----Imported from other files End-----*/
   /*********************************************************************/
 
-  /*Product Form Functions*/
+  /*********************************************************************/
+  /*-----Product Form Functions-----*/
 
   const toggleFormProduct = () => {
     setShowFormProduct(!showFormProduct);
@@ -106,11 +110,11 @@ const Inventory = () => {
     );
   };
 
-  /*Product Form Functions End*/
-
+  /*-----Product Form Functions End-----*/
   /*********************************************************************/
 
-  /*Raw Material Form Functions*/
+  /*********************************************************************/
+  /*-----Raw Material Form Functions-----*/
 
   const toggleFormRawMat = () => {
     setShowFormRawMat(!showFormRawMat);
@@ -135,15 +139,16 @@ const Inventory = () => {
     });
   };
 
-  /*Raw Material Form Functions End*/
-
+  /*-----Raw Material Form Functions End-----*/
   /*********************************************************************/
 
   return (
     <div>
       <h1 className="route-title">Inventory</h1>
-
       <div className="background-frame">
+        {/*********************************************************************/}
+
+        {/*Imported from ../../Components/InventoryComponent/ProductInventoryComponent*/}
         <ProductInventoryComponent
           products={products}
           navigate={navigate}
@@ -159,6 +164,11 @@ const Inventory = () => {
           handleRawMaterialChange={handleRawMaterialChange}
           handleDeleteRequiredMaterial={handleDeleteRequiredMaterial}
         />
+        {/*********************************************************************/}
+
+        {/*********************************************************************/}
+
+        {/*Imported from ../../Components/InventoryComponent/RawMaterialInventoryComponent*/}
         <RawMaterialInventoryComponent
           rawMaterials={rawMaterials}
           navigate={navigate}
@@ -170,10 +180,14 @@ const Inventory = () => {
           handleRawMaterialInputChange={handleRawMaterialInputChange}
         />
       </div>
+      {/*********************************************************************/}
 
+      {/*********************************************************************/}
       <div className="inventory-bottom-part">
+        {/*Imported from ../../Components/InventoryComponent/LowOnInventoryComponent*/}
         <LowOnInventoryComponent rawMaterials={rawMaterials} />
       </div>
+      {/*********************************************************************/}
     </div>
   );
 };
