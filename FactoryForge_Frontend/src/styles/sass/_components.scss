@@ -438,6 +438,13 @@
   }
 }
 
+.list-item {
+  button {
+    color: #fcff00;
+    background-color: transparent;
+  }
+}
+
 .list-item:hover {
   color: whitesmoke;
   box-shadow:
