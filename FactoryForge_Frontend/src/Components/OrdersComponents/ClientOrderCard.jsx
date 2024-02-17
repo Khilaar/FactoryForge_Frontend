@@ -92,7 +92,7 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
               </div>
               <div className="clientNote">
                 <h2>Client Note</h2>
-                <span>{order.client_note}</span>
+                <div className="note-itself">{order.client_note}</div>
               </div>
             </div>
             <div className="rightContainer">
