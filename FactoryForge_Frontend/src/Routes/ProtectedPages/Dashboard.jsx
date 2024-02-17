@@ -139,7 +139,7 @@ const Dashboard = () => {
 
     async function fetchProfit() {
         try {
-            const response = await API.get(`/analytics/profit/?start_date=2024-01-01&end_date=2025-01-01`, {
+            const response = await API.get(`/analytics/profit/?start_date=2024-02-16&end_date=2025-01-01`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -148,7 +148,7 @@ const Dashboard = () => {
             setProfitChartData({
                 datasets: [
                     {
-                        data: [response.data.profit, response.data["Total Cost"]],
+                        data: [response.data.profit + response.data['Incomplete Income'], response.data["Total Cost"]],
                         backgroundColor: [
                             "#008000FF",
                             "#D0312D",
@@ -160,8 +160,7 @@ const Dashboard = () => {
             })
         } catch (error) {
             console.log('fetch profit error:', error.message)
-            console.log('token:', token)
-        } 
+        }
     }
 
     function handleSearch() {
@@ -294,7 +293,7 @@ const Dashboard = () => {
                             <h3>YTD Income & Expenses</h3>
                             <div className={'earnings'}>
                                 {/*<h4>Income</h4>*/}
-                                <h2 className={'income'}>{profitLoss.profit.toLocaleString()}</h2>
+                                <h2 className={'income'}>{(profitLoss.profit + profitLoss['Incomplete Income']).toLocaleString()}</h2>
                                 {/*<h4>Expenses</h4>*/}
                                 <h2 className={'expenses'}>{profitLoss['Total Cost'].toLocaleString()}</h2>
                             </div>
