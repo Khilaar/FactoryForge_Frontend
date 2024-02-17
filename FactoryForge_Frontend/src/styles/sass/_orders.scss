@@ -69,7 +69,7 @@
   overflow: hidden;
   height: 275px;
   display: flex;
-  gap: 50px;
+  gap: 40px;
 }
 
 .leftContainer {
@@ -77,6 +77,11 @@
   width: 50%;
   display: flex;
   flex-direction: column;
+  gap: 15px;
+}
+
+.client {
+  display: flex;
   gap: 20px;
 }
 
@@ -84,6 +89,16 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.clientNote {
+  textarea {
+    background-color: #151724;
+    color: white;
+    border: none;
+    max-width: 160px;
+    max-height: 70px;
+  }
 }
 
 .orderStatus {
@@ -114,9 +129,6 @@
   button:hover {
     background-color: #7b37d1;
   }
-}
-
-.clientNote {
 }
 
 .rightContainer {

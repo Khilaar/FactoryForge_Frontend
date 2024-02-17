@@ -73,15 +73,21 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
         <>
           <div className="showDetails">
             <div className="leftContainer">
-              <div className="clientDetails">
-                <h2>Client Details</h2>
+              <div className="client">
                 <div className="clientDetails">
+                  <h2>Client Details</h2>
                   <span>
                     Name: {order.client.first_name || "N/A"}{" "}
                     {order.client.last_name}
                   </span>
                   <span>Username: {order.client.username}</span>
                   <span>Email: {order.client.email || "N/A"}</span>
+                </div>
+                <div className="clientNote">
+                  <h2>Client Note</h2>
+                  <textarea>
+                    {order.client_note}
+                  </textarea>
                 </div>
               </div>
               <div className="orderStatus">
