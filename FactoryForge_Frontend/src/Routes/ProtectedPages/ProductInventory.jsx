@@ -1,17 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
 import API from "../../api/API";
-
-/**
-   @todo: right your todo comment here
-**/
+import { Link } from "react-router-dom";
 
 const ProductInventory = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  /*###########################*/
-  /*Fetch all the products and save them with use state*/
+  /*********************************************************************/
 
+  /*Fetch all the products and save them with use state*/
   useEffect(() => {
     const fetchRawMaterials = async () => {
       try {
@@ -31,11 +28,38 @@ const ProductInventory = () => {
     );
   }, [products, searchQuery]);
 
-  /*###########################*/
+  /*********************************************************************/
+
+  /*********************************************************************/
+
+  /*Delete a product by pressing the X button*/
+  const handleDeleteProduct = async (productId) => {
+    try {
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        throw new Error("Access Token not found");
+      }
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+
+      await API.delete(`/products/${productId}/`, config);
+      setProducts(products.filter((product) => product.id !== productId));
+      console.log("Product deleted");
+    } catch (error) {
+      console.error("Error deleting product: ", error);
+    }
+  };
+
+  /*********************************************************************/
 
   return (
     <div className="background-frame-productinventory">
       <section>
+        {/*********************************************************************/}
+
         {/*Products Title and search*/}
         <div className="title-and-searchbar">
           <h3>All Products</h3>
@@ -49,6 +73,10 @@ const ProductInventory = () => {
           </span>
         </div>
         {/*Products Title and search End*/}
+
+        {/*********************************************************************/}
+
+        {/*********************************************************************/}
 
         {/*Products List sort fields*/}
         <ul className="items-list" id="sort-list">
@@ -67,35 +95,39 @@ const ProductInventory = () => {
                 <p>available amount</p>
               </span>
               <span>
-                <p>price</p>
+                <p></p>
               </span>
             </li>
           }
         </ul>
         {/*Products List sort fields End*/}
 
+        {/*********************************************************************/}
+
+        {/*********************************************************************/}
+
         {/*Products List*/}
         <ul className="items-list">
           {filteredProducts.map((product) => (
             <li key={product.id} className="list-item">
-              <span>{product.id}</span>
-              <span>{product.title}</span>
-              <span>{product.production_cost}</span>
-              <span>{product.quantity_available}</span>
-              <span>{product.price}</span>
+              <Link
+                to={`/productdetail/${product.id}`}
+                className="product-link"
+              >
+                <span>{product.id}</span>
+                <span>{product.title}</span>
+                <span>{product.production_cost}</span>
+                <span>{product.quantity_available}</span>
+                <span>{product.price}.-</span>
+              </Link>
+              <button onClick={() => handleDeleteProduct(product.id)}>X</button>
             </li>
           ))}
         </ul>
         {/*Products List End*/}
-      </section>
 
-      {/*Products Add Button*/}
-      <section className="inventory-background-buttons">
-        <button>
-          <span>ADD</span>
-        </button>
+        {/*********************************************************************/}
       </section>
-      {/*Products Add Button End*/}
     </div>
   );
 };

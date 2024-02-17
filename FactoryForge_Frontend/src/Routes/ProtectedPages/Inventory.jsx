@@ -1,6 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../../api/API";
+import {
+  useFetchProducts,
+  useFetchRawMaterials,
+} from "../../Components/InventoryComponent/FetchesInventory";
+import {
+  handleSubmitProduct,
+  handleSubmitRawMaterial,
+} from "../../Components/InventoryComponent/SubmitFormsInventory";
+import ProductInventoryComponent from "../../Components/InventoryComponent/ProductInventoryComponent";
+import RawMaterialInventoryComponent from "../../Components/InventoryComponent/RawMaterialInventoryComponent";
+import LowOnInventoryComponent from "../../Components/InventoryComponent/LowOnInventoryComponent";
 
 const Inventory = () => {
   const navigate = useNavigate();
@@ -18,6 +28,56 @@ const Inventory = () => {
     category: "",
     raw_material_requirements: "",
   });
+  const [rawMaterialFormData, setRawMaterialFormData] = useState({
+    name: "",
+    quantity_available: "",
+    inventory: "",
+    max_quantity: "",
+    cost: "",
+  });
+
+  /*********************************************************************/
+  /*-----Imported from other files-----*/
+
+  /*Imported from ../../Components/InventoryComponent/FetchesInventory*/
+  useFetchProducts(setProducts);
+  useFetchRawMaterials(setRawMaterials);
+
+  /*Imported from ../../Components/InventoryComponent/SubmitFormsInventory*/
+  const handleFormProductSubmit = async (e) => {
+    e.preventDefault();
+    await handleSubmitProduct(formDataProduct, toggleFormProduct);
+  };
+
+  /*Imported from ../../Components/InventoryComponent/SubmitFormsInventory*/
+  const handleFormRawMaterialSubmit = async (e) => {
+    e.preventDefault();
+    await handleSubmitRawMaterial(rawMaterialFormData, toggleFormRawMat);
+  };
+
+  /*-----Imported from other files End-----*/
+  /*********************************************************************/
+
+  /*********************************************************************/
+  /*-----Product Form Functions-----*/
+
+  const toggleFormProduct = () => {
+    setShowFormProduct(!showFormProduct);
+  };
+
+  const handleCloseProductForm = () => {
+    setShowFormProduct(false);
+    setRequiredMat([]);
+    setFormDataProduct({
+      title: "",
+      description: "",
+      quantity_available: "",
+      price: "",
+      production_cost: "",
+      category: "",
+      raw_material_requirements: {},
+    });
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,55 +98,6 @@ const Inventory = () => {
     }));
   };
 
-  const handleSubmitProduct = async (e) => {
-    e.preventDefault();
-    try {
-      const accessToken = localStorage.getItem("access_token");
-      if (!accessToken) {
-        throw new Error("Access token not found");
-      }
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      };
-
-      const response = await API.post("/products/", formDataProduct, config);
-      toggleFormProduct();
-      console.log("Product created:", response.data);
-    } catch (error) {
-      console.error("Error creating product: ", error);
-    }
-  };
-
-  const toggleFormRawMat = () => {
-    setShowFormRawMat(!showFormRawMat);
-  };
-
-  const toggleFormProduct = () => {
-    setShowFormProduct(!showFormProduct);
-  };
-
-  const handleCloseProductForm = () => {
-    setShowFormProduct(false);
-    setRequiredMat([]);
-    setFormDataProduct({
-      title: "",
-      description: "",
-      quantity_available: "",
-      price: "",
-      production_cost: "",
-      category: "",
-      raw_material_requirements: {},
-    });
-  };
-
-  const handleCloseRawMatForm = () => {
-    setShowFormRawMat(false);
-  };
-
   const handleRequiredMatChange = (newValue) => {
     if (!requiredMat.includes(newValue)) {
       setRequiredMat((prevRequiredMat) => [...prevRequiredMat, newValue]);
@@ -99,362 +110,84 @@ const Inventory = () => {
     );
   };
 
-  /*###########################*/
-  /*Fetch all the products and save them with use state*/
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await API.get("/products/");
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching Products: ", error);
-      }
-    };
-    fetchProducts();
-  }, []);
-  /*###########################*/
+  /*-----Product Form Functions End-----*/
+  /*********************************************************************/
 
-  /*###########################*/
-  /*Fetch all the raw materials and save them with use state*/
-  useEffect(() => {
-    const fetchRawMaterials = async () => {
-      try {
-        const response = await API.get("/raw_materials/");
-        setRawMaterials(response.data);
-      } catch (error) {
-        console.error("Error fetching raw materials: ", error);
-      }
-    };
+  /*********************************************************************/
+  /*-----Raw Material Form Functions-----*/
 
-    fetchRawMaterials();
-  }, []);
-  /*###########################*/
+  const toggleFormRawMat = () => {
+    setShowFormRawMat(!showFormRawMat);
+  };
+
+  const handleCloseRawMatForm = () => {
+    setShowFormRawMat(false);
+    setRawMaterialFormData({
+      name: "",
+      quantity_available: "",
+      inventory: "",
+      max_quantity: "",
+      cost: "",
+    });
+  };
+
+  const handleRawMaterialInputChange = (e) => {
+    const { name, value } = e.target;
+    setRawMaterialFormData({
+      ...rawMaterialFormData,
+      [name]: value,
+    });
+  };
+
+  /*-----Raw Material Form Functions End-----*/
+  /*********************************************************************/
 
   return (
     <div>
       <h1 className="route-title">Inventory</h1>
-
       <div className="background-frame">
-        <section>
-          {/*Products Inventory Small*/}
-          <ul>
-            <h2>Products</h2>
-            {/*Products List sort fields*/}
-            <ul className="items-list" id="sort-list">
-              {
-                <li key="sort-product" className="list-item">
-                  <span>
-                    <p>id</p>
-                  </span>
-                  <span>
-                    <p>name</p>
-                  </span>
-                  <span>
-                    <p>production cost</p>
-                  </span>
-                  <span>
-                    <p>available amount</p>
-                  </span>
-                  <span>
-                    <p>price</p>
-                  </span>
-                </li>
-              }
-            </ul>
-            {/*Products List sort fields End*/}
-            {products.slice(0, 4).map((product) => (
-              <li key={product.id} className="list-item">
-                <span>{product.id}</span>
-                <span>{product.title}</span>
-                <span>{product.production_cost}</span>
-                <span>{product.quantity_available}</span>
-                <span>{product.price}</span>
-              </li>
-            ))}
-          </ul>
-          {/*Products Inventory Small End*/}
-        </section>
+        {/*********************************************************************/}
 
-        {/*Products Add and See Button*/}
-        <section className="inventory-background-buttons">
-          <button
-            className="see-more-button"
-            onClick={() => navigate("/productinventory")}
-          >
-            <span>SEE</span>
-          </button>
+        {/*Imported from ../../Components/InventoryComponent/ProductInventoryComponent*/}
+        <ProductInventoryComponent
+          products={products}
+          navigate={navigate}
+          toggleFormProduct={toggleFormProduct}
+          showFormProduct={showFormProduct}
+          handleFormProductSubmit={handleFormProductSubmit}
+          handleCloseProductForm={handleCloseProductForm}
+          formDataProduct={formDataProduct}
+          handleInputChange={handleInputChange}
+          requiredMat={requiredMat}
+          rawMaterials={rawMaterials}
+          handleRequiredMatChange={handleRequiredMatChange}
+          handleRawMaterialChange={handleRawMaterialChange}
+          handleDeleteRequiredMaterial={handleDeleteRequiredMaterial}
+        />
+        {/*********************************************************************/}
 
-          <button onClick={toggleFormProduct}>
-            <span>ADD</span>
-          </button>
-          {showFormProduct && (
-            <div className="add-form">
-              <form onSubmit={handleSubmitProduct}>
-                {/*Inventory Order Form Raw Material*/}
+        {/*********************************************************************/}
 
-                <div className="inventory-add-form-product">
-                  <span>
-                    <span className="title-close-button-pop-up-form">
-                      <h3>Add Product</h3>
-                      <button onClick={handleCloseProductForm}>X</button>
-                    </span>
-                  </span>
-                  <span className="input-fields-add-product">
-                    <span className="left-side-add-product">
-                      <span>
-                        <h3>Name</h3>
-                        <input
-                          className="inventory-add-product-title-input"
-                          type="text"
-                          name="title"
-                          value={formDataProduct.title}
-                          onChange={handleInputChange}
-                        />
-                      </span>
-
-                      <span>
-                        <h3>Price</h3>
-                        <input
-                          className="inventory-add-product-price-input"
-                          type="textarea"
-                          name="price"
-                          value={formDataProduct.price}
-                          onChange={handleInputChange}
-                        />
-                      </span>
-
-                      <span>
-                        <h3>Category</h3>
-                        <input
-                          className="inventory-add-product-category-input"
-                          type="textarea"
-                          name="category"
-                          value={formDataProduct.category}
-                          onChange={handleInputChange}
-                        />
-                      </span>
-
-                      <span>
-                        <h3>Quantity available</h3>
-                        <input
-                          className="inventory-add-product-quantity-available-input"
-                          type="text"
-                          name="quantity_available"
-                          value={formDataProduct.quantity_available}
-                          onChange={handleInputChange}
-                        />
-                      </span>
-
-                      <span>
-                        <h3>Test</h3>
-                        <select
-                          value={requiredMat}
-                          onChange={(e) =>
-                            handleRequiredMatChange(e.target.value)
-                          }
-                        >
-                          <option value="requiredMat">
-                            Select Raw Material
-                          </option>
-                          {rawMaterials.map((material) => (
-                            <option key={material.id} value={material.name}>
-                              {material.name}
-                            </option>
-                          ))}
-                        </select>
-                      </span>
-                    </span>
-                    {/*<span>
-                    <h3>Description</h3>
-                    <textarea
-                      className="inventory-add-description-input"
-                      type="textarea"
-                      name="description"
-                      value={formDataProduct.description}
-                      onChange={handleInputChange}
-                    />
-                  </span>*/}
-                    <span className="right-side-add-product">
-                      <span>
-                        <h3>List of Raw Materials</h3>
-                        <ul className="list-required-raw-mat">
-                          {requiredMat.map((material, index) => (
-                            <li key={index}>
-                              {material}{" "}
-                              <input
-                                type="number"
-                                value={
-                                  formDataProduct.raw_material_requirements[
-                                    material
-                                  ] || ""
-                                }
-                                onChange={(e) =>
-                                  handleRawMaterialChange(e, material)
-                                }
-                              />
-                              <button
-                                onClick={() =>
-                                  handleDeleteRequiredMaterial(index)
-                                }
-                              >
-                                X
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      </span>
-                    </span>
-                  </span>
-
-                  <button type="submit">
-                    <span>SEND</span>
-                  </button>
-                </div>
-
-                {/*Inventory Order Form Raw Material End*/}
-              </form>
-            </div>
-          )}
-        </section>
-        {/*Products Add and See Button End*/}
-
-        <section>
-          {/*Raw Materials Inventory*/}
-          <ul>
-            <h2>Raw Materials</h2>
-            {/*Products List sort fields*/}
-            <ul className="items-list" id="sort-list">
-              {
-                <li key="sort-product" className="list-item">
-                  <span>
-                    <p>id</p>
-                  </span>
-                  <span>
-                    <p>name</p>
-                  </span>
-                  <span>
-                    <p>cost</p>
-                  </span>
-                  <span>
-                    <p>available amount</p>
-                  </span>
-                  <span>
-                    <p>restock required?</p>
-                  </span>
-                </li>
-              }
-            </ul>
-            {/*Products List sort fields End*/}
-            {rawMaterials.slice(0, 4).map((rawMaterials) => (
-              <li key={rawMaterials.id} className="list-item">
-                <span>{rawMaterials.id}</span>
-                <span>{rawMaterials.name}</span>
-                <span>{rawMaterials.cost}</span>
-                <span>{rawMaterials.quantity_available}</span>
-                <span>{rawMaterials.restock_required ? "Yes" : "No"}</span>
-              </li>
-            ))}
-          </ul>
-          {/*Raw Materials Inventory End*/}
-        </section>
-
-        {/*Products Add and See Button*/}
-        <section className="inventory-background-buttons">
-          <button
-            className="see-more-button"
-            onClick={() => navigate("/rawmaterialinventory")}
-          >
-            <span>SEE</span>
-          </button>
-
-          <button onClick={toggleFormRawMat}>
-            <span>ORDER</span>
-          </button>
-          {showFormRawMat && (
-            <div className="order-form">
-              <form>
-                {/*Inventory Order Form Raw Material*/}
-                <span className="title-close-button-pop-up-form">
-                  <h2>Order Raw Material</h2>
-                  <button onClick={handleCloseRawMatForm}>X</button>
-                </span>
-                <div className="inventory-order-form-raw-material">
-                  <span>
-                    <h3>Raw Material </h3>
-                    <input
-                      className="inventory-order-form-mat-input"
-                      type="text"
-                    />
-                  </span>
-                  <h3>Quantity: </h3>
-                  <input
-                    className="inventory-order-form-mat-quantity-input"
-                    type="text"
-                  />
-                  <button>
-                    <span>SEND</span>
-                  </button>
-                </div>
-                {/*Inventory Order Form Raw Material End*/}
-
-                {/*Inventory Order Form Supplier*/}
-                <div className="inventory-order-form-supplier">
-                  <span>
-                    <h3>Supplier </h3>
-                    <input
-                      className="inventory-order-form-mat-input"
-                      type="text"
-                    />
-                  </span>
-                </div>
-                {/*Inventory Order Form Supplier End*/}
-
-                {/*Inventory Order Form Message*/}
-                <div className="inventory-order-form-message">
-                  <span>
-                    <h3>Message </h3>
-                    <textarea
-                      className="inventory-order-form-message-input"
-                      type="text"
-                    />
-                  </span>
-                </div>
-                {/*Inventory Order Form Message End*/}
-              </form>
-            </div>
-          )}
-        </section>
-        {/*Products Add and See Button End*/}
+        {/*Imported from ../../Components/InventoryComponent/RawMaterialInventoryComponent*/}
+        <RawMaterialInventoryComponent
+          rawMaterials={rawMaterials}
+          navigate={navigate}
+          toggleFormRawMat={toggleFormRawMat}
+          showFormRawMat={showFormRawMat}
+          handleFormRawMaterialSubmit={handleFormRawMaterialSubmit}
+          handleCloseRawMatForm={handleCloseRawMatForm}
+          rawMaterialFormData={rawMaterialFormData}
+          handleRawMaterialInputChange={handleRawMaterialInputChange}
+        />
       </div>
+      {/*********************************************************************/}
 
+      {/*********************************************************************/}
       <div className="inventory-bottom-part">
-        {/*Low-on Inventory*/}
-        <div className="low-on-inventory">
-          <ul>
-            <h2>Low on Raw Materials</h2>
-            {rawMaterials.slice(0, 5).map((rawMaterials) => (
-              <li key={rawMaterials.id} className="list-item">
-                <span>id {rawMaterials.id}</span>
-                <span>{rawMaterials.name}</span>
-                <span>quantity: {rawMaterials.quantity_available}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="low-on-inventory">
-          <ul>
-            <h2>Low on Product</h2>
-            {products.slice(0, 5).map((product) => (
-              <li key={product.id} className="list-item">
-                <span>id: {product.id}</span>
-                <span>{product.title}</span>
-                <span>available: {product.quantity_available}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        {/*Low-on Inventory End*/}
+        {/*Imported from ../../Components/InventoryComponent/LowOnInventoryComponent*/}
+        <LowOnInventoryComponent rawMaterials={rawMaterials} />
       </div>
+      {/*********************************************************************/}
     </div>
   );
 };

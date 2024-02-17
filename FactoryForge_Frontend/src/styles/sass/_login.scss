@@ -16,16 +16,40 @@
   a:hover {
     color: rgb(130, 33, 172);
   }
+
+  .logo {
+    height: 300px;
+  }
 }
 
 .login-form {
-  height: 700px;
+  height: 600px;
   width: 500px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   flex-direction: column;
   gap: 25px;
+  /* From https://css.glass */
+  background: rgba(255, 254, 254, 0.03);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.4px);
+  -webkit-backdrop-filter: blur(2.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  .input-span-login {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .title-span-login {
+    display: flex;
+    height: 150px;
+    margin-bottom: 50px;
+  }
 
   .input-container {
     position: relative;
@@ -57,6 +81,7 @@
     border-radius: 5px;
     padding: 6px 12px;
     font-size: 16px;
+    background-color: #fcff00;
   }
 }
 
@@ -68,4 +93,10 @@
 
 .error-message {
   color: red;
+}
+
+.registration-form {
+  @extend .login-form;
+  height: 400px;
+  gap: 0px;
 }
