@@ -66,7 +66,7 @@
   @extend .list-item-orders;
   transition: height 0.5s ease;
   overflow: hidden;
-  height: 275px;
+  height: 225px;
   display: flex;
   gap: 50px;
 }
@@ -96,13 +96,15 @@
 .clientNote {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
 
   span {
-    max-width: 350px;
-    max-height: 125px;
+    max-width: 400px;
+    max-height: 75px;
+    min-height: 60px;
+    text-align-last: left;
     overflow: scroll;
+    word-wrap: break-word;
+    border-radius: 7.5px;
   }
 
   textarea:focus {
