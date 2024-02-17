@@ -51,7 +51,7 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
               ),
             )}
         </div>
-        <div className="co-fields">
+        <div className="rmo-fields">
           <span> Due Date: {formattedDeliveryDate}</span>
           <span>Delivery Time: {formattedDeliveryTime}</span>
           <span>Status: {getStatusLabel(order.status)}</span>
