@@ -34,12 +34,18 @@ export default function ProtectedRoutes() {
   }, [dispatch, navigate]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className='loadingSpinner'>
+      <div className="loading">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>;
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ origin: location }} />;
+    return <Navigate to="/login" state={{origin: location}}/>;
   } else {
-    return <Outlet />;
+    return <Outlet/>;
   }
 }
