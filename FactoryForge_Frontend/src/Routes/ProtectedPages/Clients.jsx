@@ -17,11 +17,9 @@ const Clients = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await API.get("/users/");
-        const clients = response.data.filter(
-          (user) => user.type_of_user === "C",
-        );
-        setProducts(clients);
+        const response = await API.get("/users/clients/");
+
+        setProducts(response.data);
       } catch (error) {
         console.error("Error fetching clients: ", error);
       }
