@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
-import API from "../api/API";
+import API from "../../api/API";
 
-const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
+const CreateOrderForm = ({
+  toggleCreateOrder,
+  createOrderTitle,
+  fetchRawMaterialOrders,
+  fetchClientOrders,
+}) => {
   const [clientOrderFormData, setClientOrderFormData] = useState({
     client: "",
     ordered_products: [],
@@ -9,10 +14,20 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
     due_date: "",
     processing_time: "",
   });
-  const [rawMaterialFormData, setRawMaterialFormData] = useState({});
-  const [productsList, setProductsList] = useState([]); // for fetching, DONT USE
+  const [rawMaterialFormData, setRawMaterialFormData] = useState({
+    supplier: "",
+    raw_materials_order: {},
+    delivery_date: "",
+  });
+  const [productsList, setProductsList] = useState([]); // fetching
+  const [rawMaterialsList, setRawMaterialsList] = useState([]); //fetching
+
   const [addedProductsList, setAddedProductsList] = useState([]);
+  const [addedRawMaterialsList, setAddedRawMaterialsList] = useState([]);
+
   const [clientsList, setClientsList] = useState([]);
+  const [suppliersList, setSuppliersList] = useState([]);
+
   const accessToken = localStorage.getItem("access_token");
   const config = {
     headers: {
@@ -39,9 +54,29 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
     }
   };
 
+  const fetchSuppliersList = async () => {
+    try {
+      const response = await API.get("suppliers/");
+      setSuppliersList(response.data);
+    } catch (error) {
+      console.error("Error fetching suppliers: ", error);
+    }
+  };
+
+  const fetchRawMaterialsList = async () => {
+    try {
+      const response = await API.get("raw_materials/");
+      setRawMaterialsList(response.data);
+    } catch (error) {
+      console.error("Error fetching raw materials: ", error);
+    }
+  };
+
   useEffect(() => {
     fetchProductsList();
     fetchClientsList();
+    fetchSuppliersList();
+    fetchRawMaterialsList();
   }, []);
 
   const handleClientOrderSubmit = async (e) => {
@@ -49,26 +84,47 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
     if (!accessToken) {
       throw new Error("Access Token not found.");
     }
-    console.log(clientOrderFormData);
     try {
       const res = await API.post("client_orders/", clientOrderFormData, config);
       toggleCreateOrder();
+      fetchClientOrders();
       console.log("Client Order created:", res.data);
-      window.location.reload();
     } catch (error) {
       console.error("Error creating client order: ", error);
     }
   };
 
-  const handleRawMaterialOrderSubmit = (e) => {
+  const handleRawMaterialOrderSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("Form Submitted!");
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
+    try {
+      const res = await API.post(
+        "raw_materials_orders/",
+        rawMaterialFormData,
+        config,
+      );
+      toggleCreateOrder();
+      fetchRawMaterialOrders();
+      console.log("Raw Materials Order created:", res.data);
+    } catch (error) {
+      console.error("Error creating raw materials order: ", error);
+    }
   };
 
-  const handleRequiredProductChange = (newValue) => {
+  const handleAddedProductChange = (newValue) => {
     if (!addedProductsList.includes(newValue)) {
       setAddedProductsList((prevAddedProds) => [...prevAddedProds, newValue]);
+    }
+  };
+
+  const handleAddedRawMaterialsChange = (newValue) => {
+    if (!addedRawMaterialsList.includes(newValue)) {
+      setAddedRawMaterialsList((prevAddedRawMats) => [
+        ...prevAddedRawMats,
+        newValue,
+      ]);
     }
   };
 
@@ -100,9 +156,29 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
     });
   };
 
-  const handleDeleteProductFromList = (index) => {
+  const handleRawMaterialListChange = (e, rawMaterialName) => {
+    const { value } = e.target;
+
+    setRawMaterialFormData((prevData) => ({
+      ...prevData,
+      raw_materials_order: {
+        ...prevData.raw_materials_order,
+        [rawMaterialName]: parseInt(value) || 0,
+      },
+    }));
+  };
+
+  const handleDeleteProductFromList = (e, index) => {
+    e.preventDefault();
     setAddedProductsList((prevProductData) =>
       prevProductData.filter((_, i) => i !== index),
+    );
+  };
+
+  const handleDeleteRawMaterialFromList = (e, index) => {
+    e.preventDefault();
+    setAddedRawMaterialsList((prevRawMaterialData) =>
+      prevRawMaterialData.filter((_, i) => i !== index),
     );
   };
 
@@ -110,6 +186,13 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
     setClientOrderFormData({
       ...clientOrderFormData,
       client: e.target.value,
+    });
+  };
+
+  const handleSupplierChange = (e) => {
+    setRawMaterialFormData({
+      ...rawMaterialFormData,
+      supplier: e.target.value,
     });
   };
 
@@ -122,7 +205,7 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
             <button
               className="sendButton"
               type="submit"
-              onClick={handleClientOrderSubmit}
+              onClick={(e) => handleClientOrderSubmit(e)}
             >
               SEND
             </button>
@@ -130,7 +213,7 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
             <button
               className="sendButton"
               type="submit"
-              onClick={handleRawMaterialOrderSubmit}
+              onClick={(e) => handleRawMaterialOrderSubmit(e)}
             >
               SEND
             </button>
@@ -164,6 +247,7 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
                 <input
                   type="date"
                   placeholder="Due Date"
+                  title="Add a Due Date"
                   onChange={(e) =>
                     setClientOrderFormData({
                       ...clientOrderFormData,
@@ -183,9 +267,7 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
                 />
                 <div>
                   <select
-                    onChange={(e) =>
-                      handleRequiredProductChange(e.target.value)
-                    }
+                    onChange={(e) => handleAddedProductChange(e.target.value)}
                     className="product-select"
                   >
                     <option value="requiredproduct">Select Product</option>
@@ -208,7 +290,7 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
                         onChange={(e) => handleProductListChange(e, product)}
                       />
                       <button
-                        onClick={() => handleDeleteProductFromList(index)}
+                        onClick={(e) => handleDeleteProductFromList(e, index)}
                       >
                         X
                       </button>
@@ -219,7 +301,74 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
             </form>
           </div>
         ) : (
-          <div action="" className="formdata_inputfields"></div>
+          <div className="formdata_inputfields">
+            <form>
+              <div className="left-side-order-form">
+                <select
+                  className="client-select"
+                  onChange={(e) => handleSupplierChange(e)}
+                >
+                  <option>Select Supplier</option>
+                  {suppliersList.map((supplier) => (
+                    <option key={supplier.id} value={supplier.id}>
+                      {supplier.username}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="datetime-local"
+                  title="Add a Delivery Date"
+                  placeholder="Delivery Date"
+                  onChange={(e) =>
+                    setRawMaterialFormData({
+                      ...rawMaterialFormData,
+                      delivery_date: e.target.value,
+                    })
+                  }
+                />
+                <div>
+                  <select
+                    onChange={(e) =>
+                      handleAddedRawMaterialsChange(e.target.value)
+                    }
+                    className="product-select"
+                  >
+                    <option value="requiredrawmaterial">
+                      Select Raw Material
+                    </option>
+                    {rawMaterialsList.map((rawMaterial) => (
+                      <option key={rawMaterial.id} value={rawMaterial.name}>
+                        {rawMaterial.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="right-side-order-form">
+                <ul>
+                  {addedRawMaterialsList.map((rawmaterialName, index) => (
+                    <li key={index}>
+                      <div>{rawmaterialName}</div>
+                      <input
+                        type="number"
+                        placeholder="qty"
+                        onChange={(e) =>
+                          handleRawMaterialListChange(e, rawmaterialName)
+                        }
+                      />
+                      <button
+                        onClick={(e) =>
+                          handleDeleteRawMaterialFromList(e, index)
+                        }
+                      >
+                        X
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </form>
+          </div>
         )}
       </div>
     </>
