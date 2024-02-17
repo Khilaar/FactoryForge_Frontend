@@ -1,10 +1,7 @@
 export default function Overlay({}) {
-
   return (
     <div>
-      <OverlayContainer>
-        
-      </OverlayContainer>
+      <OverlayContainer></OverlayContainer>
     </div>
   );
 }

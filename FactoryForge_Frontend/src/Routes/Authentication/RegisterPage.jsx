@@ -34,7 +34,7 @@ export default function RegisterPage() {
   return (
     <>
       <div className="login-container">
-        <form className="login-form" onSubmit={triggerRegister}>
+        <form className="registration-form" onSubmit={triggerRegister}>
           <div className="input-container">
             <i className="fi fi-rr-user" />
             <input

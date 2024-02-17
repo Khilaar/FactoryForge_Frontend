@@ -94,3 +94,9 @@
 .error-message {
   color: red;
 }
+
+.registration-form {
+  @extend .login-form;
+  height: 400px;
+  gap: 0px;
+}

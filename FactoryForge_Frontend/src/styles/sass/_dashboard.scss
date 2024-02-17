@@ -9,7 +9,6 @@
     display: flex;
     justify-content: space-between;
 
-
     input {
       border: none;
       border-radius: 20px;
@@ -28,7 +27,6 @@
       padding: 2vh;
       background-color: silver;
     }
-
   }
 
   .dash_top {
@@ -41,14 +39,12 @@
       width: 50%;
       gap: 2vh;
 
-
       .top_products {
         display: flex;
         flex-direction: column;
         border: 5px solid black;
         border-radius: 20px;
         padding: 2vh;
-
 
         .product {
           display: flex;
@@ -82,11 +78,9 @@
           padding: 2vh;
           margin: 1vh;
           background: #191a24;
-
         }
 
         .task:hover {
-
         }
       }
 
@@ -112,7 +106,6 @@
           }
 
           .supplier:hover {
-
           }
         }
       }
@@ -123,7 +116,6 @@
       flex-direction: column;
       gap: 2vh;
       width: 50%;
-
 
       .customer_orders {
         border: 5px solid black;
@@ -162,7 +154,6 @@
         padding: 2vh;
       }
     }
-
   }
 
   .weekly_budget {
@@ -187,7 +178,6 @@
     }
   }
 }
-
 
 .loadingSpinner {
   display: flex;
@@ -230,7 +220,8 @@
     top: 8px;
     height: 64px;
   }
-  50%, 100% {
+  50%,
+  100% {
     top: 24px;
     height: 32px;
   }
