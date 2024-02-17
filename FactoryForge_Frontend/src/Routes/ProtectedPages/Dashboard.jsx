@@ -22,25 +22,27 @@ const Dashboard = () => {
     const [searchResultsOrders, setSearchResultsOrders] = useState([])
     const [searchResultsRawMaterials, setSearchResultsRawMaterials] = useState([])
 
+    const [showItemOverlay, setShowItemOverlay] = useState(false)
+    const [overlayItem, setOverlayItem] = useState({})
+    const [filteredProducts, setFilteredProducts] = useState([])
+
     const [rawMaterials, setRawMaterials] = useState([])
     const [products, setProducts] = useState([])
     const [clientOrders, setClientOrders] = useState([])
-    const [loading, setLoading] = useState(true)
     const [rawMaterialChartData, setRawMaterialChartData] = useState({datasets: []})
     const [profitChartData, setProfitChartData] = useState({
-                labels: ['Income', 'Expenses'],
-                datasets: [
-                    {
-                        data: [1000, 100],
-                        backgroundColor: [
-                            "#008000FF",
-                            "#D0312D",
-                        ],
-                        borderColor: "black",
-                        borderWidth: 2
-                    },
-                ]
-            })
+        datasets: [
+            {
+                data: [1000, 100],
+                backgroundColor: [
+                    "#008000FF",
+                    "#D0312D",
+                ],
+                borderColor: "black",
+                borderWidth: 2
+            },
+        ]
+    })
 
 
     const tasks = [
@@ -91,9 +93,7 @@ const Dashboard = () => {
             setProducts(response.data)
         } catch (error) {
             console.log(error.message)
-        } finally {
-            setLoading(false)
-        }
+        } 
     }
 
     async function fetchClientOrders() {
@@ -102,9 +102,7 @@ const Dashboard = () => {
             setClientOrders(response.data)
         } catch (error) {
             console.log(error.message)
-        } finally {
-            setLoading(false)
-        }
+        } 
     }
 
     async function fetchRawMaterials() {
@@ -115,12 +113,13 @@ const Dashboard = () => {
                 }
             })
             setRawMaterials(response.data)
+            const filteredRawMaterials = response.data.filter((item) => response.data.indexOf(item) < 6)
             setRawMaterialChartData({
-                labels: response.data.map((data) => data.name),
+                labels: filteredRawMaterials.map((data) => data.name),
                 datasets: [
                     {
                         label: "Quantity Available ",
-                        data: response.data.map((data) => data.quantity_available),
+                        data: filteredRawMaterials.map((data) => data.quantity_available),
                         backgroundColor: [
                             "rgba(75,192,192,1)",
                             "#ecf0f1",
@@ -135,9 +134,7 @@ const Dashboard = () => {
             })
         } catch (error) {
             console.log(error.message)
-        } finally {
-            setLoading(false)
-        }
+        } 
     }
 
     async function fetchProfit() {
@@ -149,7 +146,6 @@ const Dashboard = () => {
             })
             setProfitLoss(response.data)
             setProfitChartData({
-                labels: ['Income', 'Expenses'],
                 datasets: [
                     {
                         data: [response.data.profit, response.data["Total Cost"]],
@@ -165,18 +161,25 @@ const Dashboard = () => {
         } catch (error) {
             console.log('fetch profit error:', error.message)
             console.log('token:', token)
-        } finally {
-            setLoading(false)
-        }
+        } 
     }
 
-    function handleSearch(){
+    function handleSearch() {
         event.preventDefault()
         event.target.reset()
         setSearchResultsProducts(products.filter((product) => product.title.includes(query)))
         setSearchResultsOrders(clientOrders.filter((order) => order.tracking_number.includes(query)))
         setSearchResultsRawMaterials(rawMaterials.filter((item) => item.name.includes(query)))
         setShowSearchResults(true)
+    }
+
+    function handleItemOverlay(item) {
+        setOverlayItem(item)
+        setShowItemOverlay(true)
+    }
+
+    function filterProduct(id) {
+        setFilteredProducts(products.filter((product) => product.id == id))
     }
 
     useEffect(() => {
@@ -190,34 +193,83 @@ const Dashboard = () => {
 
     return (
         <>
-            {loading && <div className='loadingSpinner'>
-                <div className="loading">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+            <div className={'search'} onClick={() => setShowSearchResults(false)}>
+                <h1 className={'route-title'}>Dashboard</h1>
+                <form className={'search_bar'} onSubmit={handleSearch}>
+                    <input placeholder={'Search '} onChange={(e) => setQuery(e.target.value)}/>
+                    <button>GO</button>
+                </form>
+            </div>
+            {showSearchResults && <div className={'search_results'}>
+                <button onClick={() => setShowSearchResults(false)}>close</button>
+                <p>Search Results for: {query}</p>
+                {searchResultsProducts.length > 0 && <h3>Products:</h3>}
+                {searchResultsProducts.map((item) =>
+                    <p className={'product'}
+                       key={searchResultsProducts.indexOf(item)}
+                       onClick={() => handleItemOverlay(item)}
+                    >{item.title}</p>
+                )}
+                {searchResultsOrders.length > 0 && <h3>Orders:</h3>}
+                {searchResultsOrders.map((item) =>
+                    <p className={'product'}
+                       key={searchResultsOrders.indexOf(item)}
+                       onClick={() => {
+                           handleItemOverlay(item)
+                       }}
+                    >{item.tracking_number}</p>
+                )}
+                {searchResultsRawMaterials.length > 0 && <h3>Raw Material:</h3>}
+                {searchResultsRawMaterials.map((item) =>
+                    <p className={'product'}
+                       key={searchResultsRawMaterials.indexOf(item)}
+                       onClick={() => handleItemOverlay(item)}
+                    >{item.name}</p>
+                )}
+            </div>}
+            {showItemOverlay && <div className={'item_overlay_bg'} onClick={() => setShowItemOverlay(false)}>
+                <div className={'item_overlay'}>
+                    {overlayItem.client ? (
+                        <div>
+                            <p>{overlayItem.client.first_name} {overlayItem.client.last_name}</p>
+                            <p>Client Note: {overlayItem.client_note}</p>
+                            <p>Tracking Number: {overlayItem.tracking_number}</p>
+                            <div>Ordered Products:
+                                <div>{overlayItem.ordered_products.map((item) =>
+                                    <p key={item.product}> ID: {item.product}. Quantity: {item.quantity}</p>
+                                )}</div>
+                            </div>
+                        </div>
+                    ) : (<div></div>)
+                    }
+
+                    {overlayItem.title && <p>{overlayItem.title}</p>}
+                    {overlayItem.name && <p>{overlayItem.name}</p>}
+                    {overlayItem.description && <p>Description: {overlayItem.description}</p>}
+                    {overlayItem.quantity_available && <p>Quantity Available: {overlayItem.quantity_available}</p>}
+                    {overlayItem.price && <p>Price: {overlayItem.price}</p>}
+                    {overlayItem.production_cost && <p>Production Cost: {overlayItem.production_cost}</p>}
+                    {overlayItem.category && <p>Category: {overlayItem.category}</p>}
                 </div>
             </div>}
-            {!loading && <div className='dashboard' onClick={() => setShowSearchResults(false)}>
-                <div className={'search'}>
-                <h1>Dashboard</h1>
-                    <form className={'search_bar'} onSubmit={handleSearch}>
-                        <input placeholder={'Search Anything'} onChange={(e) => setQuery(e.target.value)} />
-                        <button>GO</button>
-                    </form>
-                </div>
-                <div className='dash_top'>
+            <div>
+                <div className='dash_top' onClick={() => setShowSearchResults(false)}>
                     <div className={'left'}>
                         <div className='top_products'>
-                            <h3>Top Products</h3>
+                            <h3 className={'header'}>Top Products</h3>
                             {products && products.filter((item) => products.indexOf(item) < 5).map(product =>
                                 <div className='product' key={product.id}>
-                                    <h4>{products.indexOf(product) + 1}</h4> {product.title}</div>
+                                    <h4>{products.indexOf(product) + 1} </h4>
+                                    <p>{product.title} </p>
+                                </div>
                             )}</div>
                         <div className={'tasks'}>
                             <div className={'header'}><h3>Tasks</h3> <p>Due Date</p></div>
                             {tasks.map(task =>
-                                <div className={'task'} key={tasks.indexOf(task)}><p><input
-                                    type={'checkbox'}/> {task.todo}</p><p>{task.due}</p>
+                                <div className={'task'} key={tasks.indexOf(task)}>
+                                    <input type={'checkbox'}/>
+                                    <p>{task.todo}</p>
+                                    <p>{task.due}</p>
                                 </div>
                             )}
                         </div>
@@ -234,55 +286,37 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                        <div className={'right'}>
-
-                            {showSearchResults && <div className={'search_results'}>
-                                <p>Search Results for: {query}</p>
-                                {searchResultsProducts.length > 0 && <h4>Products:</h4>}
-                                {searchResultsProducts.map((item) =>
-                                    <p className={'product'} key={searchResultsProducts.indexOf(item)}>{item.title}</p>
-                                )}
-                                {searchResultsOrders.length > 0 && <h4>Orders:</h4>}
-                                {searchResultsOrders.map((item) =>
-                                    <p className={'product'} key={searchResultsOrders.indexOf(item)}>{item.tracking_number}</p>
-                                )}
-                                {searchResultsRawMaterials.length > 0 && <h4>Raw Material:</h4>}
-                                {searchResultsRawMaterials.map((item) =>
-                                    <p className={'product'} key={searchResultsRawMaterials.indexOf(item)}>{item.name}</p>
-                                )}
-
-                            </div>}
+                    <div className={'right'}>
 
 
-                            <div className='weekly_budget'>
-                                <h3>YTD Income & Expenses</h3>
-                                    <div className={'earnings'}>
-                                        {/*<h4>Income</h4>*/}
-                                        <h2 className={'income'}>{profitLoss.profit.toLocaleString()}</h2>
-                                        {/*<h4>Expenses</h4>*/}
-                                        <h2 className={'expenses'}>{profitLoss['Total Cost'].toLocaleString()}</h2>
-                                    </div>
-                                    <div className={'pie_chart'}> <PieChart chartData={profitChartData}/></div>
+
+                        <div className='weekly_budget'>
+                            <h3>YTD Income & Expenses</h3>
+                            <div className={'earnings'}>
+                                {/*<h4>Income</h4>*/}
+                                <h2 className={'income'}>{profitLoss.profit.toLocaleString()}</h2>
+                                {/*<h4>Expenses</h4>*/}
+                                <h2 className={'expenses'}>{profitLoss['Total Cost'].toLocaleString()}</h2>
                             </div>
-                            <div className={'customer_orders'}>
-                                <h3>Customer Orders</h3>
-                                <div className={'header'}>
-                                    <h5 className={'tracking'}>Tracking Number</h5>
-                                    <h5>Order Status</h5>
-                                    <h5>Number of Products</h5>
-                                    <h5>Due Date</h5>
-                                </div>
-                                {clientOrders.filter((item) => clientOrders.indexOf(item) < 5).map(order =>
-                                    <div className={'order'} key={order.id}>
-                                        <p className={'tracking'}>{order.tracking_number.slice(-6)}</p>
-                                        <p>{order.order_status === 1 ? 'Working' : 'Completed'}</p>
-                                        <p>{order.nr_products}</p>
-                                        <p>{order.due_date ? order.due_date : 'None'}</p>
-                                    </div>
-                                )}
-                            </div>
-
+                            <div className={'pie_chart'}><PieChart chartData={profitChartData}/></div>
                         </div>
+                        <div className={'customer_orders'}>
+                            <h3>Customer Orders</h3>
+                            <div className={'header'}>
+                                <h5 className={'tracking'}>Tracking Number</h5>
+                                <h5 className={'tracking'}>Status</h5>
+                                <h5>Due Date</h5>
+                            </div>
+                            {clientOrders.filter((item) => clientOrders.indexOf(item) < 5).map(order =>
+                                <div className={'order'} key={order.id}>
+                                    <p className={'tracking'}>{order.tracking_number.slice(-6)}</p>
+                                    <p>{order.order_status === 1 ? 'Working' : 'Completed'}</p>
+                                    <p className={'tracking'}>{order.due_date ? order.due_date : 'None'}</p>
+                                </div>
+                            )}
+                        </div>
+
+                    </div>
 
                 </div>
                 <div className={'raw_material_inventory'}>
@@ -290,7 +324,7 @@ const Dashboard = () => {
                     <BarChart chartdata={rawMaterialChartData}/>
                 </div>
 
-            </div>}
+            </div>
         </>
     );
 };
