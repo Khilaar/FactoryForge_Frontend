@@ -54,7 +54,7 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
       const res = await API.post("client_orders/", clientOrderFormData, config);
       toggleCreateOrder();
       console.log("Client Order created:", res.data);
-      console.log("Form Submitted!");
+      window.location.reload();
     } catch (error) {
       console.error("Error creating client order: ", error);
     }
@@ -73,19 +73,31 @@ const CreateOrderForm = ({ toggleCreateOrder, createOrderTitle }) => {
   };
 
   const handleProductListChange = (e, productName) => {
-    // const value = e.target;
-    // setClientOrderFormData((prevData) => {
-    //   const newOrderedProducts = [...prevData.ordered_products];
-    //   newOrderedProducts.push({
-    //     product_name: productName,
-    //     quantity: value || 0,
-    //   });
-    //   console.log(newOrderedProducts)
-    //   return {
-    //     ...prevData,
-    //     ordered_products: newOrderedProducts,
-    //   };
-    // });
+    const { value } = e.target;
+    setClientOrderFormData((prevData) => {
+      const updatedProducts = prevData.ordered_products.map((product) => {
+        if (product.product_name === productName) {
+          return {
+            ...product,
+            quantity: parseInt(value) || 0,
+          };
+        }
+        return product;
+      });
+
+      if (
+        !updatedProducts.some((product) => product.product_name === productName)
+      ) {
+        updatedProducts.push({
+          product_name: productName,
+          quantity: parseInt(value) || 0,
+        });
+      }
+      return {
+        ...prevData,
+        ordered_products: updatedProducts,
+      };
+    });
   };
 
   const handleDeleteProductFromList = (index) => {
