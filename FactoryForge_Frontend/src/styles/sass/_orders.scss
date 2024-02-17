@@ -98,20 +98,16 @@
   flex-direction: column;
 
   span {
-    max-width: 400px;
+    width: 400px;
     max-height: 50px;
     min-height: 50px;
-    text-align-last: left;
-    overflow: scroll;
+    overflow-y: auto;
     word-wrap: break-word;
     border-radius: 7.5px;
     background-color: rgb(15, 15, 15);
     box-shadow: none;
-    padding: 5px;
-  }
-
-  textarea:focus {
-    outline: none;
+    padding: 10px;
+    text-align: left;
   }
 }
 
