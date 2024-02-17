@@ -15,6 +15,13 @@ const Orders = () => {
   const [displayPage, setDisplayPage] = useState(
     location.state ? location.state.displayPage : "Client Orders",
   );
+  const accessToken = localStorage.getItem("access_token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+  };
 
   const fetchClientOrders = async () => {
     try {
@@ -121,12 +128,16 @@ const Orders = () => {
               toggleCreateOrder={() => toggleCreateOrder()}
               createOrderTitle={"Create Client Order"}
               fetchClientOrders={fetchClientOrders}
+              config={config}
+              accessToken={accessToken}
             />
           ) : (
             <CreateOrderForm
               toggleCreateOrder={() => toggleCreateOrder()}
               createOrderTitle={"Create Raw Material Order"}
               fetchRawMaterialOrders={fetchRawMaterialOrders}
+              config={config}
+              accessToken={accessToken}
             />
           )}
         </div>
