@@ -24,7 +24,6 @@ const Dashboard = () => {
 
     const [showItemOverlay, setShowItemOverlay] = useState(false)
     const [overlayItem, setOverlayItem] = useState({})
-    const [filteredProducts, setFilteredProducts] = useState([])
 
     const [rawMaterials, setRawMaterials] = useState([])
     const [products, setProducts] = useState([])
@@ -93,7 +92,7 @@ const Dashboard = () => {
             setProducts(response.data)
         } catch (error) {
             console.log(error.message)
-        } 
+        }
     }
 
     async function fetchClientOrders() {
@@ -102,16 +101,12 @@ const Dashboard = () => {
             setClientOrders(response.data)
         } catch (error) {
             console.log(error.message)
-        } 
+        }
     }
 
     async function fetchRawMaterials() {
         try {
-            const response = await API.get(`raw_materials/`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+            const response = await API.get(`raw_materials/`)
             setRawMaterials(response.data)
             const filteredRawMaterials = response.data.filter((item) => response.data.indexOf(item) < 6)
             setRawMaterialChartData({
@@ -134,16 +129,12 @@ const Dashboard = () => {
             })
         } catch (error) {
             console.log(error.message)
-        } 
+        }
     }
 
     async function fetchProfit() {
         try {
-            const response = await API.get(`/analytics/profit/?start_date=2024-02-16&end_date=2025-01-01`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+            const response = await API.get(`/analytics/profit/?start_date=2024-02-16&end_date=2025-01-01`)
             setProfitLoss(response.data)
             setProfitChartData({
                 datasets: [
@@ -177,9 +168,6 @@ const Dashboard = () => {
         setShowItemOverlay(true)
     }
 
-    function filterProduct(id) {
-        setFilteredProducts(products.filter((product) => product.id == id))
-    }
 
     useEffect(() => {
         fetchProducts()
@@ -286,7 +274,6 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <div className={'right'}>
-
 
 
                         <div className='weekly_budget'>
