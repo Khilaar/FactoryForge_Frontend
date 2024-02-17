@@ -15,13 +15,20 @@ const Orders = () => {
   const [displayPage, setDisplayPage] = useState(
     location.state ? location.state.displayPage : "Client Orders",
   );
+  const accessToken = localStorage.getItem("access_token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+  };
 
   const fetchClientOrders = async () => {
     try {
       const response = await API.get("client_orders/");
       setOrders(response.data);
     } catch (error) {
-      console.error("Error fetching raw materials: ", error);
+      console.error("Error fetching client orders: ", error);
     }
   };
 
@@ -30,7 +37,7 @@ const Orders = () => {
       const response = await API.get("raw_materials_orders/");
       setRawMaterialOrders(response.data);
     } catch (error) {
-      console.error("Error fetching raw materials: ", error);
+      console.error("Error fetching raw materials orders: ", error);
     }
   };
 
@@ -98,6 +105,8 @@ const Orders = () => {
                 key={order.id}
                 isOpen={order.id === openedOrderId}
                 toggleDetails={() => toggleOrderDetails(order.id)}
+                config={config}
+                accessToken={accessToken}
               />
             ))}
           </section>
@@ -109,6 +118,8 @@ const Orders = () => {
                 key={order.id}
                 isOpen={order.id === openedOrderId}
                 toggleDetails={() => toggleOrderDetails(order.id)}
+                config={config}
+                accessToken={accessToken}
               />
             ))}
           </section>
@@ -121,12 +132,16 @@ const Orders = () => {
               toggleCreateOrder={() => toggleCreateOrder()}
               createOrderTitle={"Create Client Order"}
               fetchClientOrders={fetchClientOrders}
+              config={config}
+              accessToken={accessToken}
             />
           ) : (
             <CreateOrderForm
               toggleCreateOrder={() => toggleCreateOrder()}
               createOrderTitle={"Create Raw Material Order"}
               fetchRawMaterialOrders={fetchRawMaterialOrders}
+              config={config}
+              accessToken={accessToken}
             />
           )}
         </div>

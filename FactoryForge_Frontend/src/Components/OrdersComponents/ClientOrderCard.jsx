@@ -1,8 +1,18 @@
 import { useEffect, useState } from "react";
 
-const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
+const ClientOrderCard = ({
+  order,
+  isOpen,
+  toggleDetails,
+  config,
+  accessToken,
+}) => {
   const [showDetails, setShowDetails] = useState(false);
   const [activeStatus, setActiveStatus] = useState(null);
+  const [editableFields, setEditableFields] = useState({
+    clientNote: order.client_note,
+    dueDate: order.due_date,
+  });
 
   const statusChoices = {
     1: "Created",
@@ -31,7 +41,24 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
     setActiveStatus(getStatusLabel(order.order_status));
   };
 
-  const handleClientOrderUpdate = () => {};
+  const submitClientOrderUpdate = async (e) => {
+    try {
+      const res = await API.patch(
+        `/client_orders/${order.id}/`,
+        editableFields,
+        config,
+      );
+    } catch (error) {
+      console.log("Client order update was not successful.");
+    }
+  };
+
+  const handleFieldChange = (fieldName, value) => {
+    setEditableFields({
+      ...editableFields,
+      [fieldName]: value,
+    });
+  };
 
   return (
     <>
@@ -66,7 +93,12 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
               <button className="xButton" onClick={handleCloseDetails}>
                 X
               </button>
-              <button className="saveButton">SAVE</button>
+              <button
+                className="saveButton"
+                onClick={(e) => submitClientOrderUpdate(e)}
+              >
+                SAVE
+              </button>
             </div>
           )}
         </div>
@@ -86,13 +118,16 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
                   <span>Email: {order.client.email || "N/A"}</span>
                 </div>
                 <div className="duedate">
-                  <h2>Due Date</h2>
-                  <span>{order.due_date}</span>
+                  <div>
+                    <h2>Due Date</h2>
+                    <span>{order.due_date}</span>
+                  </div>
+                  <button>Set New Date</button>
                 </div>
               </div>
               <div className="clientNote">
                 <h2>Client Note</h2>
-                <span>{order.client_note}</span>
+                <div>{order.client_note}</div>
               </div>
             </div>
             <div className="rightContainer">
