@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
+import API from "../../api/API";
 
 const ClientOrderCard = ({
   order,
   isOpen,
   toggleDetails,
   config,
-  accessToken,
+  fetchClientOrders,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [activeStatus, setActiveStatus] = useState(null);
   const [editableFields, setEditableFields] = useState({
-    clientNote: order.client_note,
-    dueDate: order.due_date,
+    client_note: order.client_note || "",
+    due_date: order.due_date || "",
+    order_status: order.order_status,
   });
   const [showSetNewDate, setShowSetNewDate] = useState(true);
 
@@ -33,7 +35,11 @@ const ClientOrderCard = ({
   };
 
   const handleStatusClick = (statusLabel) => {
+    const statusCode = Object.keys(statusChoices).find(
+      (key) => statusChoices[key] === statusLabel,
+    );
     setActiveStatus(statusLabel);
+    handleFieldChange("order_status", statusCode);
   };
 
   const handleCloseDetails = () => {
@@ -43,14 +49,19 @@ const ClientOrderCard = ({
   };
 
   const submitClientOrderUpdate = async (e) => {
+    e.preventDefault();
+    console.log(editableFields);
     try {
       const res = await API.patch(
-        `/client_orders/${order.id}/`,
+        `client_orders/${order.id}/`,
         editableFields,
         config,
       );
+      console.log(res.data);
+      toggleDetails();
+      fetchClientOrders();
     } catch (error) {
-      console.log("Client order update was not successful.");
+      console.log("Client order update was not successful.", error.message);
     }
   };
 
@@ -65,11 +76,23 @@ const ClientOrderCard = ({
     setShowSetNewDate((prevData) => !prevData);
   };
 
+  const submitDeleteOrder = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await API.delete(`client_orders/${order.id}/`, config);
+      console.log("Success!", res.data);
+      fetchClientOrders();
+    } catch (error) {
+      console.log("Client order update was not successful.", error.message);
+    }
+  };
+
   return (
     <>
       <div className={`list-item-orders ${showDetails ? "expanded" : ""}`}>
         <div className="co-fields">
           <span>Client: {order.client.username}</span>
+          <span>Order ID: {order.id}</span>
           <span>{order.tracking_number}</span>
         </div>
         <div className="co-productlist">
@@ -98,12 +121,20 @@ const ClientOrderCard = ({
               <button className="xButton" onClick={handleCloseDetails}>
                 X
               </button>
-              <button
-                className="saveButton"
-                onClick={(e) => submitClientOrderUpdate(e)}
-              >
-                SAVE
-              </button>
+              <div className="saveDelete">
+                <button
+                  className="saveButton"
+                  onClick={(e) => submitClientOrderUpdate(e)}
+                >
+                  SAVE
+                </button>
+                <button
+                  className="saveButton delete"
+                  onClick={(e) => submitDeleteOrder(e)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -141,9 +172,8 @@ const ClientOrderCard = ({
                       <input
                         type="date"
                         title="Set New Due Date"
-                        value={editableFields.dueDate}
                         onChange={(e) =>
-                          handleFieldChange("dueDate", e.target.value)
+                          handleFieldChange("due_date", e.target.value)
                         }
                       />
                       <button onClick={toggleShowSetDueDate}>Cancel</button>
@@ -153,7 +183,14 @@ const ClientOrderCard = ({
               </div>
               <div className="clientNote">
                 <h2>Client Note</h2>
-                <div>{order.client_note}</div>
+                <textarea
+                  value={editableFields.client_note}
+                  onChange={(e) =>
+                    handleFieldChange("client_note", e.target.value)
+                  }
+                >
+                  {order.client_note}
+                </textarea>
               </div>
             </div>
             <div className="rightContainer">

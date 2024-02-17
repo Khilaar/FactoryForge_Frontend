@@ -33,7 +33,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 7px;
   min-width: 190px;
   max-width: 190px;
 }
@@ -100,7 +100,8 @@
   display: flex;
   flex-direction: column;
 
-  div {
+  textarea {
+    color: white;
     width: 400px;
     max-height: 45px;
     min-height: 45px;
@@ -109,6 +110,11 @@
     border-radius: 7.5px;
     background-color: rgb(15, 15, 15);
     padding: 10px;
+    border: none;
+    max-width: 380px;
+  }
+  textarea:focus {
+    outline: none;
   }
 }
 
@@ -188,7 +194,7 @@
   min-width: 225px;
   height: 230px;
   justify-content: flex-start;
-
+  margin-top: 5px;
   .list-item {
     display: flex;
     padding: 5px;
@@ -217,6 +223,7 @@
   display: flex;
   gap: 7px;
   position: relative;
+  align-items: center;
 
   .xButton {
     background: #fcff00;
@@ -224,6 +231,16 @@
     width: 35px;
     position: absolute;
     right: 125px;
+  }
+  .saveDelete {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .delete {
+      background-color: red;
+      box-shadow: none;
+    }
   }
 
   .saveButton {
