@@ -156,15 +156,16 @@ const Dashboard = () => {
     function handleSearch() {
         event.preventDefault()
         event.target.reset()
-        setSearchResultsProducts(products.filter((product) => product.title.includes(query)))
-        setSearchResultsOrders(clientOrders.filter((order) => order.tracking_number.includes(query)))
-        setSearchResultsRawMaterials(rawMaterials.filter((item) => item.name.includes(query)))
+        setSearchResultsProducts(products.filter((product) => product.title.toLowerCase().includes(query)))
+        setSearchResultsOrders(clientOrders.filter((order) => order.tracking_number.toLowerCase().includes(query) || order.client.last_name.toLowerCase().includes(query) || order.client.first_name.toLowerCase().includes(query)))
+        setSearchResultsRawMaterials(rawMaterials.filter((item) => item.name.toLowerCase().includes(query)))
         setShowSearchResults(true)
     }
 
     function handleItemOverlay(item) {
         setOverlayItem(item)
         setShowItemOverlay(true)
+        console.log(searchResultsOrders)
     }
 
 
@@ -182,7 +183,7 @@ const Dashboard = () => {
             <div className={'search'} onClick={() => setShowSearchResults(false)}>
                 <h1 className={'route-title'}>Dashboard</h1>
                 <form className={'search_bar'} onSubmit={handleSearch}>
-                    <input placeholder={'Search '} onChange={(e) => setQuery(e.target.value)}/>
+                    <input placeholder={'Search '} onChange={(e) => setQuery(e.target.value.toLowerCase())}/>
                     <button>GO</button>
                 </form>
             </div>
@@ -203,7 +204,9 @@ const Dashboard = () => {
                        onClick={() => {
                            handleItemOverlay(item)
                        }}
-                    >{item.tracking_number}</p>
+                    >{item.client.last_name}
+                    <p>{item.tracking_number}</p>
+                    </p>
                 )}
                 {searchResultsRawMaterials.length > 0 && <h3>Raw Material:</h3>}
                 {searchResultsRawMaterials.map((item) =>
@@ -214,9 +217,8 @@ const Dashboard = () => {
                 )}
             </div>}
             {showItemOverlay && <div className={'item_overlay_bg'} onClick={() => setShowItemOverlay(false)}>
-                <div className={'item_overlay'}>
                     {overlayItem.client ? (
-                        <div>
+                        <div className={'item_overlay'}>
                             <p>{overlayItem.client.first_name} {overlayItem.client.last_name}</p>
                             <p>Client Note: {overlayItem.client_note}</p>
                             <p>Tracking Number: {overlayItem.tracking_number}</p>
@@ -226,17 +228,19 @@ const Dashboard = () => {
                                 )}</div>
                             </div>
                         </div>
-                    ) : (<div></div>)
+                    ) : (<div className={'item_overlay'}>
+                        {overlayItem.title && <p>{overlayItem.title}</p>}
+                        {overlayItem.name && <p>{overlayItem.name}</p>}
+                        {overlayItem.description && <p>Description: {overlayItem.description}</p>}
+                        {overlayItem.quantity_available && <p>Quantity Available: {overlayItem.quantity_available}</p>}
+                        {overlayItem.max_quantity && <p>Max Quantity: {overlayItem.max_quantity}</p>}
+                        {overlayItem.price && <p>Price: {overlayItem.price}</p>}
+                        {overlayItem.cost && <p>Cost: {overlayItem.cost}</p>}
+                        {overlayItem.production_cost && <p>Production Cost: {overlayItem.production_cost}</p>}
+                        {overlayItem.category && <p>Category: {overlayItem.category}</p>}
+                    </div>)
                     }
 
-                    {overlayItem.title && <p>{overlayItem.title}</p>}
-                    {overlayItem.name && <p>{overlayItem.name}</p>}
-                    {overlayItem.description && <p>Description: {overlayItem.description}</p>}
-                    {overlayItem.quantity_available && <p>Quantity Available: {overlayItem.quantity_available}</p>}
-                    {overlayItem.price && <p>Price: {overlayItem.price}</p>}
-                    {overlayItem.production_cost && <p>Production Cost: {overlayItem.production_cost}</p>}
-                    {overlayItem.category && <p>Category: {overlayItem.category}</p>}
-                </div>
             </div>}
             <div>
                 <div className='dash_top' onClick={() => setShowSearchResults(false)}>
