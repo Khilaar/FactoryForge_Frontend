@@ -52,7 +52,7 @@ const Inventory = () => {
   /*Imported from ../../Components/InventoryComponent/SubmitFormsInventory*/
   const handleFormRawMaterialSubmit = async (e) => {
     e.preventDefault();
-    await handleSubmitRawMaterial(rawMaterialFormData);
+    await handleSubmitRawMaterial(rawMaterialFormData, toggleFormRawMat);
   };
 
   /*-----Imported from other files End-----*/

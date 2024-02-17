@@ -86,10 +86,10 @@ const RawMaterialInventory = () => {
               <span>
                 <p>id</p>
               </span>
-              <span>
+              <span style={{ "padding-left": "2%" }}>
                 <p>name</p>
               </span>
-              <span>
+              <span style={{ "padding-left": "2%" }}>
                 <p>cost</p>
               </span>
               <span>
@@ -97,6 +97,9 @@ const RawMaterialInventory = () => {
               </span>
               <span>
                 <p>restock required?</p>
+              </span>
+              <span>
+                <p></p>
               </span>
             </li>
           }
