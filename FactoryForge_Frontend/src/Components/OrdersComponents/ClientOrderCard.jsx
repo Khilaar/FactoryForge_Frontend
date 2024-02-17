@@ -118,8 +118,11 @@ const ClientOrderCard = ({
                   <span>Email: {order.client.email || "N/A"}</span>
                 </div>
                 <div className="duedate">
-                  <h2>Due Date</h2>
-                  <span>{order.due_date}</span>
+                  <div>
+                    <h2>Due Date</h2>
+                    <span>{order.due_date}</span>
+                  </div>
+                  <button>Set New Date</button>
                 </div>
               </div>
               <div className="clientNote">
