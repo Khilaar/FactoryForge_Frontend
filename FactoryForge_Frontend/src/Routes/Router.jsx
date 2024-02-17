@@ -16,6 +16,7 @@ import OrdersHistory from "./ProtectedPages/OrdersHistory.jsx";
 import Suppliers from "./ProtectedPages/Suppliers.jsx";
 import Analytics from "./ProtectedPages/Analytics.jsx";
 import Settings from "./ProtectedPages/Settings.jsx";
+import ProductDetail from "./ProtectedPages/ProductDetail.jsx";
 
 const RouterComponent = () => {
   return (
@@ -33,6 +34,8 @@ const RouterComponent = () => {
           <Route path="/orders" element={<Orders />} />
           <Route path="/orders/history" element={<OrdersHistory />} />
           <Route path="/suppliers" element={<Suppliers />} />
+          <Route path="/productdetail" element={<ProductDetail />} />
+          <Route path="/productdetail/:id" element={<ProductDetail />} />
           <Route
             path="/rawmaterialinventory"
             element={<RawMaterialInventory />}
