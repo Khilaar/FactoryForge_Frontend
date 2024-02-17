@@ -67,7 +67,9 @@ const Orders = () => {
           >
             Client Orders
           </h1>
-          <h1 className="route-title">|</h1>
+          <h1 className="route-title" style={{ cursor: "default" }}>
+            |
+          </h1>
           <h1
             className={`" ${displayPage === "Raw Material Orders" ? "active" : ""}`}
             onClick={() => togglePage("Raw Material Orders")}
@@ -111,45 +113,22 @@ const Orders = () => {
             ))}
           </section>
         )}
-        {showCreateOrder && (
-          <div className="createOrderForm-container">
-            {displayPage == "Client Orders" ? (
-              <>
-                <form className="add-order-form">
-                  <span className="title-close-button-pop-up-form">
-                    <h3>Create Client Order</h3>
-                    <button onClick={toggleCreateOrder}>X</button>
-                  </span>
-                </form>
-              </>
-            ) : (
-              <>
-                <div className="add-order-form">
-                  <span className="title-close-button-pop-up-form">
-                    <h3>Create Raw Material Order</h3>
-                    <button onClick={toggleCreateOrder}>X</button>
-                  </span>
-                </div>
-              </>
-            )}
-          </div>
-        )}
-        {showCreateOrder && (
-          <div className="createOrderForm-container">
-            {displayPage == "Client Orders" ? (
-              <CreateOrderForm
-                toggleCreateOrder={() => toggleCreateOrder()}
-                createOrderTitle={"Create Client Order"}
-              />
-            ) : (
-              <CreateOrderForm
-                toggleCreateOrder={() => toggleCreateOrder()}
-                createOrderTitle={"Create Raw Material Order"}
-              />
-            )}
-          </div>
-        )}
       </div>
+      {showCreateOrder && (
+        <div className="createOrderForm-container">
+          {displayPage == "Client Orders" ? (
+            <CreateOrderForm
+              toggleCreateOrder={() => toggleCreateOrder()}
+              createOrderTitle={"Create Client Order"}
+            />
+          ) : (
+            <CreateOrderForm
+              toggleCreateOrder={() => toggleCreateOrder()}
+              createOrderTitle={"Create Raw Material Order"}
+            />
+          )}
+        </div>
+      )}
     </>
   );
 };
