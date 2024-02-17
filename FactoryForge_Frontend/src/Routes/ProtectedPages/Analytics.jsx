@@ -27,27 +27,27 @@ const Analytics = () => {
     <>
       <h1 className="route-title">Analytics</h1>
       <div>
-        <div className="background-frame">
+        <div className="background-frame-analytics">
           <h2>Sold Products</h2>
           <ul>
             {soldProducts &&
               Object.entries(soldProducts).map(([productName, quantity]) => (
-                <li key={productName}>
+                <li key={productName} className="list-item">
                   <p>{productName}</p>
                   <p>Quantity: {quantity}</p>
                 </li>
               ))}
           </ul>
         </div>
-        <div className="background-frame">
+        <div className="background-frame-analytics">
           <h2>Used Materials</h2>
           <ul>
             {usedMaterials &&
               Object.entries(usedMaterials).map(
                 ([usedMaterialsName, quantity]) => (
-                  <li key={usedMaterials}>
-                    <p>{usedMaterialsName}</p>
-                    <p>Quantity: {quantity}</p>
+                  <li key={usedMaterials} className="list-item">
+                    <span>{usedMaterialsName}</span>
+                    <span>Quantity: {quantity}</span>
                   </li>
                 ),
               )}
