@@ -5,7 +5,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  min-width: 800px;
+  min-width: 1000px;
+  max-width: 1100px;
   span:last-child {
     text-align: none;
   }
@@ -21,8 +22,11 @@
 
 .background-frame-orders {
   @extend .background-frame;
+  display: flex;
+  justify-content: center;
   overflow: scroll;
   min-height: 700px;
+  min-width: 1020px;
 }
 
 .co-fields {
@@ -66,14 +70,12 @@
   @extend .list-item-orders;
   transition: height 0.5s ease;
   overflow: hidden;
-  height: 235px;
+  height: 255px;
   display: flex;
-  gap: 50px;
 }
 
 .leftContainer {
   height: 100%;
-  width: 50%;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -91,6 +93,7 @@
   min-width: 300px;
   max-width: 300px;
   overflow: scroll;
+  height: 135px;
 }
 
 .clientNote {
@@ -112,14 +115,28 @@
 .duedate {
   display: flex;
   flex-direction: column;
-  min-width: 100px;
-  align-items: center;
+  min-width: 115px;
+  align-items: flex-start;
   gap: 15px;
   justify-content: center;
+  min-height: 135px;
+  max-height: 135px;
+
   button {
     box-shadow: none;
     background: black;
     max-width: 90px;
+    margin: 0;
+    margin-left: -3px;
+  }
+
+  input {
+    background-color: #191a24;
+    border: none;
+    color: white;
+    font-size: 15px;
+    max-width: 120px;
+    box-shadow: rgb(0, 0, 0, 0.5);
   }
 }
 
