@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 
-const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
+const RawMaterialOrderCard = ({
+  order,
+  isOpen,
+  toggleDetails,
+  config,
+  accessToken,
+}) => {
   const [showDetails, setShowDetails] = useState(false);
   const [activeStatus, setActiveStatus] = useState(null);
   const deliveryyDate = new Date(order.delivery_date);
