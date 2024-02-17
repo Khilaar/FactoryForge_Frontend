@@ -1,7 +1,7 @@
 import Chart from "chart.js/auto";
 import {CategoryScale} from "chart.js";
-import BarChart from "../../Components/BarChart.jsx"
-import PieChart from "../../Components/PieChart.jsx"
+import BarChart from "../../Components/Charts/BarChart.jsx"
+import PieChart from "../../Components/Charts/PieChart.jsx"
 import {useEffect, useState} from "react";
 import API from "../../api/API.js";
 
@@ -10,7 +10,6 @@ Chart.register(CategoryScale);
 
 const Dashboard = () => {
 
-    const token = localStorage.getItem('access_token')
     const [profitLoss, setProfitLoss] = useState({
         profit: 1000,
         "Total Cost": 100
