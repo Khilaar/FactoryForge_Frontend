@@ -92,20 +92,6 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
                   <span>Email: {order.supplier.email || "N/A"}</span>
                 </div>
               </div>
-              <div className="orderStatus">
-                <h2>Order Status</h2>
-                <div className="orderStatusSelection">
-                  {Object.values(statusChoices).map((statusLabel) => (
-                    <button
-                      key={statusLabel}
-                      className={activeStatus === statusLabel ? "active" : ""}
-                      onClick={() => handleStatusClick(statusLabel)}
-                    >
-                      {statusLabel}
-                    </button>
-                  ))}
-                </div>
-              </div>
               <div className="clientNote"></div>
             </div>
             <div className="rightContainer">
@@ -125,6 +111,20 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
                         ),
                       )}
                   </ul>
+                </div>
+              </div>
+              <div className="orderStatus">
+                <h2>Order Status</h2>
+                <div className="orderStatusSelection">
+                  {Object.values(statusChoices).map((statusLabel) => (
+                    <button
+                      key={statusLabel}
+                      className={activeStatus === statusLabel ? "active" : ""}
+                      onClick={() => handleStatusClick(statusLabel)}
+                    >
+                      {statusLabel}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>

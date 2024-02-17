@@ -6,7 +6,6 @@
   align-items: center;
   justify-content: space-between;
   min-width: 800px;
-
   span:last-child {
     text-align: none;
   }
@@ -67,7 +66,7 @@
   @extend .list-item-orders;
   transition: height 0.5s ease;
   overflow: hidden;
-  height: 275px;
+  height: 225px;
   display: flex;
   gap: 50px;
 }
@@ -77,6 +76,11 @@
   width: 50%;
   display: flex;
   flex-direction: column;
+  gap: 5px;
+}
+
+.client {
+  display: flex;
   gap: 20px;
 }
 
@@ -84,6 +88,33 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 300px;
+  max-width: 300px;
+  overflow: scroll;
+}
+
+.clientNote {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    width: 400px;
+    max-height: 50px;
+    min-height: 50px;
+    overflow-y: auto;
+    word-wrap: break-word;
+    border-radius: 7.5px;
+    background-color: rgb(15, 15, 15);
+    box-shadow: none;
+    padding: 10px;
+    text-align: left;
+  }
+}
+
+.duedate {
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
 }
 
 .orderStatus {
@@ -95,7 +126,7 @@
   height: 100px;
   max-width: 400px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto auto;
 
   button {
@@ -105,6 +136,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: black;
+    box-shadow: none;
 
     &.active {
       background-color: green;
@@ -116,12 +149,11 @@
   }
 }
 
-.clientNote {
-}
-
 .rightContainer {
   height: 100%;
   width: 50%;
+  display: flex;
+  gap: 25px;
 }
 
 .orderedProducts {
@@ -130,14 +162,14 @@
 
 .orderedProductsList {
   display: flex;
-  min-width: 250px;
+  min-width: 225px;
   height: 230px;
-  width: 100px;
-  li {
+  justify-content: flex-start;
+
+  .list-item {
     display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 5px;
+    width: 180px;
   }
   overflow: scroll;
 }
@@ -154,9 +186,8 @@
   display: flex;
   flex-wrap: nowrap;
   height: 15px;
-  min-width: 125px;
+  min-width: 105px;
   align-items: center;
-  margin-left: 15px;
 }
 
 .xSave {
