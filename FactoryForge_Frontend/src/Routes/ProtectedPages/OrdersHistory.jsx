@@ -120,11 +120,13 @@ const Orders = () => {
             <CreateOrderForm
               toggleCreateOrder={() => toggleCreateOrder()}
               createOrderTitle={"Create Client Order"}
+              fetchClientOrders={fetchClientOrders}
             />
           ) : (
             <CreateOrderForm
               toggleCreateOrder={() => toggleCreateOrder()}
               createOrderTitle={"Create Raw Material Order"}
+              fetchRawMaterialOrders={fetchRawMaterialOrders}
             />
           )}
         </div>
