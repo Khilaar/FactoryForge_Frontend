@@ -13,6 +13,7 @@ const ClientOrderCard = ({
     clientNote: order.client_note,
     dueDate: order.due_date,
   });
+  const [showSetNewDate, setShowSetNewDate] = useState(true);
 
   const statusChoices = {
     1: "Created",
@@ -58,6 +59,10 @@ const ClientOrderCard = ({
       ...editableFields,
       [fieldName]: value,
     });
+  };
+
+  const toggleShowSetDueDate = () => {
+    setShowSetNewDate((prevData) => !prevData);
   };
 
   return (
@@ -120,9 +125,30 @@ const ClientOrderCard = ({
                 <div className="duedate">
                   <div>
                     <h2>Due Date</h2>
-                    <span>{order.due_date}</span>
+                    <div>{order.due_date}</div>
                   </div>
-                  <button>Set New Date</button>
+                  {showSetNewDate ? (
+                    <>
+                      <button
+                        onClick={toggleShowSetDueDate}
+                        style={{ marginBottom: "28px" }}
+                      >
+                        Set New Date
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <input
+                        type="date"
+                        title="Set New Due Date"
+                        value={editableFields.dueDate}
+                        onChange={(e) =>
+                          handleFieldChange("dueDate", e.target.value)
+                        }
+                      />
+                      <button onClick={toggleShowSetDueDate}>Cancel</button>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="clientNote">
