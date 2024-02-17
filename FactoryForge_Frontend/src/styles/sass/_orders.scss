@@ -30,9 +30,16 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
   min-width: 190px;
   max-width: 190px;
+}
+
+.rmo-fields {
+  @extend .co-fields;
+  gap: 2.5px;
+  height: 80%;
+  margin-top: 10px;
 }
 
 .co-productlist {
