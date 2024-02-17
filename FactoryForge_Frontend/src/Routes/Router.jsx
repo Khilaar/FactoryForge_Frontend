@@ -14,6 +14,8 @@ import RawMaterialInventory from "./ProtectedPages/RawMaterialInventory.jsx";
 import Orders from "./ProtectedPages/Orders.jsx";
 import OrdersHistory from "./ProtectedPages/OrdersHistory.jsx";
 import Suppliers from "./ProtectedPages/Suppliers.jsx";
+import Analytics from "./ProtectedPages/Analytics.jsx";
+import Settings from "./ProtectedPages/Settings.jsx";
 
 const RouterComponent = () => {
   return (
@@ -36,7 +38,9 @@ const RouterComponent = () => {
             element={<RawMaterialInventory />}
           />
           <Route path="/clients" element={<Clients />} />
-          <Route path="/users/me" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Route>
     </Routes>
