@@ -31,6 +31,8 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
     setActiveStatus(getStatusLabel(order.order_status));
   };
 
+  const handleClientOrderUpdate = () => {};
+
   return (
     <>
       <div className={`list-item-orders ${showDetails ? "expanded" : ""}`}>
@@ -83,28 +85,15 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
                   <span>Username: {order.client.username}</span>
                   <span>Email: {order.client.email || "N/A"}</span>
                 </div>
-                <div className="clientNote">
-                  <h2>Client Note</h2>
-                  <textarea>
-                    {order.client_note}
-                  </textarea>
+                <div className="duedate">
+                  <h2>Due Date</h2>
+                  <span>{order.due_date}</span>
                 </div>
               </div>
-              <div className="orderStatus">
-                <h2>Order Status</h2>
-                <div className="orderStatusSelection">
-                  {Object.values(statusChoices).map((statusLabel) => (
-                    <button
-                      key={statusLabel}
-                      className={activeStatus === statusLabel ? "active" : ""}
-                      onClick={() => handleStatusClick(statusLabel)}
-                    >
-                      {statusLabel}
-                    </button>
-                  ))}
-                </div>
+              <div className="clientNote">
+                <h2>Client Note</h2>
+                <span>{order.client_note}</span>
               </div>
-              <div className="clientNote"></div>
             </div>
             <div className="rightContainer">
               <div className="orderedProducts">
@@ -120,6 +109,20 @@ const ClientOrderCard = ({ order, isOpen, toggleDetails }) => {
                       </li>
                     ))}
                   </ul>
+                </div>
+              </div>
+              <div className="orderStatus">
+                <h2>Order Status</h2>
+                <div className="orderStatusSelection">
+                  {Object.values(statusChoices).map((statusLabel) => (
+                    <button
+                      key={statusLabel}
+                      className={activeStatus === statusLabel ? "active" : ""}
+                      onClick={() => handleStatusClick(statusLabel)}
+                    >
+                      {statusLabel}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
