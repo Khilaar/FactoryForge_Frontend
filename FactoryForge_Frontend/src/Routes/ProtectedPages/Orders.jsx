@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import API from "../../api/API";
-import ClientOrderCard from "../../Components/ClientOrderCard";
+import ClientOrderCard from "../../Components/OrdersComponents/ClientOrderCard";
 import { useNavigate, useLocation } from "react-router-dom";
-import RawMaterialOrderCard from "../../Components/RawMaterialOrderCard";
-import CreateOrderForm from "../../Components/CreateOrderForm";
+import RawMaterialOrderCard from "../../Components/OrdersComponents/RawMaterialOrderCard";
+import CreateOrderForm from "../../Components/OrdersComponents/CreateOrderForm";
 
 const Orders = () => {
   const navigate = useNavigate();
@@ -113,22 +113,24 @@ const Orders = () => {
             ))}
           </section>
         )}
-        {showCreateOrder && (
-          <div className="createOrderForm-container">
-            {displayPage == "Client Orders" ? (
-              <CreateOrderForm
-                toggleCreateOrder={() => toggleCreateOrder()}
-                createOrderTitle={"Create Client Order"}
-              />
-            ) : (
-              <CreateOrderForm
-                toggleCreateOrder={() => toggleCreateOrder()}
-                createOrderTitle={"Create Raw Material Order"}
-              />
-            )}
-          </div>
-        )}
       </div>
+      {showCreateOrder && (
+        <div className="createOrderForm-container">
+          {displayPage == "Client Orders" ? (
+            <CreateOrderForm
+              toggleCreateOrder={() => toggleCreateOrder()}
+              createOrderTitle={"Create Client Order"}
+              fetchClientOrders={fetchClientOrders}
+            />
+          ) : (
+            <CreateOrderForm
+              toggleCreateOrder={() => toggleCreateOrder()}
+              createOrderTitle={"Create Raw Material Order"}
+              fetchRawMaterialOrders={fetchRawMaterialOrders}
+            />
+          )}
+        </div>
+      )}
     </>
   );
 };
