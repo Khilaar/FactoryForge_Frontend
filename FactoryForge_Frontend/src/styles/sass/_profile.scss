@@ -34,6 +34,7 @@
   align-items: center;
   flex-direction: column;
   transition: transform 0.5s ease;
+
   img {
     min-height: 150px;
     min-width: 200px;
@@ -68,6 +69,10 @@
 
 .editButtonProfile {
   margin-top: 100px;
+
+  &.save {
+    margin-top: 51px;
+  }
 }
 
 .profile-info-container-update {
@@ -81,6 +86,7 @@
   position: relative;
   display: flex;
   justify-content: center;
+
   input {
     display: flex;
     text-align: center;
@@ -118,4 +124,11 @@
   input {
     width: 104px;
   }
+}
+
+.backButton {
+  margin-top: -35px;
+  border: none;
+  background-color: transparent !important;
+  color: white;
 }
