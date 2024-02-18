@@ -139,11 +139,11 @@
         justify-content: space-between;
       }
 
+    }
       .task {
         @extend .list-item;
         justify-content: space-between;
       }
-    }
 
     .suppliers {
       border-radius: 20px;

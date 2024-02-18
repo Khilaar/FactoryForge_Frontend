@@ -14,7 +14,6 @@ const Dashboard = () => {
         profit: 1000,
         "Total Cost": 100
     })
-
     const [showSearchResults, setShowSearchResults] = useState(false)
     const [query, setQuery] = useState([])
     const [searchResultsProducts, setSearchResultsProducts] = useState([])
@@ -26,6 +25,7 @@ const Dashboard = () => {
 
     const [rawMaterials, setRawMaterials] = useState([])
     const [products, setProducts] = useState([])
+    const [soldProducts, setSoldProducts] = useState([])
     const [clientOrders, setClientOrders] = useState([])
     const [rawMaterialChartData, setRawMaterialChartData] = useState({datasets: []})
     const [profitChartData, setProfitChartData] = useState({
@@ -83,6 +83,20 @@ const Dashboard = () => {
         },
 
     ]
+    async function fetchSoldProducts() {
+      try {
+        const response = await API.get("/analytics/statistics/", {
+          params: {
+            start_date: "2024-01-01",
+            end_date: "2024-03-31",
+          },
+        });
+        setSoldProducts(response.data[1]["Sold Products"]);
+        console.log(response.data[1]["Sold Products"]);
+      } catch (error) {
+        console.error("Error fetching statistics: ", error);
+      }
+    }
 
 
     async function fetchProducts() {
@@ -174,7 +188,7 @@ const Dashboard = () => {
         fetchClientOrders()
         fetchRawMaterials()
         fetchProfit()
-
+        fetchSoldProducts()
     }, [])
 
 
@@ -247,12 +261,29 @@ const Dashboard = () => {
                     <div className={'left'}>
                         <div className='top_products'>
                             <h3 className={'header'}>Top Products</h3>
-                            {products && products.filter((item) => products.indexOf(item) < 5).map(product =>
-                                <div className='product' key={product.id}>
-                                    <h4>{products.indexOf(product) + 1} </h4>
-                                    <p>{product.title} </p>
-                                </div>
-                            )}</div>
+                            <ol>
+                                {soldProducts &&
+                                    Object.keys(soldProducts)
+                                        .sort(
+                                            (productNameA, productNameB) =>
+                                                soldProducts[productNameB] - soldProducts[productNameA],
+                                        )
+                                        .slice(0, 5)
+                                        .map((productName) => (
+                                            <li key={productName} className="task">
+                                                <p>{productName}</p>
+                                                <p>{soldProducts[productName]} Sold</p>
+                                            </li>
+                                        ))}
+                            </ol>
+
+                            {/*{products && products.filter((item) => products.indexOf(item) < 5).map(product =>*/}
+                            {/*    <div className='product' key={product.id}>*/}
+                            {/*        <h4>{products.indexOf(product) + 1} </h4>*/}
+                            {/*        <p>{product.title} </p>*/}
+                            {/*    </div>*/}
+                            {/*)}*/}
+                        </div>
                         <div className={'tasks'}>
                             <div className={'header'}><h3>Tasks</h3> <p>Due Date</p></div>
                             {tasks.map(task =>
