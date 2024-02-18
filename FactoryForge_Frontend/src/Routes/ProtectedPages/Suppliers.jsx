@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import API from "../../api/API";
 
 const Suppliers = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [suppliers, setSuppliers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showFormSupplier, setShowFormSupplier] = useState(false);
@@ -89,6 +89,29 @@ const Suppliers = () => {
     );
   }, [suppliers, searchQuery]);
 
+  const handleDeleteSupplier = async (supplierId) => {
+    try {
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+  
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+  
+      await API.delete(`/suppliers/${supplierId}`, config);
+  
+      // After successful deletion, update the list of suppliers
+      const response = await API.get("/suppliers/");
+      setSuppliers(response.data);
+    } catch (error) {
+      console.error("Error deleting supplier", error);
+    }
+  };
+
   return (
     <div>
       <div className="title-and-searchbar">
@@ -142,7 +165,12 @@ const Suppliers = () => {
                 <span>{supplier.email}</span>
                 {showDeleteAction && (
                   <span>
-                    <button className="supplier-delete-action-btn">Delete</button>
+                    <button 
+                      className="supplier-delete-action-btn"
+                      onClick={() => handleDeleteSupplier(supplier.id)}
+                    >
+                      Delete
+                    </button>
                   </span>
                 )}
               </li>
