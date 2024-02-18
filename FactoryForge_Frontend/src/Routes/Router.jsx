@@ -9,8 +9,7 @@ import ProtectedRoutes from "./ProtectedRoutes.jsx";
 import Dashboard from "./ProtectedPages/Dashboard.jsx";
 import Inventory from "./ProtectedPages/Inventory.jsx";
 import Clients from "./ProtectedPages/Clients.jsx";
-import ProfilePage from "./ProtectedPages/Profile/ProfilePage.jsx";
-import EditProfile from "./ProtectedPages/Profile/EditProfile.jsx";
+import ProfilePage from "./ProtectedPages/ProfilePage.jsx";
 import RawMaterialInventory from "./ProtectedPages/RawMaterialInventory.jsx";
 import Orders from "./ProtectedPages/Orders.jsx";
 import OrdersHistory from "./ProtectedPages/OrdersHistory.jsx";
@@ -43,7 +42,6 @@ const RouterComponent = () => {
           />
           <Route path="/clients" element={<Clients />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
