@@ -102,7 +102,7 @@ const Analytics = () => {
                           "#BBB5BD",
                           "#8EE3F5",
                         ],
-                        borderWidth: 1,
+                        borderWidth: 0,
                       },
                     ],
                   }}
@@ -130,13 +130,13 @@ const Analytics = () => {
           <div className="background-frame">
             <div className={"used-materials-chart"}>
               <h3>Used Matrerials</h3>
-              {soldProducts && (
+              {usedMaterials && (
                 <PieChart
                   chartData={{
                     labels: Object.keys(usedMaterials),
                     datasets: [
                       {
-                        label: "Quantity Sold",
+                        label: "Quantity Used",
                         data: Object.values(usedMaterials),
                         backgroundColor: [
                           "#151724",
@@ -147,7 +147,7 @@ const Analytics = () => {
                           "#BBB5BD",
                           "#8EE3F5",
                         ],
-                        borderWidth: 1,
+                        borderWidth: 0,
                       },
                     ],
                   }}
