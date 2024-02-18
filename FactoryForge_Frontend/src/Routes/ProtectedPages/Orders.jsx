@@ -24,6 +24,9 @@ const Orders = () => {
   };
 
   const fetchClientOrders = async () => {
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
     try {
       const response = await API.get("client_orders/");
       setOrders(response.data);
@@ -33,6 +36,9 @@ const Orders = () => {
   };
 
   const fetchRawMaterialOrders = async () => {
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
     try {
       const response = await API.get("raw_materials_orders/");
       setRawMaterialOrders(response.data);

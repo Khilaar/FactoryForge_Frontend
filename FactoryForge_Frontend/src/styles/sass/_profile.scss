@@ -1,0 +1,60 @@
+.profilePage-container {
+  display: flex;
+  height: 100vh;
+  margin-top: 40px;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.profilePage-frame {
+  @extend .background-frame;
+  height: 700px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profileBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.avatar-container {
+  margin-top: 75px;
+  border-radius: 50%;
+  max-height: 150px;
+  max-width: 150px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    min-height: 150px;
+    min-width: 200px;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.profile-info-container {
+  display: flex;
+  gap: 15px;
+  height: 30px;
+  align-items: center;
+  flex-direction: column;
+
+  div {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+  }
+}
+
+.editButtonProfile {
+  margin-top: 100px;
+}
