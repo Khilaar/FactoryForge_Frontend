@@ -14,7 +14,7 @@
   button {
     box-shadow: rgba(0, 0, 0, 0.75) 0px 5px 15px;
     margin-left: 15px;
-    background-color: #191a24;
+    background-color: #1d1c1e;
   }
 }
 
@@ -173,7 +173,7 @@
     align-items: center;
     justify-content: center;
     background-color: black;
-    box-shadow: none;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
 
     &.active {
       background-color: green;
