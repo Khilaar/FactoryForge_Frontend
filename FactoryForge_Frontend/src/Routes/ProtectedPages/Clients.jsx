@@ -111,7 +111,7 @@ const Clients = () => {
                 <p>id</p>
               </span>
               <span>
-                <p>usernamename</p>
+                <p>username</p>
               </span>
               <span>
                 <p>name</p>
