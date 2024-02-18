@@ -37,3 +37,14 @@
   @extend .supplier-button;
   margin-left: 2rem;
 }
+
+.searchbar-suppliers{
+  @extend .searchbar;
+  color: white;
+  margin: 20px 30px 0 0;
+}
+
+.supplier-delete-action-btn{
+  @extend button;
+  padding-left: 4rem;
+}
