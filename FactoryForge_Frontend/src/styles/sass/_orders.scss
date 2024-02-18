@@ -81,7 +81,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 5px;
 }
 
 .client {
@@ -151,6 +150,13 @@
     max-width: 120px;
     box-shadow: rgb(0, 0, 0, 0.5);
   }
+
+  &.rawmats {
+    input {
+      max-width: 185px;
+
+    }
+  }
 }
 
 .orderStatus {
@@ -197,6 +203,11 @@
   width: 50%;
   display: flex;
   gap: 25px;
+
+  &.rawmats {
+    justify-content: center;
+    gap: 50px;
+  }
 }
 
 .orderedProducts {
