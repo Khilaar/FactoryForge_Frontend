@@ -194,7 +194,7 @@ const RawMaterialOrderCard = ({
               <div className="clientNote"></div>
             </div>
             <div className="rightContainer rawmats">
-              <div className="duedate">
+              <div className="duedate rawmats">
                 <div>
                   <h2>Delivery</h2>
                   <div>
@@ -216,7 +216,10 @@ const RawMaterialOrderCard = ({
                       type="datetime-local"
                       title="Set New Delivery Date"
                       onChange={(e) =>
-                        handleFieldChange("delivery_date", e.target.value)
+                        handleFieldChange(
+                          "delivery_date",
+                          new Date(e.target.value).toISOString(),
+                        )
                       }
                     />
                     <button onClick={toggleShowSetDeliveryDate}>Cancel</button>

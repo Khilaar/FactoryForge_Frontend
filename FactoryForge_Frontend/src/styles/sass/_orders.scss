@@ -81,7 +81,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-
 }
 
 .client {
@@ -150,6 +149,13 @@
     font-size: 15px;
     max-width: 120px;
     box-shadow: rgb(0, 0, 0, 0.5);
+  }
+
+  &.rawmats {
+    input {
+      max-width: 185px;
+
+    }
   }
 }
 
