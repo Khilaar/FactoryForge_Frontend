@@ -10,7 +10,7 @@
   backdrop-filter: blur(2.4px);
   -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  width: 30rem;
+  width: fit-content;
   height: 20rem;
   display: flex;
   flex-direction: column;
@@ -25,6 +25,10 @@
   ul {
     max-height: 15rem;
     overflow-y: auto;
+    width: fit-content;
+  }
+  li {
+    width: fit-content;
   }
   h2 {
     margin-bottom: 10px;
@@ -39,11 +43,68 @@
 }
 
 .background-frame-analytics-top-seller {
-  @extend .background-frame-analytics;
   height: 15rem;
+  color: whitesmoke;
+  overflow: hidden;
+  padding: 2rem 2rem 2rem 2rem;
+  margin: 2rem auto;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.4px);
+  -webkit-backdrop-filter: blur(2.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: fit-content;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: larger;
+  justify-content: center;
+  .list-item {
+    width: 25rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  ul {
+    max-height: 15rem;
+    overflow-y: auto;
+    width: fit-content;
+  }
+  li {
+    width: auto;
+  }
+  h2 {
+    margin-bottom: 10px;
+  }
+  h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  h4 {
+    margin-top: 10px;
+  }
 }
 
 .analytics-overlay {
   display: flex;
   justify-content: space-around;
+}
+
+.small-screen-change-span {
+  display: flex;
+  justify-content: space-between;
+  width: 55%;
+  @media screen and (max-width: 1980px) {
+    flex-direction: column;
+    width: auto; // Adjust width as needed
+  }
+}
+
+.background-frame-piechart {
+  @extend .background-frame-analytics;
+  height: auto;
+  padding-right: 45px;
+  padding-left: 45px;
 }
