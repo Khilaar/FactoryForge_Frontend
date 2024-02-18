@@ -105,6 +105,8 @@ const Orders = () => {
                 key={order.id}
                 isOpen={order.id === openedOrderId}
                 toggleDetails={() => toggleOrderDetails(order.id)}
+                config={config}
+                fetchClientOrders={fetchClientOrders}
               />
             ))}
           </section>
@@ -116,6 +118,8 @@ const Orders = () => {
                 key={order.id}
                 isOpen={order.id === openedOrderId}
                 toggleDetails={() => toggleOrderDetails(order.id)}
+                config={config}
+                fetchClientOrders={fetchClientOrders}
               />
             ))}
           </section>

@@ -107,6 +107,7 @@ const Orders = () => {
                 toggleDetails={() => toggleOrderDetails(order.id)}
                 config={config}
                 accessToken={accessToken}
+                fetchClientOrders={fetchClientOrders}
               />
             ))}
           </section>
