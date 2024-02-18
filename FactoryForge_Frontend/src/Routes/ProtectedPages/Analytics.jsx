@@ -152,98 +152,102 @@ const Analytics = () => {
           </div>
         </span>
 
-        <span>
-          <div className="background-frame-analytics">
-            <h2>Sold Products</h2>
-            <ul>
-              {soldProducts &&
-                Object.entries(soldProducts).map(([productName, quantity]) => (
-                  <li key={productName} className="list-item">
-                    <p>{productName}</p>
-                    <p>Quantity: {quantity}</p>
-                  </li>
-                ))}
-            </ul>
-            <h4>Total sold products: {totalSoldProducts()}</h4>
-          </div>
-
-          <div className="background-frame">
-            <div className={"sold-products-chart"}>
-              <h3>Sold Products</h3>
-              {soldProducts && (
-                <PieChart
-                  chartData={{
-                    labels: Object.keys(soldProducts),
-                    datasets: [
-                      {
-                        label: "Quantity Sold",
-                        data: Object.values(soldProducts),
-                        backgroundColor: [
-                          "#151724",
-                          "#6e248a",
-                          "#fcff00",
-                          "#40C9A2",
-                          "#CC4BC2",
-                          "#BBB5BD",
-                          "#8EE3F5",
-                        ],
-                        borderWidth: 0,
-                      },
-                    ],
-                  }}
-                />
-              )}
+        <span className="small-screen-change-span">
+          <span>
+            <div className="background-frame-analytics">
+              <h2>Sold Products</h2>
+              <ul>
+                {soldProducts &&
+                  Object.entries(soldProducts).map(
+                    ([productName, quantity]) => (
+                      <li key={productName} className="list-item">
+                        <p>{productName}</p>
+                        <p>Quantity: {quantity}</p>
+                      </li>
+                    ),
+                  )}
+              </ul>
+              <h4>Total sold products: {totalSoldProducts()}</h4>
             </div>
-          </div>
-        </span>
 
-        <span>
-          <div className="background-frame-analytics">
-            <h2>Used Materials</h2>
-            <ul>
-              {usedMaterials &&
-                Object.entries(usedMaterials).map(
-                  ([usedMaterialsName, quantity], index) => (
-                    <li
-                      key={`${usedMaterialsName}-${index}`}
-                      className="list-item"
-                    >
-                      <span>{usedMaterialsName}</span>
-                      <span>Quantity: {quantity}</span>
-                    </li>
-                  ),
+            <div className="background-frame-piechart">
+              <div className={"sold-products-chart"}>
+                <h3>Sold Products</h3>
+                {soldProducts && (
+                  <PieChart
+                    chartData={{
+                      labels: Object.keys(soldProducts),
+                      datasets: [
+                        {
+                          label: "Quantity Sold",
+                          data: Object.values(soldProducts),
+                          backgroundColor: [
+                            "#151724",
+                            "#6e248a",
+                            "#fcff00",
+                            "#40C9A2",
+                            "#CC4BC2",
+                            "#BBB5BD",
+                            "#8EE3F5",
+                          ],
+                          borderWidth: 0,
+                        },
+                      ],
+                    }}
+                  />
                 )}
-            </ul>
-            <h4>Total used Materials: {totalUsedMaterials()}</h4>
-          </div>
-          <div className="background-frame">
-            <div className={"used-materials-chart"}>
-              <h3>Used Matrerials</h3>
-              {usedMaterials && (
-                <PieChart
-                  chartData={{
-                    labels: Object.keys(usedMaterials),
-                    datasets: [
-                      {
-                        label: "Quantity Used",
-                        data: Object.values(usedMaterials),
-                        backgroundColor: [
-                          "#151724",
-                          "#6e248a",
-                          "#fcff00",
-                          "#40C9A2",
-                          "#CC4BC2",
-                          "#BBB5BD",
-                          "#8EE3F5",
-                        ],
-                        borderWidth: 0,
-                      },
-                    ],
-                  }}
-                />
-              )}
+              </div>
             </div>
-          </div>
+          </span>
+
+          <span>
+            <div className="background-frame-analytics">
+              <h2>Used Materials</h2>
+              <ul>
+                {usedMaterials &&
+                  Object.entries(usedMaterials).map(
+                    ([usedMaterialsName, quantity], index) => (
+                      <li
+                        key={`${usedMaterialsName}-${index}`}
+                        className="list-item"
+                      >
+                        <span>{usedMaterialsName}</span>
+                        <span>Quantity: {quantity}</span>
+                      </li>
+                    ),
+                  )}
+              </ul>
+              <h4>Total used Materials: {totalUsedMaterials()}</h4>
+            </div>
+            <div className="background-frame-piechart">
+              <div className={"used-materials-chart"}>
+                <h3>Used Matrerials</h3>
+                {usedMaterials && (
+                  <PieChart
+                    chartData={{
+                      labels: Object.keys(usedMaterials),
+                      datasets: [
+                        {
+                          label: "Quantity Used",
+                          data: Object.values(usedMaterials),
+                          backgroundColor: [
+                            "#151724",
+                            "#6e248a",
+                            "#fcff00",
+                            "#40C9A2",
+                            "#CC4BC2",
+                            "#BBB5BD",
+                            "#8EE3F5",
+                          ],
+                          borderWidth: 0,
+                        },
+                      ],
+                    }}
+                  />
+                )}
+              </div>
+            </div>
+          </span>
         </span>
       </div>
     </>
