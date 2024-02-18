@@ -5,6 +5,7 @@ import PieChart from "../../Components/Charts/PieChart.jsx";
 const Analytics = () => {
   const [soldProducts, setSoldProducts] = useState(null);
   const [usedMaterials, setUsedMaterials] = useState(null);
+  const [totalQuantityByClient, setTotalQuantityByClient] = useState([]);
 
   useEffect(() => {
     const fetchStatistics = async () => {
@@ -25,6 +26,50 @@ const Analytics = () => {
     fetchStatistics();
   }, []);
 
+  useEffect(() => {
+    const fetchClientOrderAmount = async () => {
+      try {
+        const accessToken = localStorage.getItem("access_token");
+        if (!accessToken) {
+          throw new Error("Access token not found");
+        }
+
+        const response = await API.get("/client_orders/", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        const newTotalQuantityByClient = {};
+
+        response.data.forEach((clientOrder) => {
+          const clientId = clientOrder.client.id;
+          const clientName = `${clientOrder.client.first_name} ${clientOrder.client.last_name}`;
+          let totalQuantity = 0;
+
+          clientOrder.ordered_products.forEach((orderedProduct) => {
+            totalQuantity += orderedProduct.quantity;
+          });
+
+          if (newTotalQuantityByClient[clientId]) {
+            newTotalQuantityByClient[clientId].totalQuantity += totalQuantity;
+          } else {
+            newTotalQuantityByClient[clientId] = { clientName, totalQuantity };
+          }
+        });
+        const totalQuantityArray = Object.values(newTotalQuantityByClient);
+        totalQuantityArray.sort((a, b) => b.totalQuantity - a.totalQuantity);
+        const top3Clients = totalQuantityArray.slice(0, 3);
+        setTotalQuantityByClient(top3Clients);
+      } catch (error) {
+        console.error("Error fetching statistics: ", error);
+      }
+    };
+
+    fetchClientOrderAmount();
+  }, []);
+
   const totalSoldProducts = () => {
     if (soldProducts) {
       const valuesArray = Object.values(soldProducts);
@@ -32,7 +77,17 @@ const Analytics = () => {
         (total, currentValue) => total + currentValue,
         0,
       );
-      console.log("Total sold products:", sum);
+      return sum;
+    }
+  };
+
+  const totalUsedMaterials = () => {
+    if (usedMaterials) {
+      const valuesArray = Object.values(usedMaterials);
+      const sum = valuesArray.reduce(
+        (total, currentValue) => total + currentValue,
+        0,
+      );
       return sum;
     }
   };
@@ -78,6 +133,22 @@ const Analytics = () => {
                     </li>
                   ))}
             </ul>
+          </div>
+          <div>
+            <div className="analytics-overlay">
+              <div className="background-frame-analytics-top-seller">
+                <h2>Top Clients</h2>
+                <h3>By Product amounts ordered</h3>
+                <ul>
+                  {totalQuantityByClient.map((clientInfo, index) => (
+                    <li key={index} className="list-item">
+                      <p>{clientInfo.clientName}</p>
+                      <p>Total Bought Products: {clientInfo.totalQuantity}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </span>
 
@@ -143,7 +214,7 @@ const Analytics = () => {
                   ),
                 )}
             </ul>
-            <h2>hello</h2>
+            <h4>Total used Materials: {totalUsedMaterials()}</h4>
           </div>
           <div className="background-frame">
             <div className={"used-materials-chart"}>
