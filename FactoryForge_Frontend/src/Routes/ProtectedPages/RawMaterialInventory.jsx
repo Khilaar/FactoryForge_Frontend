@@ -86,10 +86,10 @@ const RawMaterialInventory = () => {
               <span>
                 <p>id</p>
               </span>
-              <span style={{ "padding-left": "2%" }}>
+              <span style={{ "paddingLeft": "2%" }}>
                 <p>name</p>
               </span>
-              <span style={{ "padding-left": "2%" }}>
+              <span style={{ "paddingLeft": "2%" }}>
                 <p>cost</p>
               </span>
               <span>

@@ -51,7 +51,6 @@ const ClientOrderCard = ({
 
   const submitClientOrderUpdate = async (e) => {
     e.preventDefault();
-    console.log(editableFields);
     if (!accessToken) {
       throw new Error("Access Token not found.");
     }
@@ -61,7 +60,7 @@ const ClientOrderCard = ({
         editableFields,
         config,
       );
-      console.log(res.data);
+      console.log("Success!", res.data);
       toggleDetails();
       fetchClientOrders();
     } catch (error) {
