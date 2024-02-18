@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import API from "../../api/API";
+import { Link } from "react-router-dom";
 
 const ProductInventory = () => {
   const [products, setProducts] = useState([]);
@@ -109,11 +110,16 @@ const ProductInventory = () => {
         <ul className="items-list">
           {filteredProducts.map((product) => (
             <li key={product.id} className="list-item">
-              <span>{product.id}</span>
-              <span>{product.title}</span>
-              <span>{product.production_cost}</span>
-              <span>{product.quantity_available}</span>
-              <span>{product.price}.-</span>
+              <Link
+                to={`/productdetail/${product.id}`}
+                className="product-link"
+              >
+                <span>{product.id}</span>
+                <span>{product.title}</span>
+                <span>{product.production_cost}</span>
+                <span>{product.quantity_available}</span>
+                <span>{product.price}.-</span>
+              </Link>
               <button onClick={() => handleDeleteProduct(product.id)}>X</button>
             </li>
           ))}

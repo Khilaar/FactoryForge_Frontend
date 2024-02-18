@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
+import API from "../../api/API";
 
-const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
+const RawMaterialOrderCard = ({
+  order,
+  isOpen,
+  toggleDetails,
+  config,
+  accessToken,
+  fetchRawMaterialOrders,
+}) => {
   const [showDetails, setShowDetails] = useState(false);
   const [activeStatus, setActiveStatus] = useState(null);
   const deliveryyDate = new Date(order.delivery_date);
@@ -9,6 +17,11 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
     hour: "2-digit",
     minute: "2-digit",
   });
+  const [editableFields, setEditableFields] = useState({
+    status: order.status,
+    delivery_date: order.delivery_date || "",
+  });
+  const [showSetNewDate, setShowSetNewDate] = useState(true);
 
   const statusChoices = {
     1: "Ordered",
@@ -25,13 +38,66 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
   };
 
   const handleStatusClick = (statusLabel) => {
+    const statusCode = Object.keys(statusChoices).find(
+      (key) => statusChoices[key] === statusLabel,
+    );
     setActiveStatus(statusLabel);
+    handleFieldChange("status", statusCode);
   };
 
   const handleCloseDetails = () => {
     toggleDetails();
     setShowDetails(false);
     setActiveStatus(getStatusLabel(order.status));
+  };
+
+  const submitRawMaterialOrderUpdate = async (e) => {
+    e.preventDefault();
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
+    try {
+      await API.patch(
+        `raw_materials_orders/${order.id}/`,
+        editableFields,
+        config,
+      );
+      toggleDetails();
+      fetchRawMaterialOrders();
+    } catch (error) {
+      console.log(
+        "Raw material order update was not successful.",
+        error.message,
+      );
+    }
+  };
+
+  const handleFieldChange = (fieldName, value) => {
+    setEditableFields({
+      ...editableFields,
+      [fieldName]: value,
+    });
+  };
+
+  const toggleShowSetDeliveryDate = () => {
+    setShowSetNewDate((prevData) => !prevData);
+  };
+
+  const submitDeleteOrder = async (e) => {
+    e.preventDefault();
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
+    try {
+      const res = await API.delete(`raw_materials_orders/${order.id}/`, config);
+      console.log("Success!", res.data);
+      fetchRawMaterialOrders();
+    } catch (error) {
+      console.log(
+        "Raw material order update was not successful.",
+        error.message,
+      );
+    }
   };
 
   return (
@@ -52,7 +118,7 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
             )}
         </div>
         <div className="rmo-fields">
-          <span> Due Date: {formattedDeliveryDate}</span>
+          <span>Due Date: {formattedDeliveryDate}</span>
           <span>Delivery Time: {formattedDeliveryTime}</span>
           <span>Status: {getStatusLabel(order.status)}</span>
         </div>
@@ -71,19 +137,31 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
               <button className="xButton" onClick={handleCloseDetails}>
                 X
               </button>
-              <button className="saveButton">SAVE</button>
+              <div className="saveDelete">
+                <button
+                  className="saveButton"
+                  onClick={(e) => submitRawMaterialOrderUpdate(e)}
+                >
+                  SAVE
+                </button>
+                <button
+                  className="saveButton delete"
+                  onClick={(e) => submitDeleteOrder(e)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           )}
         </div>
       </div>
-
       {isOpen && (
         <>
-          <div className="showDetails">
+          <div className="showDetailsRawMats">
             <div className="leftContainer">
-              <div className="clientDetails">
-                <h2>Client Details</h2>
+              <div className="client">
                 <div className="clientDetails">
+                  <h2>Client Details</h2>
                   <span>
                     Name: {order.supplier.first_name || "N/A"}{" "}
                     {order.supplier.last_name}
@@ -91,27 +169,45 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
                   <span>Username: {order.supplier.username}</span>
                   <span>Email: {order.supplier.email || "N/A"}</span>
                 </div>
-              </div>
-              <div className="orderStatus">
-                <h2>Order Status</h2>
-                <div className="orderStatusSelection">
-                  {Object.values(statusChoices).map((statusLabel) => (
-                    <button
-                      key={statusLabel}
-                      className={activeStatus === statusLabel ? "active" : ""}
-                      onClick={() => handleStatusClick(statusLabel)}
-                    >
-                      {statusLabel}
-                    </button>
-                  ))}
+                <div className="duedate">
+                  <div>
+                    <h2>Delivery</h2>
+                    <div>{formattedDeliveryDate} | {formattedDeliveryTime}</div>
+                  </div>
+                  {showSetNewDate ? (
+                    <>
+                      <button
+                        onClick={toggleShowSetDeliveryDate}
+                        style={{ marginBottom: "28px" }}
+                      >
+                        Set New Date
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <input
+                        type="datetime-local"
+                        title="Set New Delivery Date"
+                        onChange={(e) =>
+                          handleFieldChange("delivery_date", e.target.value)
+                        }
+                      />
+                      <button onClick={toggleShowSetDeliveryDate}>
+                        Cancel
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="clientNote"></div>
             </div>
             <div className="rightContainer">
               <div className="orderedProducts">
-                <h2>Ordered Products</h2>
-                <div className="orderedProductsList">
+                <h2>Ordered Raw Materials</h2>
+                <div
+                  className="orderedProductsList"
+                  style={{ marginLeft: "5px" }}
+                >
                   <ul>
                     {order.raw_materials_order != null &&
                       Object.entries(order.raw_materials_order).map(
@@ -125,6 +221,20 @@ const RawMaterialOrderCard = ({ order, isOpen, toggleDetails }) => {
                         ),
                       )}
                   </ul>
+                </div>
+              </div>
+              <div className="orderStatus">
+                <h2>Order Status</h2>
+                <div className="orderStatusSelection rawmats">
+                  {Object.values(statusChoices).map((statusLabel) => (
+                    <button
+                      key={statusLabel}
+                      className={activeStatus === statusLabel ? "active" : ""}
+                      onClick={() => handleStatusClick(statusLabel)}
+                    >
+                      {statusLabel}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>

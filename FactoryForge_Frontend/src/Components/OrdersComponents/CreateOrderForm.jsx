@@ -6,6 +6,8 @@ const CreateOrderForm = ({
   createOrderTitle,
   fetchRawMaterialOrders,
   fetchClientOrders,
+  config,
+  accessToken,
 }) => {
   const [clientOrderFormData, setClientOrderFormData] = useState({
     client: "",
@@ -27,14 +29,6 @@ const CreateOrderForm = ({
 
   const [clientsList, setClientsList] = useState([]);
   const [suppliersList, setSuppliersList] = useState([]);
-
-  const accessToken = localStorage.getItem("access_token");
-  const config = {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-    },
-  };
 
   const fetchProductsList = async () => {
     try {

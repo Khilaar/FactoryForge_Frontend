@@ -5,32 +5,33 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  min-width: 800px;
-
+  min-width: 1000px;
+  max-width: 1100px;
   span:last-child {
     text-align: none;
   }
 
   button {
-    box-shadow:
-      inset 0 0 1px #7b37d1,
-      0 0 2px 1px #7b37d1;
+    box-shadow: rgba(0, 0, 0, 0.75) 0px 5px 15px;
     margin-left: 15px;
-    background-color: #191a24;
+    background-color: #1d1c1e;
   }
 }
 
 .background-frame-orders {
   @extend .background-frame;
+  display: flex;
+  justify-content: center;
   overflow: scroll;
   min-height: 700px;
+  min-width: 1020px;
 }
 
 .co-fields {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 7px;
   min-width: 190px;
   max-width: 190px;
 }
@@ -67,16 +68,24 @@
   @extend .list-item-orders;
   transition: height 0.5s ease;
   overflow: hidden;
-  height: 275px;
+  height: 255px;
   display: flex;
-  gap: 50px;
+}
+
+.showDetailsRawMats {
+  @extend .showDetails;
+  height: 170px;
 }
 
 .leftContainer {
   height: 100%;
-  width: 50%;
   display: flex;
   flex-direction: column;
+  gap: 5px;
+}
+
+.client {
+  display: flex;
   gap: 20px;
 }
 
@@ -84,6 +93,64 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 300px;
+  max-width: 300px;
+  overflow: scroll;
+  height: 135px;
+}
+
+.clientNote {
+  display: flex;
+  flex-direction: column;
+
+  textarea {
+    color: white;
+    width: 400px;
+    max-height: 45px;
+    min-height: 45px;
+    overflow-y: auto;
+    word-wrap: break-word;
+    border-radius: 7.5px;
+    background-color: rgb(15, 15, 15);
+    padding: 10px;
+    border: none;
+    max-width: 380px;
+  }
+  textarea:focus {
+    outline: none;
+  }
+}
+
+.duedate {
+  display: flex;
+  flex-direction: column;
+  min-width: 115px;
+  align-items: flex-start;
+  gap: 15px;
+  justify-content: center;
+  min-height: 135px;
+  max-height: 135px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+  button {
+    box-shadow: none;
+    background: black;
+    max-width: 90px;
+    margin: 0;
+    margin-left: -3px;
+  }
+
+  input {
+    background-color: #191a24;
+    border: none;
+    color: white;
+    font-size: 15px;
+    max-width: 120px;
+    box-shadow: rgb(0, 0, 0, 0.5);
+  }
 }
 
 .orderStatus {
@@ -95,7 +162,7 @@
   height: 100px;
   max-width: 400px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto auto;
 
   button {
@@ -105,6 +172,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: black;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
 
     &.active {
       background-color: green;
@@ -114,14 +183,20 @@
   button:hover {
     background-color: #7b37d1;
   }
-}
 
-.clientNote {
+  &.rawmats {
+    grid-template-columns: repeat(1, 1fr);
+    button {
+      height: 30px;
+    }
+  }
 }
 
 .rightContainer {
   height: 100%;
   width: 50%;
+  display: flex;
+  gap: 25px;
 }
 
 .orderedProducts {
@@ -130,14 +205,14 @@
 
 .orderedProductsList {
   display: flex;
-  min-width: 250px;
+  min-width: 225px;
   height: 230px;
-  width: 100px;
-  li {
+  justify-content: flex-start;
+  margin-top: 5px;
+  .list-item {
     display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 5px;
+    width: 180px;
   }
   overflow: scroll;
 }
@@ -154,25 +229,36 @@
   display: flex;
   flex-wrap: nowrap;
   height: 15px;
-  min-width: 125px;
+  min-width: 105px;
   align-items: center;
-  margin-left: 15px;
 }
 
 .xSave {
   display: flex;
   gap: 7px;
   position: relative;
-
+  align-items: center;
   .xButton {
     background: #fcff00;
     color: black;
     width: 35px;
     position: absolute;
     right: 125px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+  }
+  .saveDelete {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .delete {
+      background-color: red;
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+      color: white;
+    }
   }
 
   .saveButton {
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
   }
 }
 
@@ -192,14 +278,11 @@
 .pastOrders {
   color: white;
   margin-top: 15px;
-
   border-radius: 5px;
   background: #191a24;
   min-width: 120px;
   border: none;
-  box-shadow:
-    inset 0 0 1px #7b37d1,
-    0 0 2px 1px #7b37d1;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
   &.active {
     background-color: #7b37d1;
@@ -231,7 +314,15 @@
     text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
     &.active {
-      text-decoration: underline;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      padding: 4px;
+      background: linear-gradient(
+        135deg,
+        rgb(94, 29, 179) 0%,
+        rgba(111, 36, 208, 0.5) 100%
+      );
+
+      border-radius: 5px;
     }
   }
 

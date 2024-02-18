@@ -15,6 +15,13 @@ const Orders = () => {
   const [displayPage, setDisplayPage] = useState(
     location.state ? location.state.displayPage : "Client Orders",
   );
+  const accessToken = localStorage.getItem("access_token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+  };
 
   const fetchClientOrders = async () => {
     try {
@@ -55,6 +62,7 @@ const Orders = () => {
 
   const togglePage = (page) => {
     setDisplayPage(page);
+    setOpenedOrderId("");
   };
 
   return (
@@ -66,9 +74,6 @@ const Orders = () => {
             onClick={() => togglePage("Client Orders")}
           >
             Client Orders
-          </h1>
-          <h1 className="route-title" style={{ cursor: "default" }}>
-            |
           </h1>
           <h1
             className={`" ${displayPage === "Raw Material Orders" ? "active" : ""}`}
@@ -98,6 +103,9 @@ const Orders = () => {
                 key={order.id}
                 isOpen={order.id === openedOrderId}
                 toggleDetails={() => toggleOrderDetails(order.id)}
+                config={config}
+                accessToken={accessToken}
+                fetchClientOrders={fetchClientOrders}
               />
             ))}
           </section>
@@ -109,6 +117,9 @@ const Orders = () => {
                 key={order.id}
                 isOpen={order.id === openedOrderId}
                 toggleDetails={() => toggleOrderDetails(order.id)}
+                config={config}
+                accessToken={accessToken}
+                fetchRawMaterialOrders={fetchRawMaterialOrders}
               />
             ))}
           </section>
@@ -121,12 +132,16 @@ const Orders = () => {
               toggleCreateOrder={() => toggleCreateOrder()}
               createOrderTitle={"Create Client Order"}
               fetchClientOrders={fetchClientOrders}
+              config={config}
+              accessToken={accessToken}
             />
           ) : (
             <CreateOrderForm
               toggleCreateOrder={() => toggleCreateOrder()}
               createOrderTitle={"Create Raw Material Order"}
               fetchRawMaterialOrders={fetchRawMaterialOrders}
+              config={config}
+              accessToken={accessToken}
             />
           )}
         </div>
