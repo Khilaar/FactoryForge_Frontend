@@ -40,6 +40,9 @@ const CreateOrderForm = ({
   };
 
   const fetchClientsList = async () => {
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
     try {
       const response = await API.get("users/clients/");
       setClientsList(response.data);
@@ -49,6 +52,9 @@ const CreateOrderForm = ({
   };
 
   const fetchSuppliersList = async () => {
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
     try {
       const response = await API.get("suppliers/");
       setSuppliersList(response.data);
@@ -58,6 +64,9 @@ const CreateOrderForm = ({
   };
 
   const fetchRawMaterialsList = async () => {
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
     try {
       const response = await API.get("raw_materials/");
       setRawMaterialsList(response.data);

@@ -24,6 +24,9 @@ const Orders = () => {
   };
 
   const fetchClientOrders = async () => {
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
     try {
       const response = await API.get("client_orders/history/");
       setOrders(response.data);
@@ -33,6 +36,9 @@ const Orders = () => {
   };
 
   const fetchRawMaterialOrders = async () => {
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
     try {
       const response = await API.get("raw_materials_orders/history/");
       setRawMaterialOrders(response.data);
@@ -62,6 +68,7 @@ const Orders = () => {
 
   const togglePage = (page) => {
     setDisplayPage(page);
+    setOpenedOrderId("");
   };
 
   return (
@@ -73,9 +80,6 @@ const Orders = () => {
             onClick={() => togglePage("Client Orders")}
           >
             Client Orders
-          </h1>
-          <h1 className="route-title" style={{ cursor: "default" }}>
-            |
           </h1>
           <h1
             className={`" ${displayPage === "Raw Material Orders" ? "active" : ""}`}
@@ -105,6 +109,9 @@ const Orders = () => {
                 key={order.id}
                 isOpen={order.id === openedOrderId}
                 toggleDetails={() => toggleOrderDetails(order.id)}
+                config={config}
+                accessToken={accessToken}
+                fetchClientOrders={fetchClientOrders}
               />
             ))}
           </section>
@@ -116,6 +123,9 @@ const Orders = () => {
                 key={order.id}
                 isOpen={order.id === openedOrderId}
                 toggleDetails={() => toggleOrderDetails(order.id)}
+                config={config}
+                accessToken={accessToken}
+                fetchRawMaterialOrders={fetchRawMaterialOrders}
               />
             ))}
           </section>
