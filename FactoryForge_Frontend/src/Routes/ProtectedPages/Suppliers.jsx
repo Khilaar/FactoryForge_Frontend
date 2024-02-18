@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useMemo } from "react";
+// import { useNavigate } from "react-router-dom";
 import API from "../../api/API";
 
 const Suppliers = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [suppliers, setSuppliers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [showFormSupplier, setShowFormSupplier] = useState(false);
+  const [showDeleteAction, setShowDeleteAction] = useState(false);
   const [formDataSupplier, setFormDataSupplier] = useState({
     username: "",
     first_name: "",
@@ -51,6 +53,10 @@ const Suppliers = () => {
     setShowFormSupplier(!showFormSupplier);
   };
 
+  const toggleDeleteAction = () => {
+    setShowDeleteAction(!showDeleteAction);
+  }
+
   const handleCloseSupplierForm = () => {
     setFormDataSupplier({
       username: "",
@@ -74,11 +80,52 @@ const Suppliers = () => {
       }
     };
     fetchSuppliers();
-  }, []);
+  }, [searchQuery]);
+
+  const filteredSuppliers = useMemo(() => {
+    return suppliers.filter((supplier) =>
+      Object.values(supplier)
+        .some((field) => field && field.toString().toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+  }, [suppliers, searchQuery]);
+
+  const handleDeleteSupplier = async (supplierId) => {
+    try {
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+  
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+  
+      await API.delete(`/suppliers/${supplierId}`, config);
+  
+      // After successful deletion, update the list of suppliers
+      const response = await API.get("/suppliers/");
+      setSuppliers(response.data);
+    } catch (error) {
+      console.error("Error deleting supplier", error);
+    }
+  };
 
   return (
     <div>
-      <h1 className="route-title">Suppliers</h1>
+      <div className="title-and-searchbar">
+        <h1 className="route-title">Suppliers</h1>
+        <span className="searchbar-suppliers">  
+        <h3>Search</h3>
+        <input 
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        </span>
+      </div>
+      
 
       <div className="background-frame">
         <section>
@@ -101,23 +148,41 @@ const Suppliers = () => {
                   <span>
                     <p className="header-text">email</p>
                   </span>
+                  {showDeleteAction && (
+                    <span>
+                    <p className="header-text">Action</p>
+                  </span>
+                  )}
                 </li>
               }
             </ul>
-            {suppliers.slice(0.4).map((supplier) => (
+            {filteredSuppliers.slice(0.5).map((supplier) => (
               <li key={supplier.id} className="list-item-suppliers">
                 <span>{supplier.id}</span>
                 <span>{supplier.username}</span>
                 <span>{supplier.first_name}</span>
                 <span>{supplier.last_name}</span>
                 <span>{supplier.email}</span>
+                {showDeleteAction && (
+                  <span>
+                    <button 
+                      className="supplier-delete-action-btn"
+                      onClick={() => handleDeleteSupplier(supplier.id)}
+                    >
+                      Delete
+                    </button>
+                  </span>
+                )}
               </li>
             ))}
           </ul>
         </section>
         <section>
           <button className="supplier-button" onClick={toggleFormSupplier}>
-            ADD SUPPLIER
+            ADD
+          </button>
+          <button className="supplier-button-delete" onClick={toggleDeleteAction}>
+            DELETE
           </button>
           {showFormSupplier && (
             <div className="add-form-supply">
