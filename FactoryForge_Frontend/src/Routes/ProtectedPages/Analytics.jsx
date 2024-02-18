@@ -17,12 +17,25 @@ const Analytics = () => {
         });
         setSoldProducts(response.data[1]["Sold Products"]);
         setUsedMaterials(response.data[0]["Used Material"]);
+        totalSoldProducts();
       } catch (error) {
         console.error("Error fetching statistics: ", error);
       }
     };
     fetchStatistics();
   }, []);
+
+  const totalSoldProducts = () => {
+    if (soldProducts) {
+      const valuesArray = Object.values(soldProducts);
+      const sum = valuesArray.reduce(
+        (total, currentValue) => total + currentValue,
+        0,
+      );
+      console.log("Total sold products:", sum);
+      return sum;
+    }
+  };
 
   return (
     <>
@@ -80,6 +93,7 @@ const Analytics = () => {
                   </li>
                 ))}
             </ul>
+            <h4>Total sold products: {totalSoldProducts()}</h4>
           </div>
 
           <div className="background-frame">
@@ -118,14 +132,18 @@ const Analytics = () => {
             <ul>
               {usedMaterials &&
                 Object.entries(usedMaterials).map(
-                  ([usedMaterialsName, quantity]) => (
-                    <li key={usedMaterials} className="list-item">
+                  ([usedMaterialsName, quantity], index) => (
+                    <li
+                      key={`${usedMaterialsName}-${index}`}
+                      className="list-item"
+                    >
                       <span>{usedMaterialsName}</span>
                       <span>Quantity: {quantity}</span>
                     </li>
                   ),
                 )}
             </ul>
+            <h2>hello</h2>
           </div>
           <div className="background-frame">
             <div className={"used-materials-chart"}>
