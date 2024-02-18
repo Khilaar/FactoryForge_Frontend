@@ -1,7 +1,7 @@
 .background-frame-analytics {
   color: whitesmoke;
   overflow: hidden;
-  padding: 1rem 2rem 2rem 2rem;
+  padding: 2rem 2rem 2rem 2rem;
   margin: 2rem auto;
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.03);
@@ -10,15 +10,26 @@
   backdrop-filter: blur(2.4px);
   -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  width: 20%;
-  height: 80%;
+  width: 30rem;
+  height: 25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: larger;
+  justify-content: center;
   .list-item {
-    width: 100%;
+    width: 25rem;
     display: flex;
     justify-content: space-between;
   }
+}
+
+.background-frame-analytics-top-seller {
+  @extend .background-frame-analytics;
+  height: 15rem;
+}
+
+.analytics-overlay {
+  display: flex;
+  justify-content: space-around;
 }
