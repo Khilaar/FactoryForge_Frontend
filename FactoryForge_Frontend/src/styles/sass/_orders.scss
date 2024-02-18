@@ -74,6 +74,11 @@
   display: flex;
 }
 
+.showDetailsRawMats {
+  @extend .showDetails;
+  height: 170px;
+}
+
 .leftContainer {
   height: 100%;
   display: flex;
@@ -128,6 +133,10 @@
   min-height: 135px;
   max-height: 135px;
 
+  div {
+    display: flex;
+    flex-direction: column;
+  }
   button {
     box-shadow: none;
     background: black;
@@ -175,6 +184,13 @@
 
   button:hover {
     background-color: #7b37d1;
+  }
+
+  &.rawmats {
+    grid-template-columns: repeat(1, 1fr);
+    button {
+      height: 30px;
+    }
   }
 }
 
@@ -240,6 +256,7 @@
     .delete {
       background-color: red;
       box-shadow: none;
+      color: white;
     }
   }
 
