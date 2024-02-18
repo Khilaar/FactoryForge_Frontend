@@ -32,3 +32,8 @@
   @extend .inventory-add-form-product !optional;
   width: 50vw;
 }
+
+.supplier-button-delete{
+  @extend .supplier-button;
+  margin-left: 2rem;
+}

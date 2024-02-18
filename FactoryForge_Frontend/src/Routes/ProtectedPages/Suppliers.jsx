@@ -117,7 +117,10 @@ const Suppliers = () => {
         </section>
         <section>
           <button className="supplier-button" onClick={toggleFormSupplier}>
-            ADD SUPPLIER
+            ADD
+          </button>
+          <button className="supplier-button-delete" onClick={toggleFormSupplier}>
+            DELETE
           </button>
           {showFormSupplier && (
             <div className="add-form-supply">
