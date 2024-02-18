@@ -169,59 +169,62 @@ const RawMaterialOrderCard = ({
                   <span>Username: {order.supplier.username}</span>
                   <span>Email: {order.supplier.email || "N/A"}</span>
                 </div>
-                <div className="duedate">
-                  <div>
-                    <h2>Delivery</h2>
-                    <div>{formattedDeliveryDate} | {formattedDeliveryTime}</div>
+                <div className="orderedProducts">
+                  <h2>Ordered Raw Materials</h2>
+                  <div
+                    className="orderedProductsList"
+                    style={{ marginLeft: "5px" }}
+                  >
+                    <ul>
+                      {order.raw_materials_order != null &&
+                        Object.entries(order.raw_materials_order).map(
+                          ([rawMatID, quantity]) => (
+                            <li key={rawMatID} className="list-item">
+                              <span className="idSpan">ID: {rawMatID}</span>
+                              <span className="quantitySpan">
+                                Quantity: {quantity}
+                              </span>
+                            </li>
+                          ),
+                        )}
+                    </ul>
                   </div>
-                  {showSetNewDate ? (
-                    <>
-                      <button
-                        onClick={toggleShowSetDeliveryDate}
-                        style={{ marginBottom: "28px" }}
-                      >
-                        Set New Date
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <input
-                        type="datetime-local"
-                        title="Set New Delivery Date"
-                        onChange={(e) =>
-                          handleFieldChange("delivery_date", e.target.value)
-                        }
-                      />
-                      <button onClick={toggleShowSetDeliveryDate}>
-                        Cancel
-                      </button>
-                    </>
-                  )}
                 </div>
               </div>
               <div className="clientNote"></div>
             </div>
-            <div className="rightContainer">
-              <div className="orderedProducts">
-                <h2>Ordered Raw Materials</h2>
-                <div
-                  className="orderedProductsList"
-                  style={{ marginLeft: "5px" }}
-                >
-                  <ul>
-                    {order.raw_materials_order != null &&
-                      Object.entries(order.raw_materials_order).map(
-                        ([rawMatID, quantity]) => (
-                          <li key={rawMatID} className="list-item">
-                            <span className="idSpan">ID: {rawMatID}</span>
-                            <span className="quantitySpan">
-                              Quantity: {quantity}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                  </ul>
+            <div className="rightContainer rawmats">
+              <div className="duedate rawmats">
+                <div>
+                  <h2>Delivery</h2>
+                  <div>
+                    {formattedDeliveryDate} | {formattedDeliveryTime}
+                  </div>
                 </div>
+                {showSetNewDate ? (
+                  <>
+                    <button
+                      onClick={toggleShowSetDeliveryDate}
+                      style={{ marginBottom: "28px" }}
+                    >
+                      Set New Date
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <input
+                      type="datetime-local"
+                      title="Set New Delivery Date"
+                      onChange={(e) =>
+                        handleFieldChange(
+                          "delivery_date",
+                          new Date(e.target.value).toISOString(),
+                        )
+                      }
+                    />
+                    <button onClick={toggleShowSetDeliveryDate}>Cancel</button>
+                  </>
+                )}
               </div>
               <div className="orderStatus">
                 <h2>Order Status</h2>

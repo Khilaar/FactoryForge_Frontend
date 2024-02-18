@@ -62,6 +62,7 @@ const Orders = () => {
 
   const togglePage = (page) => {
     setDisplayPage(page);
+    setOpenedOrderId("");
   };
 
   return (
