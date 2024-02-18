@@ -6,6 +6,7 @@ const ClientOrderCard = ({
   isOpen,
   toggleDetails,
   config,
+  accessToken,
   fetchClientOrders,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -51,6 +52,9 @@ const ClientOrderCard = ({
   const submitClientOrderUpdate = async (e) => {
     e.preventDefault();
     console.log(editableFields);
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
     try {
       const res = await API.patch(
         `client_orders/${order.id}/`,
@@ -78,6 +82,9 @@ const ClientOrderCard = ({
 
   const submitDeleteOrder = async (e) => {
     e.preventDefault();
+    if (!accessToken) {
+      throw new Error("Access Token not found.");
+    }
     try {
       const res = await API.delete(`client_orders/${order.id}/`, config);
       console.log("Success!", res.data);

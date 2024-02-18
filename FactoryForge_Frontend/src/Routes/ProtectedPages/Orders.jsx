@@ -106,6 +106,7 @@ const Orders = () => {
                 isOpen={order.id === openedOrderId}
                 toggleDetails={() => toggleOrderDetails(order.id)}
                 config={config}
+                accessToken={accessToken}
                 fetchClientOrders={fetchClientOrders}
               />
             ))}
@@ -119,6 +120,7 @@ const Orders = () => {
                 isOpen={order.id === openedOrderId}
                 toggleDetails={() => toggleOrderDetails(order.id)}
                 config={config}
+                accessToken={accessToken}
               />
             ))}
           </section>
