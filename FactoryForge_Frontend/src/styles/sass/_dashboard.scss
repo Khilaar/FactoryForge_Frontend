@@ -229,6 +229,14 @@
     }
   }
 }
+@media (min-width: 2000px) {
+  .pie_chart {
+    width: 25%;
+  }
+  .raw_material_inventory {
+    width: 35%;
+  }
+}
 
 @media (min-width: 320px) and (max-width: 920px) {
   .search_results {
