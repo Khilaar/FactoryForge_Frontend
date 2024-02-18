@@ -22,6 +22,10 @@
     display: flex;
     justify-content: space-between;
   }
+  ul {
+    max-height: 15rem;
+    overflow-y: auto;
+  }
 }
 
 .background-frame-analytics-top-seller {

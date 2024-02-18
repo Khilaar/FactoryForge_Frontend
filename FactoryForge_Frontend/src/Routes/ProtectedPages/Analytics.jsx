@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import API from "../../api/API";
+import PieChart from "../../Components/Charts/PieChart.jsx";
 
 const Analytics = () => {
   const [soldProducts, setSoldProducts] = useState(null);
@@ -66,6 +67,7 @@ const Analytics = () => {
             </ul>
           </div>
         </span>
+
         <span>
           <div className="background-frame-analytics">
             <h2>Sold Products</h2>
@@ -79,6 +81,38 @@ const Analytics = () => {
                 ))}
             </ul>
           </div>
+
+          <div className="background-frame">
+            <div className={"sold-products-chart"}>
+              <h3>Sold Products</h3>
+              {soldProducts && (
+                <PieChart
+                  chartData={{
+                    labels: Object.keys(soldProducts),
+                    datasets: [
+                      {
+                        label: "Quantity Sold",
+                        data: Object.values(soldProducts),
+                        backgroundColor: [
+                          "#151724",
+                          "#6e248a",
+                          "#fcff00",
+                          "#40C9A2",
+                          "#CC4BC2",
+                          "#BBB5BD",
+                          "#8EE3F5",
+                        ],
+                        borderWidth: 1,
+                      },
+                    ],
+                  }}
+                />
+              )}
+            </div>
+          </div>
+        </span>
+
+        <span>
           <div className="background-frame-analytics">
             <h2>Used Materials</h2>
             <ul>
@@ -92,6 +126,34 @@ const Analytics = () => {
                   ),
                 )}
             </ul>
+          </div>
+          <div className="background-frame">
+            <div className={"used-materials-chart"}>
+              <h3>Used Matrerials</h3>
+              {soldProducts && (
+                <PieChart
+                  chartData={{
+                    labels: Object.keys(usedMaterials),
+                    datasets: [
+                      {
+                        label: "Quantity Sold",
+                        data: Object.values(usedMaterials),
+                        backgroundColor: [
+                          "#151724",
+                          "#6e248a",
+                          "#fcff00",
+                          "#40C9A2",
+                          "#CC4BC2",
+                          "#BBB5BD",
+                          "#8EE3F5",
+                        ],
+                        borderWidth: 1,
+                      },
+                    ],
+                  }}
+                />
+              )}
+            </div>
           </div>
         </span>
       </div>
