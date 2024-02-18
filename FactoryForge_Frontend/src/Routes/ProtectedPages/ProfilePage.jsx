@@ -52,13 +52,14 @@ export default function ProfilePage() {
       ...updateUserProfile,
       [fieldName]: value,
     });
-    // if (fieldName === "avatar") {
-    //   console.log(value);
-    //   const reader = new FileReader();
-    //   reader.onload = (value) => {
-    //     setNewAvatar(value);
-    //   };
-    // }
+    if (fieldName === "avatar") {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setNewAvatar(event.target.result);
+      };
+      reader.readAsDataURL(value);
+      console.log(value);
+    }
   };
 
   const submitUpdate = async (e) => {
