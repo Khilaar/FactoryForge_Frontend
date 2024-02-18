@@ -10,7 +10,7 @@
   backdrop-filter: blur(2.4px);
   -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  width: fit-content;
+  width: 30rem;
   height: 20rem;
   display: flex;
   flex-direction: column;
@@ -55,7 +55,7 @@
   backdrop-filter: blur(2.4px);
   -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  width: fit-content;
+  width: 30rem;
   height: 20rem;
   display: flex;
   flex-direction: column;
@@ -104,6 +104,4 @@
 .background-frame-piechart {
   @extend .background-frame-analytics;
   height: auto;
-  padding-right: 45px;
-  padding-left: 45px;
 }
