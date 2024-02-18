@@ -319,7 +319,15 @@
     text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
     &.active {
-      text-decoration: underline;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+      padding: 4px;
+      background: linear-gradient(
+        135deg,
+        rgb(94, 29, 179) 0%,
+        rgba(111, 36, 208, 0.5) 100%
+      );
+
+      border-radius: 5px;
     }
   }
 

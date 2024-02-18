@@ -74,9 +74,7 @@ const Orders = () => {
           >
             Client Orders
           </h1>
-          <h1 className="route-title" style={{ cursor: "default" }}>
-            |
-          </h1>
+
           <h1
             className={` ${displayPage === "Raw Material Orders" ? "active" : ""}`}
             onClick={() => togglePage("Raw Material Orders")}
