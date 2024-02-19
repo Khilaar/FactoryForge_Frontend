@@ -280,22 +280,24 @@
 .topBar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-top: 15px;
 }
 
 .headerButtons {
   display: flex;
+  // border: 2px white solid;
+  gap: 20px;
+  margin-left: -30px;
 }
 
 .pastOrders {
   color: white;
-
   border-radius: 5px;
   background: #191a24;
   min-width: 120px;
+
   border: none;
-  margin-right: 40px;
+  margin-right: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
   &.active {
@@ -341,9 +343,6 @@
   h1:hover {
     cursor: pointer;
   }
-}
-
-.createOrderForm-container {
 }
 
 .add-order-form {
@@ -437,5 +436,5 @@
 
 .searchbar-orders {
   @extend .searchbar;
-  margin-right: 60px;
+  margin: 0px 30px 0px 20px;
 }
