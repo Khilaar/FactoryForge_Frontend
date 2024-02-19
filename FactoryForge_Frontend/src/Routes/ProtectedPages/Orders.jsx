@@ -71,6 +71,11 @@ const Orders = () => {
     setOpenedOrderId("");
   };
 
+
+  if (!orders) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <div className="topBar">

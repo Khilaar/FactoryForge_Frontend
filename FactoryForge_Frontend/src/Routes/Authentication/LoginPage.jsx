@@ -13,7 +13,7 @@ function LoginPage() {
     username: "",
     password: "",
   });
-
+  const [errorMessage, setErrorMessage] = useState(null);
   const triggerLogin = async (e) => {
     e.preventDefault();
     try {
@@ -24,6 +24,7 @@ function LoginPage() {
       navigate("/");
     } catch (error) {
       console.log("Error during login:", error);
+      setErrorMessage("An error occurred.");
     }
   };
 
@@ -64,6 +65,9 @@ function LoginPage() {
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
+            </div>
+            <div>
+              {errorMessage && <p className="error-message">{errorMessage}</p>}
             </div>
           </span>
           <span className="button-span-login">

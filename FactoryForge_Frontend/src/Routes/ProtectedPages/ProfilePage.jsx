@@ -76,6 +76,10 @@ export default function ProfilePage() {
     }
   };
 
+  if (!userProfile && !updateUserProfile) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <div className="profilePage-container">
