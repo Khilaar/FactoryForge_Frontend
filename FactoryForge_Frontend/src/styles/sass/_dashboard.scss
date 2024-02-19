@@ -139,11 +139,11 @@
         justify-content: space-between;
       }
 
+    }
       .task {
         @extend .list-item;
         justify-content: space-between;
       }
-    }
 
     .suppliers {
       border-radius: 20px;
@@ -227,6 +227,14 @@
     .expenses {
       color: red;
     }
+  }
+}
+@media (min-width: 2000px) {
+  .pie_chart {
+    width: 25%;
+  }
+  .raw_material_inventory {
+    width: 35%;
   }
 }
 
