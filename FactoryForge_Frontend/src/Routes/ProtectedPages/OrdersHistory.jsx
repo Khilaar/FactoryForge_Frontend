@@ -137,7 +137,11 @@ const Orders = () => {
           >
             Create Order
           </button>
-          <button className="pastOrders active" onClick={handleNavigate}>
+          <button
+            className="pastOrders active"
+            onClick={handleNavigate}
+            style={{ marginRight: "200px" }}
+          >
             Past Orders
           </button>
         </div>

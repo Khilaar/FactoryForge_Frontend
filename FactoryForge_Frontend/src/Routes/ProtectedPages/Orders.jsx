@@ -145,7 +145,7 @@ const Orders = () => {
           <button
             className="pastOrders"
             onClick={handleNavigate}
-            style={{ marginRight: "60px" }}
+            style={{ marginRight: "200px" }}
           >
             Past Orders
           </button>
