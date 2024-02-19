@@ -1,9 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
-// import { useNavigate } from "react-router-dom";
 import API from "../../api/API";
 
 const Suppliers = () => {
-  // const navigate = useNavigate();
   const [suppliers, setSuppliers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showFormSupplier, setShowFormSupplier] = useState(false);
@@ -75,7 +73,6 @@ const Suppliers = () => {
     console.log(showFormSupplier);
   };
 
-  // Fetch all the Suppliers
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
@@ -128,7 +125,6 @@ const Suppliers = () => {
   
       await API.delete(`/suppliers/${supplierId}`, config);
   
-      // After successful deletion, update the list of suppliers
       const response = await API.get("/suppliers/");
       setSuppliers(response.data);
     } catch (error) {
