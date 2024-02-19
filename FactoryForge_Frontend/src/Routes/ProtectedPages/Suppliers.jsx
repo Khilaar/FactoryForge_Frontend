@@ -1,13 +1,13 @@
 import { useState, useEffect, useMemo } from "react";
-// import { useNavigate } from "react-router-dom";
 import API from "../../api/API";
 
 const Suppliers = () => {
-  // const navigate = useNavigate();
   const [suppliers, setSuppliers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showFormSupplier, setShowFormSupplier] = useState(false);
   const [showDeleteAction, setShowDeleteAction] = useState(false);
+  const [showSortPopUp, setShowSortPopUp] = useState(false);
+  const [sortOption, setSortOption] = useState(null);
   const [formDataSupplier, setFormDataSupplier] = useState({
     username: "",
     first_name: "",
@@ -57,6 +57,10 @@ const Suppliers = () => {
     setShowDeleteAction(!showDeleteAction);
   }
 
+  const toggleSortPopUp = () => {
+    setShowSortPopUp(!showSortPopUp);
+  }
+
   const handleCloseSupplierForm = () => {
     setFormDataSupplier({
       username: "",
@@ -69,7 +73,6 @@ const Suppliers = () => {
     console.log(showFormSupplier);
   };
 
-  // Fetch all the Suppliers
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
@@ -82,12 +85,30 @@ const Suppliers = () => {
     fetchSuppliers();
   }, [searchQuery]);
 
-  const filteredSuppliers = useMemo(() => {
-    return suppliers.filter((supplier) =>
+  // const filteredSuppliers = useMemo(() => {
+  //   return suppliers.filter((supplier) =>
+  //     Object.values(supplier)
+  //       .some((field) => field && field.toString().toLowerCase().includes(searchQuery.toLowerCase()))
+  //   );
+  // }, [suppliers, searchQuery]);
+
+  const sortedSuppliers = useMemo(() => {
+    let sortedList = [...suppliers];
+
+    if(sortOption) {
+      sortedList.sort((a, b) => {
+        const fieldA = a[sortOption].toString().toLowerCase();
+        const fieldB = b[sortOption].toString().toLowerCase();
+        return fieldA.localeCompare(fieldB);
+      });
+    }
+    
+    return sortedList.filter((supplier) =>
       Object.values(supplier)
         .some((field) => field && field.toString().toLowerCase().includes(searchQuery.toLowerCase()))
     );
-  }, [suppliers, searchQuery]);
+    }, [suppliers, searchQuery, sortOption]);
+  
 
   const handleDeleteSupplier = async (supplierId) => {
     try {
@@ -104,7 +125,6 @@ const Suppliers = () => {
   
       await API.delete(`/suppliers/${supplierId}`, config);
   
-      // After successful deletion, update the list of suppliers
       const response = await API.get("/suppliers/");
       setSuppliers(response.data);
     } catch (error) {
@@ -130,6 +150,41 @@ const Suppliers = () => {
       <div className="background-frame">
         <section>
           <ul>
+          <span>
+            <button onClick={toggleSortPopUp} className="supplier-button-sort">sort</button>
+          </span>
+          {showSortPopUp && (
+            <span className="sort-span">
+            <button 
+            className="sort-span-button"
+            onClick={() => {
+              setSortOption("id");
+              setShowSortPopUp(false);
+            }}
+            >id</button>
+            <button 
+            className="sort-span-button"
+            onClick={() => {
+              setSortOption("username");
+              setShowSortPopUp(false);
+            }}
+            >username</button>
+            <button 
+            className="sort-span-button"
+            onClick={() => {
+              setSortOption("first_name");
+              setShowSortPopUp(false);
+            }}
+            >first name</button>
+            <button 
+            className="sort-span-button"
+            onClick={() => {
+              setSortOption("last_name");
+              setShowSortPopUp(false);
+            }}
+            >last name</button>
+            </span>
+          )}
             <ul className="items-list">
               {
                 <li className="list-item-suppliers">
@@ -156,7 +211,7 @@ const Suppliers = () => {
                 </li>
               }
             </ul>
-            {filteredSuppliers.slice(0.5).map((supplier) => (
+            {sortedSuppliers.slice(0.5).map((supplier) => (
               <li key={supplier.id} className="list-item-suppliers">
                 <span>{supplier.id}</span>
                 <span>{supplier.username}</span>
