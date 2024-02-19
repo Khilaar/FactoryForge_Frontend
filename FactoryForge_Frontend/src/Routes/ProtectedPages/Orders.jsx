@@ -82,6 +82,16 @@ const Orders = () => {
   );
 }, [orders, searchQuery]);
 
+  const filteredRawMaterialOrders = useMemo(() => {
+  return rawMaterialOrders.filter((order) =>
+    Object.values(order)
+      .some((field) => field && field.toString().toLowerCase().includes(searchQuery.toLowerCase()))
+    || Object.values(order.supplier)
+      .some((field) => field && field.toString().toLowerCase().includes(searchQuery.toLowerCase()))
+
+  );
+}, [orders, searchQuery]);
+
 
 
   if (!orders) {
@@ -144,7 +154,7 @@ const Orders = () => {
           </section>
         ) : (
           <section>
-            {rawMaterialOrders.map((order) => (
+            {filteredRawMaterialOrders.map((order) => (
               <RawMaterialOrderCard
                 order={order}
                 key={order.id}
