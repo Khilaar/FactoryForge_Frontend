@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../api/API";
 import defaultproductimage from "../../Assets/default-product-image.png";
@@ -6,12 +6,20 @@ import defaultproductimage from "../../Assets/default-product-image.png";
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [updatedProduct, setUpdatedProduct] = useState({
+    title: "",
+    description: "",
+    quantity_available: 0,
+    price: "",
+    production_cost: "",
+    category: null,
+  });
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await API.get(`/products/${id}`);
-
         setProduct(response.data);
         console.log(response.data);
       } catch (error) {
@@ -22,6 +30,53 @@ const ProductDetail = () => {
     fetchProduct();
   }, [id]);
 
+  const handleFormSubmit = async () => {
+    try {
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+      const updatedFields = {};
+      if (updatedProduct.title) {
+        updatedFields.title = updatedProduct.title;
+      }
+      if (updatedProduct.description) {
+        updatedFields.description = updatedProduct.description;
+      }
+      if (updatedProduct.price) {
+        updatedFields.price = updatedProduct.price;
+      }
+      if (updatedProduct.category) {
+        updatedFields.category = updatedProduct.category;
+      }
+
+      if (Object.keys(updatedFields).length === 0) {
+        console.error("No fields updated.");
+        return;
+      }
+
+      const response = await API.patch(
+        `/products/${id}`,
+        updatedFields,
+        config,
+      );
+      console.log("Product updated successfully:", response.data);
+      setProduct(response.data);
+      setShowForm(false);
+      setUpdatedProduct({});
+    } catch (error) {
+      console.error("Error updating Product: ", error);
+    }
+  };
+
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -29,6 +84,7 @@ const ProductDetail = () => {
   return (
     <div className="background-frame-product-detail">
       <h1>ProductDetail</h1>
+
       <img className="product-image-default" src={defaultproductimage} alt="" />
       <div className="product-detail-table">
         <li key={"product-name"} className="list-item">
@@ -81,7 +137,59 @@ const ProductDetail = () => {
             </span>
           </span>
         </li>
+        <button onClick={() => setShowForm(true)}>Edit Product</button>
       </div>
+      {showForm && (
+        <div className="add-form">
+          <div className="title-close-button-pop-up-form-patch">
+            <h2>Patch Product</h2>
+            <button
+              onClick={() => {
+                setShowForm(false);
+                setUpdatedProduct({});
+              }}
+            >
+              X
+            </button>
+          </div>
+          <input
+            type="text"
+            placeholder={product.title}
+            value={updatedProduct.title}
+            onChange={(e) =>
+              setUpdatedProduct({ ...updatedProduct, title: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder={product.price}
+            value={updatedProduct.price}
+            onChange={(e) =>
+              setUpdatedProduct({ ...updatedProduct, price: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder="description"
+            value={updatedProduct.description}
+            onChange={(e) =>
+              setUpdatedProduct({
+                ...updatedProduct,
+                description: e.target.value,
+              })
+            }
+          />
+          <input
+            type="text"
+            placeholder="category"
+            value={updatedProduct.category}
+            onChange={(e) =>
+              setUpdatedProduct({ ...updatedProduct, category: e.target.value })
+            }
+          />
+          <button onClick={handleFormSubmit}>Update</button>
+        </div>
+      )}
     </div>
   );
 };

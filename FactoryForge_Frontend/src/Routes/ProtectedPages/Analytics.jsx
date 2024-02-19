@@ -177,6 +177,7 @@ const Analytics = () => {
                   <PieChart
                     chartData={{
                       labels: Object.keys(soldProducts),
+
                       datasets: [
                         {
                           label: "Quantity Sold",
