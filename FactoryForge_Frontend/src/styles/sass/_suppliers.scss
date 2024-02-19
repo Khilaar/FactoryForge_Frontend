@@ -3,7 +3,7 @@
 }
 
 .supplier-button {
-  @extend button;
+  // @extend button;
   margin-top: 10px;
 }
 
@@ -45,7 +45,48 @@
 }
 
 .supplier-delete-action-btn{
-  @extend button;
+  // @extend button;
   padding-left: 4rem;
   color: red;
+}
+
+.supplier-button-sort{
+  background: #191a24 !important;
+  color: whitesmoke;
+  margin: 0 0 10px 3px;
+  max-width: 6rem;
+}
+
+.supplier-button-sort:hover {
+  color: whitesmoke;
+  box-shadow:
+    inset 0 0 1px #7b37d1,
+    0 0 2px 1px #7b37d1;
+  background: #180c25;
+  transition: all 0.2s ease;
+}
+
+.sort-span {
+  position:absolute;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background:#191a24;
+  margin-top: -2.6rem;
+  margin-left: 6rem;
+  border-radius: 5px;
+}
+
+.sort-span-button{
+  background:#191a24 !important;
+  color: whitesmoke;
+  margin-bottom: 4px;
+}
+.sort-span-button:hover {
+  color: whitesmoke;
+  box-shadow:
+    inset 0 0 1px #7b37d1,
+    0 0 2px 1px #7b37d1;
+  background: #180c25 !important;
+  transition: all 0.2s ease;
 }
