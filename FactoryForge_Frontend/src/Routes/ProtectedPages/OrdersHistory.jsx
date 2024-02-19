@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import API from "../../api/API";
 import ClientOrderCard from "../../Components/OrdersComponents/ClientOrderCard";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -7,6 +7,7 @@ import CreateOrderForm from "../../Components/OrdersComponents/CreateOrderForm";
 
 const Orders = () => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
   const [orders, setOrders] = useState([]);
   const [rawMaterialOrders, setRawMaterialOrders] = useState([]);
@@ -71,6 +72,38 @@ const Orders = () => {
     setOpenedOrderId("");
   };
 
+  const filteredOrders = useMemo(() => {
+    return orders.filter(
+      (order) =>
+        Object.values(order).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ) ||
+        Object.values(order.client).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
+    );
+  }, [orders, searchQuery]);
+
+  const filteredRawMaterialOrders = useMemo(() => {
+    return rawMaterialOrders.filter(
+      (order) =>
+        Object.values(order).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ) ||
+        Object.values(order.supplier).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
+    );
+  }, [orders, searchQuery]);
+
   return (
     <>
       <div className="topBar">
@@ -89,6 +122,15 @@ const Orders = () => {
           </h1>
         </div>
         <div className="headerButtons">
+          <span className="searchbar-orders">
+            <input
+              style={{ padding: "5px" }}
+              type="text"
+              value={searchQuery}
+              placeholder="Search"
+              onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
+            />
+          </span>
           <button
             className={`createOrder ${showCreateOrder ? "active" : ""}`}
             onClick={toggleCreateOrder}
@@ -103,7 +145,7 @@ const Orders = () => {
       <div className="background-frame-orders">
         {displayPage === "Client Orders" ? (
           <section>
-            {orders.map((order) => (
+            {filteredOrders.map((order) => (
               <ClientOrderCard
                 order={order}
                 key={order.id}
@@ -117,7 +159,7 @@ const Orders = () => {
           </section>
         ) : (
           <section>
-            {rawMaterialOrders.map((order) => (
+            {filteredRawMaterialOrders.map((order) => (
               <RawMaterialOrderCard
                 order={order}
                 key={order.id}

@@ -280,23 +280,22 @@
 .topBar {
   display: flex;
   justify-content: space-between;
-  min-width: 500px;
+  align-items: center;
+  margin-top: 15px;
 }
 
 .headerButtons {
   display: flex;
-  max-width: 350px;
-  gap: 50px;
-  margin-right: 80px;
 }
 
 .pastOrders {
   color: white;
-  margin-top: 15px;
+
   border-radius: 5px;
   background: #191a24;
   min-width: 120px;
   border: none;
+  margin-right: 40px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
   &.active {
@@ -323,7 +322,6 @@
 
   h1 {
     margin-right: -15px;
-    margin-top: 1rem;
     margin-left: 2rem;
     color: whitesmoke;
     text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -336,7 +334,6 @@
         rgb(94, 29, 179) 0%,
         rgba(111, 36, 208, 0.5) 100%
       );
-
       border-radius: 5px;
     }
   }
@@ -438,9 +435,7 @@
   }
 }
 
-.searchbar-orders{
+.searchbar-orders {
   @extend .searchbar;
-  justify-content: flex-end;
-  color: white;
-  margin: 20px 80px 0 0;
+  margin-right: 60px;
 }
