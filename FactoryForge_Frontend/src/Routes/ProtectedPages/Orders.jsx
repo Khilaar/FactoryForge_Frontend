@@ -1,4 +1,4 @@
-import {useState, useEffect, useMemo} from "react";
+import { useState, useEffect, useMemo } from "react";
 import API from "../../api/API";
 import ClientOrderCard from "../../Components/OrdersComponents/ClientOrderCard";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -6,7 +6,7 @@ import RawMaterialOrderCard from "../../Components/OrdersComponents/RawMaterialO
 import CreateOrderForm from "../../Components/OrdersComponents/CreateOrderForm";
 
 const Orders = () => {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const [orders, setOrders] = useState([]);
@@ -73,26 +73,36 @@ const Orders = () => {
   };
 
   const filteredOrders = useMemo(() => {
-  return orders.filter((order) =>
-    Object.values(order)
-      .some((field) => field && field.toString().toLowerCase().includes(searchQuery.toLowerCase()))
-    || Object.values(order.client)
-      .some((field) => field && field.toString().toLowerCase().includes(searchQuery.toLowerCase()))
-
-  );
-}, [orders, searchQuery]);
+    return orders.filter(
+      (order) =>
+        Object.values(order).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ) ||
+        Object.values(order.client).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
+    );
+  }, [orders, searchQuery]);
 
   const filteredRawMaterialOrders = useMemo(() => {
-  return rawMaterialOrders.filter((order) =>
-    Object.values(order)
-      .some((field) => field && field.toString().toLowerCase().includes(searchQuery.toLowerCase()))
-    || Object.values(order.supplier)
-      .some((field) => field && field.toString().toLowerCase().includes(searchQuery.toLowerCase()))
-
-  );
-}, [orders, searchQuery]);
-
-
+    return rawMaterialOrders.filter(
+      (order) =>
+        Object.values(order).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ) ||
+        Object.values(order.supplier).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
+    );
+  }, [orders, searchQuery]);
 
   if (!orders) {
     return <div>Loading...</div>;
@@ -103,47 +113,51 @@ const Orders = () => {
       <div className="topBar">
         <div className="selectPage">
           <h1
-              className={` ${displayPage === "Client Orders" ? "active" : ""}`}
-              onClick={() => togglePage("Client Orders")}
+            className={` ${displayPage === "Client Orders" ? "active" : ""}`}
+            onClick={() => togglePage("Client Orders")}
           >
             Client Orders
           </h1>
 
           <h1
-              className={` ${displayPage === "Raw Material Orders" ? "active" : ""}`}
-              onClick={() => togglePage("Raw Material Orders")}
+            className={` ${displayPage === "Raw Material Orders" ? "active" : ""}`}
+            onClick={() => togglePage("Raw Material Orders")}
           >
             Raw Material Orders
           </h1>
         </div>
         <div className="headerButtons">
+          <span className="searchbar-orders">
+            <input
+              style={{ padding: "5px" }}
+              type="text"
+              value={searchQuery}
+              placeholder="Search"
+              onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
+            />
+          </span>
           <button
-              className={`createOrder ${showCreateOrder ? "active" : ""}`}
-              onClick={toggleCreateOrder}
+            className={`createOrder ${showCreateOrder ? "active" : ""}`}
+            onClick={toggleCreateOrder}
           >
             Create Order
           </button>
-          <button className="pastOrders" onClick={handleNavigate}>
+          <button
+            className="pastOrders"
+            onClick={handleNavigate}
+            style={{ marginRight: "60px" }}
+          >
             Past Orders
           </button>
         </div>
-
       </div>
-      <span className="searchbar-orders">
-          <h3>Search</h3>
-        <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
-        />
-        </span>
       <div className="background-frame-orders">
         {displayPage === "Client Orders" ? (
-            <section>
-              {filteredOrders.map((order) => (
-                  <ClientOrderCard
-                      order={order}
-                      key={order.id}
+          <section>
+            {filteredOrders.map((order) => (
+              <ClientOrderCard
+                order={order}
+                key={order.id}
                 isOpen={order.id === openedOrderId}
                 toggleDetails={() => toggleOrderDetails(order.id)}
                 config={config}
