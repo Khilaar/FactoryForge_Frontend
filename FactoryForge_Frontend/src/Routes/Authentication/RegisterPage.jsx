@@ -31,6 +31,10 @@ export default function RegisterPage() {
     }
   };
 
+  const redirectToLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <>
       <div className="login-container">
@@ -78,7 +82,12 @@ export default function RegisterPage() {
             />
           </div>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-          <button>Submit</button>
+          <div>
+            <button>Submit</button>
+            <button className="backButtonSettings" onClick={redirectToLogin}>
+              Back
+            </button>
+          </div>
         </form>
       </div>
     </>
