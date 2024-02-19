@@ -22,7 +22,7 @@
   @extend .background-frame;
   display: flex;
   justify-content: center;
-  overflow: scroll;
+  //overflow-y: scroll;
   min-width: 1020px;
 }
 
@@ -436,4 +436,11 @@
       width: 35px;
     }
   }
+}
+
+.searchbar-orders{
+  @extend .searchbar;
+  justify-content: flex-end;
+  color: white;
+  margin: 20px 80px 0 0;
 }
