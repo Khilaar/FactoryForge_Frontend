@@ -72,37 +72,37 @@ const Orders = () => {
     setOpenedOrderId("");
   };
 
-  // const filteredOrders = useMemo(() => {
-  //   return orders.filter(
-  //     (order) =>
-  //       Object.values(order).some(
-  //         (field) =>
-  //           field &&
-  //           field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
-  //       ) ||
-  //       Object.values(order.client).some(
-  //         (field) =>
-  //           field &&
-  //           field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
-  //       ),
-  //   );
-  // }, [orders, searchQuery]);
+  const filteredOrders = useMemo(() => {
+    return orders.filter(
+      (order) =>
+        Object.values(order).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ) ||
+        Object.values(order.client).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
+    );
+  }, [orders, searchQuery]);
 
-  // const filteredRawMaterialOrders = useMemo(() => {
-  //   return rawMaterialOrders.filter(
-  //     (order) =>
-  //       Object.values(order).some(
-  //         (field) =>
-  //           field &&
-  //           field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
-  //       ) ||
-  //       Object.values(order.supplier).some(
-  //         (field) =>
-  //           field &&
-  //           field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
-  //       ),
-  //   );
-  // }, [orders, searchQuery]);
+  const filteredRawMaterialOrders = useMemo(() => {
+    return rawMaterialOrders.filter(
+      (order) =>
+        Object.values(order).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ) ||
+        Object.values(order.supplier).some(
+          (field) =>
+            field &&
+            field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
+    );
+  }, [rawMaterialOrders, searchQuery]);
 
   if (!orders || !rawMaterialOrders) {
     return <div>Loading...</div>;
@@ -127,7 +127,7 @@ const Orders = () => {
           </h1>
         </div>
         <div className="headerButtons">
-          {/* <span className="searchbar-orders">
+          <span className="searchbar-orders">
             <input
               style={{ padding: "5px" }}
               type="text"
@@ -135,7 +135,7 @@ const Orders = () => {
               placeholder="Search"
               onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
             />
-          </span> */}
+          </span>
           <button
             className={`createOrder ${showCreateOrder ? "active" : ""}`}
             onClick={toggleCreateOrder}
@@ -154,7 +154,7 @@ const Orders = () => {
       <div className="background-frame-orders">
         {displayPage === "Client Orders" ? (
           <section>
-            {orders.map((order) => (
+            {filteredOrders.map((order) => (
               <ClientOrderCard
                 order={order}
                 key={order.id}
@@ -168,7 +168,7 @@ const Orders = () => {
           </section>
         ) : (
           <section>
-            {rawMaterialOrders.map((order) => (
+            {filteredRawMaterialOrders.map((order) => (
               <RawMaterialOrderCard
                 order={order}
                 key={order.id}

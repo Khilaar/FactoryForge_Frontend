@@ -246,7 +246,7 @@ const Dashboard = () => {
                         {overlayItem.title && <p>{overlayItem.title}</p>}
                         {overlayItem.name && <p>{overlayItem.name}</p>}
                         {overlayItem.description && <p>Description: {overlayItem.description}</p>}
-                        {overlayItem.quantity_available && <p>Quantity Available: {overlayItem.quantity_available}</p>}
+                        <p>Quantity Available: {overlayItem.quantity_available}</p>
                         {overlayItem.max_quantity && <p>Max Quantity: {overlayItem.max_quantity}</p>}
                         {overlayItem.price && <p>Price: {overlayItem.price}</p>}
                         {overlayItem.cost && <p>Cost: {overlayItem.cost}</p>}
