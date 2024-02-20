@@ -810,6 +810,7 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   align-items: center;
   font-size: larger;
+  overflow: scroll;
   .product-detail-table {
     display: flex;
     flex-direction: column;
@@ -817,6 +818,7 @@ input::-webkit-inner-spin-button {
     margin-top: 30px;
     height: 100%;
     justify-content: space-around;
+    
   }
 
   span {
