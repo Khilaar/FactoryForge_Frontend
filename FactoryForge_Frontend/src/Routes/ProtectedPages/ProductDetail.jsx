@@ -24,15 +24,6 @@ const ProductDetail = () => {
   useFetchRawMaterials(setRawMaterials);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await API.get(`/products/${id}`);
-        setProduct(response.data);
-      } catch (error) {
-        console.error("Error fetching Product: ", error);
-      }
-    };
-
     fetchProduct();
   }, [id]);
 
@@ -41,6 +32,15 @@ const ProductDetail = () => {
       setIsLoading(false);
     }
   }, [rawMaterials, product]);
+
+  const fetchProduct = async () => {
+    try {
+      const response = await API.get(`/products/${id}`);
+      setProduct(response.data);
+    } catch (error) {
+      console.error("Error fetching Product: ", error);
+    }
+  };
 
   const getRawMaterialNameById = (id) => {
     const rawMaterial = rawMaterials.find(
@@ -189,7 +189,7 @@ const ProductDetail = () => {
       {showForm && (
         <div className="add-form-product-detail">
           <div className="title-close-button-pop-up-form-patch">
-            <h2>Patch Product</h2>
+            <h2>Update Product</h2>
             <button
               onClick={() => {
                 setShowForm(false);
@@ -203,7 +203,7 @@ const ProductDetail = () => {
           <span className="product-patch-input-span">
             <input
               type="text"
-              placeholder={product.title}
+              placeholder={product.title || ""}
               value={updatedProduct.title}
               onChange={(e) =>
                 setUpdatedProduct({
@@ -215,7 +215,7 @@ const ProductDetail = () => {
             <input
               type="text"
               placeholder={product.price}
-              value={updatedProduct.price}
+              value={updatedProduct.price || ""}
               onChange={(e) =>
                 setUpdatedProduct({
                   ...updatedProduct,
@@ -226,7 +226,7 @@ const ProductDetail = () => {
             <input
               type="text"
               placeholder="description"
-              value={updatedProduct.description}
+              value={updatedProduct.description || ""}
               onChange={(e) =>
                 setUpdatedProduct({
                   ...updatedProduct,
@@ -237,7 +237,7 @@ const ProductDetail = () => {
             <input
               type="text"
               placeholder="category"
-              value={updatedProduct.category}
+              value={updatedProduct.category || ""}
               onChange={(e) =>
                 setUpdatedProduct({
                   ...updatedProduct,
@@ -249,7 +249,7 @@ const ProductDetail = () => {
           <span className="product-patch-rawmat-span-title">
             <h3>Required Material</h3>
             <select
-              value={requiredMat}
+              value={requiredMat > 0 ? requiredMat[0] : ""}
               onChange={(e) => handleRequiredMatChange(e.target.value)}
               className="required-raw-mat-select"
             >
@@ -262,7 +262,7 @@ const ProductDetail = () => {
             </select>
           </span>
           <span className="product-patch-rawmat-span">
-            <h3>List of Raw Materials</h3>
+            {requiredMat.length > 0 && <h3>List of Raw Materials</h3>}
             <ul className="list-required-raw-mat">
               {requiredMat.map((material, index) => (
                 <li key={index}>

@@ -85,12 +85,6 @@ const Suppliers = () => {
     fetchSuppliers();
   }, [searchQuery]);
 
-  // const filteredSuppliers = useMemo(() => {
-  //   return suppliers.filter((supplier) =>
-  //     Object.values(supplier)
-  //       .some((field) => field && field.toString().toLowerCase().includes(searchQuery.toLowerCase()))
-  //   );
-  // }, [suppliers, searchQuery]);
 
   const sortedSuppliers = useMemo(() => {
     let sortedList = [...suppliers];
