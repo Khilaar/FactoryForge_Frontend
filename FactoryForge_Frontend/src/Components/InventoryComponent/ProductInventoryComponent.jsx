@@ -129,7 +129,7 @@ const ProductInventoryComponent = ({
                       </span>
 
                       <span>
-                        <h3>Test</h3>
+                        <h3>Required Material</h3>
                         <select
                           value={requiredMat}
                           onChange={(e) =>

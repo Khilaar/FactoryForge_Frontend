@@ -10,6 +10,7 @@ const ProductDetail = () => {
   const [showForm, setShowForm] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [rawMaterials, setRawMaterials] = useState([]);
+  const [requiredMat, setRequiredMat] = useState([]);
   const [updatedProduct, setUpdatedProduct] = useState({
     title: "",
     description: "",
@@ -17,6 +18,7 @@ const ProductDetail = () => {
     price: "",
     production_cost: "",
     category: null,
+    raw_material_requirements: {},
   });
 
   useFetchRawMaterials(setRawMaterials);
@@ -74,6 +76,10 @@ const ProductDetail = () => {
       if (updatedProduct.category) {
         updatedFields.category = updatedProduct.category;
       }
+      if (updatedProduct.raw_material_requirements) {
+        updatedFields.raw_material_requirements =
+          updatedProduct.raw_material_requirements;
+      }
 
       if (Object.keys(updatedFields).length === 0) {
         console.error("No fields updated.");
@@ -89,9 +95,33 @@ const ProductDetail = () => {
       setProduct(response.data);
       setShowForm(false);
       setUpdatedProduct({});
+      window.location.reload();
     } catch (error) {
       console.error("Error updating Product: ", error);
     }
+  };
+
+  const handleRequiredMatChange = (newValue) => {
+    if (!requiredMat.includes(newValue)) {
+      setRequiredMat((prevRequiredMat) => [...prevRequiredMat, newValue]);
+    }
+  };
+
+  const handleDeleteRequiredMaterial = (index) => {
+    setRequiredMat((prevRequiredMat) =>
+      prevRequiredMat.filter((_, i) => i !== index),
+    );
+  };
+
+  const handleRawMaterialChange = (e, materialName) => {
+    const { value } = e.target;
+    setUpdatedProduct((prevProduct) => ({
+      ...prevProduct,
+      raw_material_requirements: {
+        ...prevProduct.raw_material_requirements,
+        [materialName]: parseInt(value) || 0,
+      },
+    }));
   };
 
   if (isLoading) {
@@ -157,53 +187,106 @@ const ProductDetail = () => {
         <button onClick={() => setShowForm(true)}>Edit Product</button>
       </div>
       {showForm && (
-        <div className="add-form">
+        <div className="add-form-product-detail">
           <div className="title-close-button-pop-up-form-patch">
             <h2>Patch Product</h2>
             <button
               onClick={() => {
                 setShowForm(false);
                 setUpdatedProduct({});
+                window.location.reload();
               }}
             >
               X
             </button>
           </div>
-          <input
-            type="text"
-            placeholder={product.title}
-            value={updatedProduct.title}
-            onChange={(e) =>
-              setUpdatedProduct({ ...updatedProduct, title: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder={product.price}
-            value={updatedProduct.price}
-            onChange={(e) =>
-              setUpdatedProduct({ ...updatedProduct, price: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="description"
-            value={updatedProduct.description}
-            onChange={(e) =>
-              setUpdatedProduct({
-                ...updatedProduct,
-                description: e.target.value,
-              })
-            }
-          />
-          <input
-            type="text"
-            placeholder="category"
-            value={updatedProduct.category}
-            onChange={(e) =>
-              setUpdatedProduct({ ...updatedProduct, category: e.target.value })
-            }
-          />
+          <span className="product-patch-input-span">
+            <input
+              type="text"
+              placeholder={product.title}
+              value={updatedProduct.title}
+              onChange={(e) =>
+                setUpdatedProduct({
+                  ...updatedProduct,
+                  title: e.target.value,
+                })
+              }
+            />
+            <input
+              type="text"
+              placeholder={product.price}
+              value={updatedProduct.price}
+              onChange={(e) =>
+                setUpdatedProduct({
+                  ...updatedProduct,
+                  price: e.target.value,
+                })
+              }
+            />
+            <input
+              type="text"
+              placeholder="description"
+              value={updatedProduct.description}
+              onChange={(e) =>
+                setUpdatedProduct({
+                  ...updatedProduct,
+                  description: e.target.value,
+                })
+              }
+            />
+            <input
+              type="text"
+              placeholder="category"
+              value={updatedProduct.category}
+              onChange={(e) =>
+                setUpdatedProduct({
+                  ...updatedProduct,
+                  category: e.target.value,
+                })
+              }
+            />
+          </span>
+          <span className="product-patch-rawmat-span-title">
+            <h3>Required Material</h3>
+            <select
+              value={requiredMat}
+              onChange={(e) => handleRequiredMatChange(e.target.value)}
+              className="required-raw-mat-select"
+            >
+              <option value="requiredMat">Select Raw Material</option>
+              {rawMaterials.map((material) => (
+                <option key={material.id} value={material.name}>
+                  {material.name}
+                </option>
+              ))}
+            </select>
+          </span>
+          <span className="product-patch-rawmat-span">
+            <h3>List of Raw Materials</h3>
+            <ul className="list-required-raw-mat">
+              {requiredMat.map((material, index) => (
+                <li key={index}>
+                  <span className="name-and-quantity-required-mat">
+                    <div className="name-required-mat-added">{material}</div>
+                    <input
+                      type="number"
+                      placeholder="qty"
+                      value={
+                        updatedProduct.raw_material_requirements[material] || ""
+                      }
+                      onChange={(e) => handleRawMaterialChange(e, material)}
+                    />
+                  </span>
+                  <button
+                    className="item-delete-button-patch-rawmatreq"
+                    onClick={() => handleDeleteRequiredMaterial(index)}
+                  >
+                    X
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </span>
           <button onClick={handleFormSubmit}>Update</button>
         </div>
       )}
