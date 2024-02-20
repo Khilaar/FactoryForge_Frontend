@@ -106,7 +106,7 @@ const Clients = () => {
         {/*Products List sort fields*/}
         <ul className="items-list" id="sort-list">
           {
-            <li key="sort-product" className="list-item">
+            <li key="sort-product" className="list-item-client-sort">
               <span>
                 <p>id</p>
               </span>
@@ -116,6 +116,7 @@ const Clients = () => {
               <span>
                 <p>name</p>
               </span>
+              <button className="invisible-button">X</button>
             </li>
           }
         </ul>
