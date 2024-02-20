@@ -489,7 +489,6 @@
   }
 }
 
-
 .order-form {
   position: absolute;
   top: 50%;
@@ -938,5 +937,14 @@ input::-webkit-inner-spin-button {
   .item-delete-button-patch-rawmatreq {
     width: 1.2rem;
     height: 1.2rem;
+  }
+}
+
+.list-item-client-sort {
+  @extend .list-item;
+  button {
+    background-color: transparent;
+    color: transparent;
+    pointer-events: none;
   }
 }

@@ -87,34 +87,38 @@ const Clients = () => {
 
   /*###########################*/
   return (
-    <>
-      <div>
+    <div>
+      <div className="title-and-searchbar">
         <h1 className="route-title">Clients</h1>
+        <span className="searchbar-suppliers">
+          <h3>Search</h3>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </span>
       </div>
       <div className="background-frame-productinventory">
         <section>
           {/*Products Title and search*/}
-          <div className="title-and-searchbar">
-            <h3>All Clients</h3>
-            <span className="searchbar">
-              <h3>search</h3>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </span>
-          </div>
+          <div className="title-and-searchbar"></div>
           {/*Products Title and search End*/}
 
           {/*Products List sort fields*/}
           <ul className="items-list" id="sort-list">
             {
-              <li key="sort-product" className="list-item">
+              <li key="sort-product" className="list-item-client-sort">
+                <span>
                   <p>id</p>
+                </span>
+                <span>
                   <p>username</p>
+                </span>
+                <span>
                   <p>name</p>
-                  <p style={{visibility:"hidden"}}></p>
+                </span>
+                <button className="invisible-button">X</button>
               </li>
             }
           </ul>
@@ -202,7 +206,7 @@ const Clients = () => {
         </section>
         {/*Products Add Button End*/}
       </div>
-    </>
+    </div>
   );
 };
 
