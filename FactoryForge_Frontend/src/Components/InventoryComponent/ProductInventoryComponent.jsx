@@ -153,22 +153,22 @@ const ProductInventoryComponent = ({
                     <span>
                       <h3>List of Raw Materials</h3>
                       <ul className="list-required-raw-mat">
-                        {requiredMat.map((materialName, index) => (
+                        {requiredMat.map((material, index) => (
                           <li key={index}>
                             <span className="name-and-quantity-required-mat">
                               <div className="name-required-mat-added">
-                                {materialName}
+                                {material}
                               </div>
                               <input
                                 type="number"
                                 placeholder="qty"
                                 value={
                                   formDataProduct.raw_material_requirements[
-                                    materialName
+                                    material
                                   ] || ""
                                 }
                                 onChange={(e) =>
-                                  handleRawMaterialChange(e, materialName)
+                                  handleRawMaterialChange(e, material)
                                 }
                               />
                             </span>
