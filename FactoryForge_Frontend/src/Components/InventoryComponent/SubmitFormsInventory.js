@@ -1,5 +1,6 @@
 import API from "../../api/API";
 
+/*Unfortunately the raw_material_requirements get converted to the ids in the backend, I dont know how to handle that in the frontend*/
 export const handleSubmitProduct = async (
   formDataProduct,
   toggleFormProduct,
@@ -16,7 +17,7 @@ export const handleSubmitProduct = async (
         "Content-Type": "application/json",
       },
     };
-
+    console.log("formDataProduct:", formDataProduct);
     const response = await API.post("/products/", formDataProduct, config);
     toggleFormProduct();
     console.log("Product created:", response.data);

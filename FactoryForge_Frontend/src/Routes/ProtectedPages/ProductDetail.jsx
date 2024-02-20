@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../api/API";
 import defaultproductimage from "../../Assets/default-product-image.png";
