@@ -20,13 +20,13 @@ const Inventory = () => {
   const [showFormProduct, setShowFormProduct] = useState(false);
   const [requiredMat, setRequiredMat] = useState([]);
   const [formDataProduct, setFormDataProduct] = useState({
-    raw_material_requirements: {},
     title: "",
     description: "",
     quantity_available: "",
     price: "",
     production_cost: "",
     category: "",
+    raw_material_requirements: "",
   });
   const [rawMaterialFormData, setRawMaterialFormData] = useState({
     name: "",
@@ -89,31 +89,19 @@ const Inventory = () => {
 
   const handleRawMaterialChange = (e, materialName) => {
     const { value } = e.target;
-    console.log("Material Name:", materialName);
-    console.log("Value:", value);
-    setFormDataProduct((prevData) => {
-      const updatedRawMaterialRequirements = {
+    setFormDataProduct((prevData) => ({
+      ...prevData,
+      raw_material_requirements: {
         ...prevData.raw_material_requirements,
         [materialName]: parseInt(value) || 0,
-      };
-      console.log(
-        "Updated Raw Material Requirements:",
-        updatedRawMaterialRequirements,
-      );
-      return {
-        ...prevData,
-        raw_material_requirements: updatedRawMaterialRequirements,
-      };
-    });
+      },
+    }));
   };
 
   const handleRequiredMatChange = (newValue) => {
     if (!requiredMat.includes(newValue)) {
-      console.log("test:", requiredMat);
       setRequiredMat((prevRequiredMat) => [...prevRequiredMat, newValue]);
-      console.log(requiredMat);
     }
-    console.log("requiredMat:", requiredMat);
   };
 
   const handleDeleteRequiredMaterial = (index) => {
