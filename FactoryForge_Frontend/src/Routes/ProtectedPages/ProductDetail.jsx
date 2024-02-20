@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../api/API";
 import defaultproductimage from "../../Assets/default-product-image.png";
+import { useFetchRawMaterials } from "../../Components/InventoryComponent/FetchesInventory";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [rawMaterials, setRawMaterials] = useState([]);
   const [updatedProduct, setUpdatedProduct] = useState({
     title: "",
     description: "",
@@ -16,12 +19,13 @@ const ProductDetail = () => {
     category: null,
   });
 
+  useFetchRawMaterials(setRawMaterials);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await API.get(`/products/${id}`);
         setProduct(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching Product: ", error);
       }
@@ -29,6 +33,19 @@ const ProductDetail = () => {
 
     fetchProduct();
   }, [id]);
+
+  useEffect(() => {
+    if (rawMaterials.length > 0 && product) {
+      setIsLoading(false);
+    }
+  }, [rawMaterials, product]);
+
+  const getRawMaterialNameById = (id) => {
+    const rawMaterial = rawMaterials.find(
+      (material) => material.id === Number(id),
+    );
+    return rawMaterial ? rawMaterial.name : "Loading...";
+  };
 
   const handleFormSubmit = async () => {
     try {
@@ -77,7 +94,7 @@ const ProductDetail = () => {
     }
   };
 
-  if (!product) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -128,9 +145,9 @@ const ProductDetail = () => {
             <p>rawMatRequirements</p>
             <span className="product-detail-rawMatList">
               {Object.entries(product.raw_material_requirements).map(
-                ([rawMat, quantity]) => (
-                  <p key={rawMat}>
-                    {rawMat}: {quantity}
+                ([rawMatId, quantity]) => (
+                  <p key={rawMatId}>
+                    {getRawMaterialNameById(rawMatId)}: {quantity}
                   </p>
                 ),
               )}
