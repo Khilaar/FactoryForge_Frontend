@@ -6,7 +6,6 @@ import RawMaterialOrderCard from "../../Components/OrdersComponents/RawMaterialO
 import CreateOrderForm from "../../Components/OrdersComponents/CreateOrderForm";
 
 const Orders = () => {
-    // const [searchHasMatch, setSearchHasMatch] = useState(false)
     const [searchQuery, setSearchQuery] = useState("");
     const navigate = useNavigate();
     const location = useLocation();
