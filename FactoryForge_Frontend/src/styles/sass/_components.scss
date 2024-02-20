@@ -818,7 +818,6 @@ input::-webkit-inner-spin-button {
     margin-top: 30px;
     height: 100%;
     justify-content: space-around;
-    
   }
 
   span {
@@ -938,5 +937,14 @@ input::-webkit-inner-spin-button {
   .item-delete-button-patch-rawmatreq {
     width: 1.2rem;
     height: 1.2rem;
+  }
+}
+
+.list-item-client-sort {
+  @extend .list-item;
+  button {
+    background-color: transparent;
+    color: transparent;
+    pointer-events: none;
   }
 }
