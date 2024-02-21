@@ -126,15 +126,6 @@ const Suppliers = () => {
     <div>
       <div className="title-and-searchbar">
         <h1 className="route-title">Suppliers</h1>
-
-        <span className="searchbar-suppliers">
-          <h3>Search</h3>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </span>
       </div>
 
       <div className="background-frame-productinventory">
