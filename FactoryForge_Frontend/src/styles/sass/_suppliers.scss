@@ -1,10 +1,22 @@
 .list-item-suppliers {
   @extend .list-item;
-  overflow: hidden;
-  span {
-    display: flex;
-    min-width: 80px;
+
+  button {
+    width: 1.2rem;
+    height: 1.2rem;
   }
+}
+.list-item-client-sort {
+  @extend .list-item;
+  button {
+    background-color: transparent;
+    color: transparent;
+    pointer-events: none;
+  }
+}
+
+.title-and-searchbar-suppliers {
+  @extend .title-and-searchbar;
 }
 
 .supplier-button {
@@ -45,7 +57,6 @@
 .searchbar-suppliers {
   @extend .searchbar;
   color: white;
-  margin: 20px 30px 0 0;
 }
 
 .supplier-delete-action-btn {
@@ -57,7 +68,6 @@
 .supplier-button-sort {
   background: #191a24 !important;
   color: whitesmoke;
-  margin: 0 0 10px 3px;
   max-width: 6rem;
 }
 

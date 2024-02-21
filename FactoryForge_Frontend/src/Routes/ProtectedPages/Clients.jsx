@@ -90,19 +90,21 @@ const Clients = () => {
     <div>
       <div className="title-and-searchbar">
         <h1 className="route-title">Clients</h1>
-        <span className="searchbar-suppliers">
-          <h3>Search</h3>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </span>
       </div>
       <div className="background-frame-productinventory">
         <section>
           {/*Products Title and search*/}
-          <div className="title-and-searchbar"></div>
+          <div className="title-and-searchbar">
+            <h1 className="route-title"></h1>
+            <span className="searchbar-suppliers">
+              <h3>Search</h3>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </span>
+          </div>
           {/*Products Title and search End*/}
 
           {/*Products List sort fields*/}
