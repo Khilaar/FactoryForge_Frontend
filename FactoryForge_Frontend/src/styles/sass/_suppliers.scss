@@ -1,5 +1,21 @@
 .list-item-suppliers {
   @extend .list-item;
+  button {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
+.list-item-client-sort {
+  @extend .list-item;
+  button {
+    background-color: transparent;
+    color: transparent;
+    pointer-events: none;
+  }
+}
+
+.title-and-searchbar-suppliers {
+  @extend .title-and-searchbar;
 }
 
 .supplier-button {
@@ -33,27 +49,25 @@
   width: 50vw;
 }
 
-.supplier-button-delete{
+.supplier-button-delete {
   @extend .supplier-button;
   margin-left: 2rem;
 }
 
-.searchbar-suppliers{
+.searchbar-suppliers {
   @extend .searchbar;
   color: white;
-  margin: 20px 30px 0 0;
 }
 
-.supplier-delete-action-btn{
+.supplier-delete-action-btn {
   // @extend button;
   padding-left: 4rem;
   color: red;
 }
 
-.supplier-button-sort{
+.supplier-button-sort {
   background: #191a24 !important;
   color: whitesmoke;
-  margin: 0 0 10px 3px;
   max-width: 6rem;
 }
 
@@ -67,18 +81,18 @@
 }
 
 .sort-span {
-  position:absolute;
+  position: absolute;
   z-index: 100;
   display: flex;
   flex-direction: column;
-  background:#191a24;
+  background: #191a24;
   margin-top: -2.6rem;
   margin-left: 6rem;
   border-radius: 5px;
 }
 
-.sort-span-button{
-  background:#191a24 !important;
+.sort-span-button {
+  background: #191a24 !important;
   color: whitesmoke;
   margin-bottom: 4px;
 }
