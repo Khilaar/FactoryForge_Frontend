@@ -1,5 +1,6 @@
 .list-item-suppliers {
   @extend .list-item;
+
   button {
     width: 1.2rem;
     height: 1.2rem;
@@ -19,7 +20,6 @@
 }
 
 .supplier-button {
-  // @extend button;
   margin-top: 10px;
 }
 

@@ -80,13 +80,6 @@ const Suppliers = () => {
     fetchSuppliers();
   }, [searchQuery]);
 
-  // const filteredSuppliers = useMemo(() => {
-  //   return suppliers.filter((supplier) =>
-  //     Object.values(supplier)
-  //       .some((field) => field && field.toString().toLowerCase().includes(searchQuery.toLowerCase()))
-  //   );
-  // }, [suppliers, searchQuery]);
-
   const sortedSuppliers = useMemo(() => {
     let sortedList = [...suppliers];
 
@@ -133,6 +126,15 @@ const Suppliers = () => {
     <div>
       <div className="title-and-searchbar">
         <h1 className="route-title">Suppliers</h1>
+
+        <span className="searchbar-suppliers">
+          <h3>Search</h3>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </span>
       </div>
 
       <div className="background-frame-productinventory">
@@ -220,6 +222,7 @@ const Suppliers = () => {
                 <span>{supplier.first_name}</span>
                 <span>{supplier.last_name}</span>
                 <span>{supplier.email}</span>
+
                 <button onClick={() => handleDeleteSupplier(supplier.id)}>
                   X
                 </button>
@@ -231,6 +234,7 @@ const Suppliers = () => {
           <button className="supplier-button" onClick={toggleFormSupplier}>
             ADD
           </button>
+
           {showFormSupplier && (
             <div className="add-form-supply">
               <form onSubmit={handleSubmitSupplier}>
