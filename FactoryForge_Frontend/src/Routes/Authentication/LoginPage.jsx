@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { login_user } from "../../store/slices/userSlice.js";
 import API from "../../api/API.js";
 import { NavLink } from "react-router-dom";
-import FactoryForgeLogo from "../../Assets/FactoryForgeLogo.png";
+import logo from "../../Assets/logo.png"
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ function LoginPage() {
       <div className="login-container">
         <form className="login-form" onSubmit={(e) => triggerLogin(e)}>
           <span className="title-span-login">
-            <img className="logo" src={FactoryForgeLogo} alt="" />
+            <img className="logo" src={logo} alt="" />
           </span>
           <span className="input-span-login">
             <div className="input-container">
