@@ -28,7 +28,7 @@ const Clients = () => {
     };
 
     fetchClients();
-  }, [searchQuery]);
+  }, [searchQuery, showFormRawMat]);
 
   const handleSubmitRawMaterial = async (e) => {
     e.preventDefault();
@@ -60,9 +60,18 @@ const Clients = () => {
         type_of_user: "C",
         address: "",
       });
+      handleCloseRawMatForm();
     } catch (error) {
       console.error("Error creating user: ", error);
     }
+  };
+
+  const handleRawMaterialInputChange = (e) => {
+    const { name, value } = e.target;
+    setRawMaterialFormData({
+      ...rawMaterialFormData,
+      [name]: value,
+    });
   };
 
   const toggleFormRawMat = () => {
