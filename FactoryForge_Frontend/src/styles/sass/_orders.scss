@@ -469,3 +469,15 @@
   @extend .searchbar;
   margin: 0px 30px 0px 20px;
 }
+
+.error-popup {
+  @extend .list-item-orders;
+  margin-bottom: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  font-size: larger;
+  button {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
