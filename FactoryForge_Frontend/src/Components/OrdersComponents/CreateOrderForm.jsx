@@ -14,7 +14,6 @@ const CreateOrderForm = ({
     ordered_products: [],
     client_note: "",
     due_date: "",
-    processing_time: "",
   });
   const [rawMaterialFormData, setRawMaterialFormData] = useState({
     supplier: "",
@@ -255,16 +254,6 @@ const CreateOrderForm = ({
                     setClientOrderFormData({
                       ...clientOrderFormData,
                       due_date: e.target.value,
-                    })
-                  }
-                />
-                <input
-                  type="text"
-                  placeholder="Processing Time"
-                  onChange={(e) =>
-                    setClientOrderFormData({
-                      ...clientOrderFormData,
-                      processing_time: e.target.value,
                     })
                   }
                 />

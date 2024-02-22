@@ -129,6 +129,22 @@
   min-height: 135px;
   max-height: 135px;
 
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+  }
+
+  input[type="date"] {
+    color: white;
+  }
+
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+  }
+
+  input[type="datetime-local"] {
+    color: white;
+  }
+
   div {
     display: flex;
     flex-direction: column;
@@ -380,6 +396,22 @@
   flex-direction: column;
   width: 270px;
   gap: 15px;
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+  }
+
+  input[type="date"] {
+    color: white;
+  }
+
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+  }
+
+  input[type="datetime-local"] {
+    color: white;
+  }
 
   textarea {
     max-width: 265px;
