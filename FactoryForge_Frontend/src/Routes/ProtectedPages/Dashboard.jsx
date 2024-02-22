@@ -88,7 +88,6 @@ const Dashboard = () => {
         },
       });
       setSoldProducts(response.data[1]["Sold Products"]);
-      console.log(response.data[1]["Sold Products"]);
     } catch (error) {
       console.error("Error fetching statistics: ", error);
     }
@@ -151,10 +150,7 @@ const Dashboard = () => {
       setProfitChartData({
         datasets: [
           {
-            data: [
-              response.data.profit + response.data["Incomplete Income"],
-              response.data["Total Cost"],
-            ],
+            data: [response.data.profit, response.data["Total Cost"]],
             backgroundColor: ["#008000FF", "#D0312D"],
             borderColor: "black",
             borderWidth: 2,
@@ -350,9 +346,7 @@ const Dashboard = () => {
               <div className={"earnings"}>
                 {/*<h4>Income</h4>*/}
                 <h2 className={"income"}>
-                  {(
-                    profitLoss.profit + profitLoss["Incomplete Income"]
-                  ).toLocaleString()}
+                  {profitLoss.profit.toLocaleString()}
                 </h2>
                 {/*<h4>Expenses</h4>*/}
                 <h2 className={"expenses"}>
