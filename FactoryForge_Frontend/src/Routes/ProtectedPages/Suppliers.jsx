@@ -202,7 +202,7 @@ const Suppliers = () => {
                   <span>
                     <p className="header-text">email</p>
                   </span>
-                  <button>X</button>
+                  <button className="x-button">X</button>
                 </li>
               }
             </ul>
@@ -214,7 +214,10 @@ const Suppliers = () => {
                 <span>{supplier.last_name}</span>
                 <span>{supplier.email}</span>
 
-                <button onClick={() => handleDeleteSupplier(supplier.id)}>
+                <button
+                  className="x-button"
+                  onClick={() => handleDeleteSupplier(supplier.id)}
+                >
                   X
                 </button>
               </li>

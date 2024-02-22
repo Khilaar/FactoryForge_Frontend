@@ -121,7 +121,12 @@ const ProductInventory = () => {
                 <span>{product.quantity_available}</span>
                 <span>{product.price}.-</span>
               </Link>
-              <button onClick={() => handleDeleteProduct(product.id)}>X</button>
+              <button
+                className="x-button"
+                onClick={() => handleDeleteProduct(product.id)}
+              >
+                X
+              </button>
             </li>
           ))}
         </ul>

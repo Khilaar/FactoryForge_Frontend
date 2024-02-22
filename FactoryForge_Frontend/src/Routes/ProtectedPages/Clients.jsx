@@ -204,7 +204,7 @@ const Clients = () => {
               <span>
                 {user.first_name} {user.last_name}
               </span>
-              <button>X</button>
+              <button className="x-button">X</button>
             </li>
           ))}
         </ul>

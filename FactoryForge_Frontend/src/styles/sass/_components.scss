@@ -203,6 +203,11 @@
     background-color: #191a24;
     color: whitesmoke;
   }
+  .x-button {
+    width: 1.2rem;
+    height: 1.2rem;
+    padding-left: 2rem;
+  }
 }
 .list-item:hover {
   color: whitesmoke;
@@ -224,11 +229,12 @@
     text-align: right;
   }
   .x-button {
-    padding-left: 2rem;
     color: transparent;
     background-color: transparent;
+    padding-left: 2rem;
   }
 }
+
 .list-item-price {
   text-align: right;
 }
