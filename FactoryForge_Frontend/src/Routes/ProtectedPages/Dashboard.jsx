@@ -366,19 +366,19 @@ const Dashboard = () => {
             <div className={"customer_orders"}>
               <h3>Customer Orders</h3>
               <div className={"header"}>
-                <h5 className={"tracking"}>Tracking Number</h5>
-                <h5 className={"tracking"}>Status</h5>
+                <h5 className={"tracking_num"}>Tracking Number</h5>
+                <h5 className={"status"}>Status</h5>
                 <h5>Due Date</h5>
               </div>
               {clientOrders
                 .filter((item) => clientOrders.indexOf(item) < 5)
                 .map((order) => (
                   <div className={"order"} key={order.id}>
-                    <p className={"tracking"}>
+                    <p className={""}>
                       {order.tracking_number.slice(-6)}
                     </p>
                     <p>{order.order_status === 1 ? "Working" : "Completed"}</p>
-                    <p className={"tracking"}>
+                    <p className={""}>
                       {order.due_date ? order.due_date : "None"}
                     </p>
                   </div>

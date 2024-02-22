@@ -1,18 +1,18 @@
 const ProductInventoryComponent = ({
-  products,
-  navigate,
-  toggleFormProduct,
-  showFormProduct,
-  handleFormProductSubmit,
-  handleCloseProductForm,
-  formDataProduct,
-  handleInputChange,
-  requiredMat,
-  rawMaterials,
-  handleRequiredMatChange,
-  handleRawMaterialChange,
-  handleDeleteRequiredMaterial,
-}) => {
+                                     products,
+                                     navigate,
+                                     toggleFormProduct,
+                                     showFormProduct,
+                                     handleFormProductSubmit,
+                                     handleCloseProductForm,
+                                     formDataProduct,
+                                     handleInputChange,
+                                     requiredMat,
+                                     rawMaterials,
+                                     handleRequiredMatChange,
+                                     handleRawMaterialChange,
+                                     handleDeleteRequiredMaterial
+                                   }) => {
   return (
     <>
       <section>
@@ -114,6 +114,9 @@ const ProductInventoryComponent = ({
                           onChange={handleInputChange}
                         />
                       </span>
+                      <button type="submit">
+                        <span>ADD</span>
+                      </button>
                     </span>
 
                     <span>
@@ -146,10 +149,6 @@ const ProductInventoryComponent = ({
                             </option>
                           ))}
                         </select>
-                      </span>
-                    </span>
-                  </span>
-                  <span className="right-side-add-product">
                     <span>
                       <h3>List of Raw Materials</h3>
                       <ul className="list-required-raw-mat">
@@ -165,7 +164,7 @@ const ProductInventoryComponent = ({
                                 value={
                                   formDataProduct.raw_material_requirements[
                                     material
-                                  ] || ""
+                                    ] || 1
                                 }
                                 onChange={(e) =>
                                   handleRawMaterialChange(e, material)
@@ -183,12 +182,13 @@ const ProductInventoryComponent = ({
                         ))}
                       </ul>
                     </span>
+                      </span>
+                    </span>
+                  </span>
+                  <span className="right-side-add-product">
                   </span>
                 </span>
 
-                <button type="submit">
-                  <span>ADD</span>
-                </button>
               </div>
 
               {/*Inventory Order Form Raw Material End*/}
