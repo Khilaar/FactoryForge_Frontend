@@ -34,7 +34,7 @@ const Analytics = () => {
           throw new Error("Access token not found");
         }
 
-        const response = await API.get("/client_orders/", {
+        const response = await API.get("/client_orders/history/", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json",
