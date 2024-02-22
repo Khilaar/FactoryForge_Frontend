@@ -127,7 +127,7 @@ const Suppliers = () => {
       <div className="title-and-searchbar">
         <h1 className="route-title">Suppliers</h1>
       </div>
-
+      
       <div className="background-frame-productinventory">
         <div className="title-and-searchbar-suppliers">
           <button onClick={toggleSortPopUp} className="supplier-button-sort">
