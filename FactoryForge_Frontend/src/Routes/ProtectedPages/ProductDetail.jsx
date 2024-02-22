@@ -87,7 +87,7 @@ const ProductDetail = () => {
       }
 
       const response = await API.patch(
-        `/products/${id}`,
+        `/products/${id}/`,
         updatedFields,
         config,
       );
