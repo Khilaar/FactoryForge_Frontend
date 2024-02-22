@@ -128,7 +128,10 @@ const Suppliers = () => {
         <h1 className="route-title">Suppliers</h1>
       </div>
 
-      <div className="background-frame-productinventory">
+      <div
+        className="background-frame-productinventory"
+        style={{ minWidth: "900px", maxWidth: "1150px" }}
+      >
         <div className="title-and-searchbar-suppliers">
           <button onClick={toggleSortPopUp} className="supplier-button-sort">
             sort

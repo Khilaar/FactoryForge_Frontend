@@ -1,8 +1,7 @@
 .background-frame-analytics {
   color: whitesmoke;
   overflow: hidden;
-  padding: 2rem 2rem 2rem 2rem;
-  margin: 2rem auto;
+  padding: 1rem;
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
@@ -11,16 +10,21 @@
   -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   width: 95%;
-  height: 20rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: larger;
   justify-content: center;
+  max-width: 500px;
+  gap: 10px;
+  margin: 25px 0px;
+  text-align: start;
+
   .list-item {
     width: 80%;
     display: flex;
     justify-content: space-between;
+    
   }
   ul {
     max-height: 15rem;
@@ -50,8 +54,7 @@
   height: 15rem;
   color: whitesmoke;
   overflow: hidden;
-  padding: 2rem 2rem 2rem 2rem;
-  margin: 2rem auto;
+  padding: 1rem;
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
@@ -66,6 +69,8 @@
   align-items: center;
   font-size: larger;
   justify-content: center;
+  max-width: 500px;
+  margin: 25px 0px;
   .list-item {
     width: 25rem;
     display: flex;
@@ -94,13 +99,15 @@
 
 .analytics-overlay {
   display: flex;
-  justify-content: space-around;
-  min-width: 575px;
+  max-width: 1150px;
+  min-width: 500px;
+  overflow: scroll;
+  gap: 25px;
+  padding: 15px;
+  width: 100vw;
 }
 
 .small-screen-change-span {
-  display: flex;
-  justify-content: space-between;
   width: 55%;
   @media screen and (max-width: 1980px) {
     flex-direction: column;
@@ -110,5 +117,17 @@
 .background-frame-piechart {
   @extend .background-frame-analytics;
   height: auto;
-  width: 95%;
+  text-align: center;
+}
+
+.background-frame-piechart {
+  width: 80%;
+}
+
+.analytics-cotainer {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  gap: 10px;
 }

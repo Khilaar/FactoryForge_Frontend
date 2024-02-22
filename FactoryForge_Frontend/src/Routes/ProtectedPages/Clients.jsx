@@ -30,20 +30,6 @@ const Clients = () => {
     fetchClients();
   }, [searchQuery, showFormRawMat]);
 
-  const filteredClients = useMemo(() => {
-    return clients.filter((product) =>
-      product.username.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
-  }, [clients, searchQuery]);
-
-  const handleRawMaterialInputChange = (e) => {
-    const { name, value } = e.target;
-    setRawMaterialFormData({
-      ...rawMaterialFormData,
-      [name]: value,
-    });
-  };
-
   const handleSubmitRawMaterial = async (e) => {
     e.preventDefault();
     try {
@@ -119,7 +105,10 @@ const Clients = () => {
         <h1 className="route-title">Clients</h1>
       </div>
 
-      <div className="background-frame-productinventory">
+      <div
+        className="background-frame-productinventory"
+        style={{ minWidth: "1075px", maxWidth: "1150px" }}
+      >
         {/*clients Title and search*/}
         <div className="title-and-searchbar-suppliers">
           <button onClick={toggleSortPopUp} className="supplier-button-sort">
@@ -181,14 +170,18 @@ const Clients = () => {
         <ul className="items-list" id="sort-list">
           {
             <li key="sort-product" className="list-item-client-sort">
-              <span>
+              <span style={{ maxWidth: "70px" }}>
                 <p>id</p>
               </span>
-              <span>
+              <span style={{ minWidth: "30px", maxWidth: "200px" }}>
                 <p>username</p>
               </span>
-              <span>
+              <span style={{ minWidth: "30px", maxWidth: "200px" }}>
                 <p>name</p>
+              </span>
+              <span style={{ minWidth: "30px", maxWidth: "275px" }}>email</span>
+              <span style={{ minWidth: "30px", maxWidth: "250px" }}>
+                <p>address</p>
               </span>
               <button className="invisible-button">X</button>
             </li>
@@ -200,10 +193,18 @@ const Clients = () => {
         <ul className="items-list">
           {sortedClients.map((user) => (
             <li key={user.id} className="list-item">
-              <span>{user.id}</span>
-              <span>{user.username}</span>
-              <span>
+              <span style={{ maxWidth: "70px" }}>{user.id}</span>
+              <span style={{ minWidth: "30px", maxWidth: "200px" }}>
+                {user.username}
+              </span>
+              <span style={{ minWidth: "30px", maxWidth: "200px" }}>
                 {user.first_name} {user.last_name}
+              </span>
+              <span style={{ minWidth: "30px", maxWidth: "275px" }}>
+                {user.email}
+              </span>
+              <span style={{ minWidth: "30px", maxWidth: "250px" }}>
+                {user.address}
               </span>
               <button className="x-button">X</button>
             </li>
