@@ -1,18 +1,18 @@
 const ProductInventoryComponent = ({
-                                     products,
-                                     navigate,
-                                     toggleFormProduct,
-                                     showFormProduct,
-                                     handleFormProductSubmit,
-                                     handleCloseProductForm,
-                                     formDataProduct,
-                                     handleInputChange,
-                                     requiredMat,
-                                     rawMaterials,
-                                     handleRequiredMatChange,
-                                     handleRawMaterialChange,
-                                     handleDeleteRequiredMaterial
-                                   }) => {
+  products,
+  navigate,
+  toggleFormProduct,
+  showFormProduct,
+  handleFormProductSubmit,
+  handleCloseProductForm,
+  formDataProduct,
+  handleInputChange,
+  requiredMat,
+  rawMaterials,
+  handleRequiredMatChange,
+  handleRawMaterialChange,
+  handleDeleteRequiredMaterial,
+}) => {
   return (
     <>
       <section>
@@ -134,7 +134,6 @@ const ProductInventoryComponent = ({
                       <span>
                         <h3>Required Material</h3>
                         <select
-                          value={requiredMat}
                           onChange={(e) =>
                             handleRequiredMatChange(e.target.value)
                           }
@@ -149,46 +148,44 @@ const ProductInventoryComponent = ({
                             </option>
                           ))}
                         </select>
-                    <span>
-                      <h3>List of Raw Materials</h3>
-                      <ul className="list-required-raw-mat">
-                        {requiredMat.map((material, index) => (
-                          <li key={index}>
-                            <span className="name-and-quantity-required-mat">
-                              <div className="name-required-mat-added">
-                                {material}
-                              </div>
-                              <input
-                                type="number"
-                                placeholder="qty"
-                                value={
-                                  formDataProduct.raw_material_requirements[
-                                    material
-                                    ] || 1
-                                }
-                                onChange={(e) =>
-                                  handleRawMaterialChange(e, material)
-                                }
-                              />
-                            </span>
-                            <button
-                              onClick={() =>
-                                handleDeleteRequiredMaterial(index)
-                              }
-                            >
-                              X
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    </span>
+                        <span>
+                          <h3>List of Raw Materials</h3>
+                          <ul className="list-required-raw-mat">
+                            {requiredMat.map((material, index) => (
+                              <li key={index}>
+                                <span className="name-and-quantity-required-mat">
+                                  <div className="name-required-mat-added">
+                                    {material}
+                                  </div>
+                                  <input
+                                    type="number"
+                                    placeholder="qty"
+                                    value={
+                                      formDataProduct.raw_material_requirements[
+                                        material
+                                      ] || 1
+                                    }
+                                    onChange={(e) =>
+                                      handleRawMaterialChange(e, material)
+                                    }
+                                  />
+                                </span>
+                                <button
+                                  onClick={() =>
+                                    handleDeleteRequiredMaterial(index)
+                                  }
+                                >
+                                  X
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        </span>
                       </span>
                     </span>
                   </span>
-                  <span className="right-side-add-product">
-                  </span>
+                  <span className="right-side-add-product"></span>
                 </span>
-
               </div>
 
               {/*Inventory Order Form Raw Material End*/}
