@@ -82,14 +82,14 @@ const RawMaterialInventory = () => {
         {/*Products List sort fields*/}
         <ul className="items-list" id="sort-list">
           {
-            <li key="sort-product" className="list-item">
+            <li key="sort-product" className="list-item-header">
               <span>
                 <p>id</p>
               </span>
-              <span style={{ "paddingLeft": "2%" }}>
+              <span>
                 <p>name</p>
               </span>
-              <span style={{ "paddingLeft": "2%" }}>
+              <span>
                 <p>cost</p>
               </span>
               <span>
@@ -98,9 +98,7 @@ const RawMaterialInventory = () => {
               <span>
                 <p>restock required?</p>
               </span>
-              <span>
-                <p></p>
-              </span>
+              <button className="x-button">X</button>
             </li>
           }
         </ul>
