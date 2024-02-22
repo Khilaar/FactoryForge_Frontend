@@ -144,8 +144,8 @@
 
       .supplier_container {
         display: flex;
-        gap: 2vh;
-        padding: 1vh;
+        gap: 1rem;
+        padding: 2rem;
 
         .supplier {
           @extend .list-item;
