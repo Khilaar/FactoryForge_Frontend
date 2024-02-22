@@ -30,7 +30,10 @@ const Orders = () => {
     }
     try {
       const response = await API.get("client_orders/");
-      setOrders(response.data);
+      const sortedClientOrders = response.data.sort((a, b) => {
+        return new Date(b.created) - new Date(a.created);
+      });
+      setOrders(sortedClientOrders);
     } catch (error) {
       console.error("Error fetching client orders: ", error);
     }
@@ -42,7 +45,10 @@ const Orders = () => {
     }
     try {
       const response = await API.get("raw_materials_orders/");
-      setRawMaterialOrders(response.data);
+      const sortedRawMaterialOrders = response.data.sort((a, b) => {
+        return new Date(b.created) - new Date(a.created);
+      });
+      setRawMaterialOrders(sortedRawMaterialOrders);
     } catch (error) {
       console.error("Error fetching raw materials orders: ", error);
     }
