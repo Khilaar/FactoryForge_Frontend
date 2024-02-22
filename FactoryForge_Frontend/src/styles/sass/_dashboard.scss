@@ -170,17 +170,22 @@
 
     .header {
       display: flex;
-      justify-content: space-between;
       margin: 2vh;
+      .tracking_num, {
+        padding-right: 2.5rem;
+      }
+      .status {
+        padding-right: 5.5rem;
+      }
     }
 
     .order {
       @extend .list-item;
       justify-content: space-between;
 
-      .tracking {
-        min-width: 6vw;
-      }
+      //.tracking {
+      //  min-width: 6vw;
+      //}
     }
 
     .tracking {
