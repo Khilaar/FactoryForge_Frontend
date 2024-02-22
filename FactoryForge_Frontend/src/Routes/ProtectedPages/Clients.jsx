@@ -66,6 +66,14 @@ const Clients = () => {
     }
   };
 
+  const handleRawMaterialInputChange = (e) => {
+    const { name, value } = e.target;
+    setRawMaterialFormData({
+      ...rawMaterialFormData,
+      [name]: value,
+    });
+  };
+
   const toggleFormRawMat = () => {
     setShowFormRawMat(!showFormRawMat);
   };
