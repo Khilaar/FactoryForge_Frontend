@@ -170,7 +170,7 @@ const RawMaterialOrderCard = ({
                   <span>Email: {order.supplier.email || "N/A"}</span>
                 </div>
                 <div className="orderedProducts">
-                  <h2>Ordered Raw Materials</h2>
+                  <h2>Ordered Materials</h2>
                   <div
                     className="orderedProductsList"
                     style={{ marginLeft: "5px" }}
