@@ -2,9 +2,11 @@ import { useState, useEffect, useMemo } from "react";
 import API from "../../api/API";
 
 const Clients = () => {
-  const [products, setProducts] = useState([]);
+  const [clients, setClients] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showFormRawMat, setShowFormRawMat] = useState(false);
+  const [showSortPopUp, setShowSortPopUp] = useState(false);
+  const [sortOption, setSortOption] = useState(null);
   const [rawMaterialFormData, setRawMaterialFormData] = useState({
     username: "",
     first_name: "",
@@ -19,7 +21,7 @@ const Clients = () => {
       try {
         const response = await API.get("/users/clients/");
 
-        setProducts(response.data);
+        setClients(response.data);
       } catch (error) {
         console.error("Error fetching clients: ", error);
       }
@@ -29,10 +31,10 @@ const Clients = () => {
   }, [searchQuery]);
 
   const filteredClients = useMemo(() => {
-    return products.filter((product) =>
+    return clients.filter((product) =>
       product.username.toLowerCase().includes(searchQuery.toLowerCase()),
     );
-  }, [products, searchQuery]);
+  }, [clients, searchQuery]);
 
   const handleRawMaterialInputChange = (e) => {
     const { name, value } = e.target;
@@ -85,64 +87,130 @@ const Clients = () => {
     setShowFormRawMat(false);
   };
 
+  const toggleSortPopUp = () => {
+    setShowSortPopUp(!showSortPopUp);
+  };
+
+  const sortedClients = useMemo(() => {
+    let sortedList = [...clients];
+
+    if (sortOption) {
+      sortedList.sort((a, b) => {
+        const fieldA = a[sortOption].toString().toLowerCase();
+        const fieldB = b[sortOption].toString().toLowerCase();
+        return fieldA.localeCompare(fieldB);
+      });
+    }
+
+    return sortedList.filter((client) =>
+      Object.values(client).some(
+        (field) =>
+          field &&
+          field.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
+    );
+  }, [clients, searchQuery, sortOption]);
+
   /*###########################*/
   return (
     <div>
       <div className="title-and-searchbar">
         <h1 className="route-title">Clients</h1>
       </div>
+
       <div className="background-frame-productinventory">
-        <section>
-          {/*Products Title and search*/}
-          <div className="title-and-searchbar">
-            <h1 className="route-title"></h1>
-            <span className="searchbar-suppliers">
-              <h3>Search</h3>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </span>
-          </div>
-          {/*Products Title and search End*/}
+        {/*clients Title and search*/}
+        <div className="title-and-searchbar-suppliers">
+          <button onClick={toggleSortPopUp} className="supplier-button-sort">
+            sort
+          </button>
+          <h1 className="route-title"></h1>
+          <span className="searchbar-suppliers">
+            <h3>Search</h3>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </span>
+        </div>
+        {/*clients Title and search End*/}
 
-          {/*Products List sort fields*/}
-          <ul className="items-list" id="sort-list">
-            {
-              <li key="sort-product" className="list-item-client-sort">
-                <span>
-                  <p>id</p>
-                </span>
-                <span>
-                  <p>username</p>
-                </span>
-                <span>
-                  <p>name</p>
-                </span>
-                <button className="invisible-button">X</button>
-              </li>
-            }
-          </ul>
-          {/*Products List sort fields End*/}
+        {/*clients List sort fields*/}
+        {showSortPopUp && (
+          <span className="sort-span">
+            <button
+              className="sort-span-button"
+              onClick={() => {
+                setSortOption("id");
+                setShowSortPopUp(false);
+              }}
+            >
+              id
+            </button>
+            <button
+              className="sort-span-button"
+              onClick={() => {
+                setSortOption("username");
+                setShowSortPopUp(false);
+              }}
+            >
+              username
+            </button>
+            <button
+              className="sort-span-button"
+              onClick={() => {
+                setSortOption("first_name");
+                setShowSortPopUp(false);
+              }}
+            >
+              first name
+            </button>
+            <button
+              className="sort-span-button"
+              onClick={() => {
+                setSortOption("last_name");
+                setShowSortPopUp(false);
+              }}
+            >
+              last name
+            </button>
+          </span>
+        )}
+        <ul className="items-list" id="sort-list">
+          {
+            <li key="sort-product" className="list-item-client-sort">
+              <span>
+                <p>id</p>
+              </span>
+              <span>
+                <p>username</p>
+              </span>
+              <span>
+                <p>name</p>
+              </span>
+              <button className="invisible-button">X</button>
+            </li>
+          }
+        </ul>
+        {/*clients List sort fields End*/}
 
-          {/*Products List*/}
-          <ul className="items-list">
-            {filteredClients.map((user) => (
-              <li key={user.id} className="list-item">
-                <span>{user.id}</span>
-                <span>{user.username}</span>
-                <span>
-                  {user.first_name} {user.last_name}
-                </span>
-                <button>X</button>
-              </li>
-            ))}
-          </ul>
-          {/*Products List End*/}
-        </section>
+        {/*clients List*/}
+        <ul className="items-list">
+          {sortedClients.map((user) => (
+            <li key={user.id} className="list-item">
+              <span>{user.id}</span>
+              <span>{user.username}</span>
+              <span>
+                {user.first_name} {user.last_name}
+              </span>
+              <button>X</button>
+            </li>
+          ))}
+        </ul>
+        {/*clients List End*/}
 
-        {/*Products Add Button*/}
+        {/*clients Add Button*/}
         <section className="inventory-background-buttons">
           <button onClick={toggleFormRawMat}>
             <span>ADD</span>
@@ -206,7 +274,7 @@ const Clients = () => {
             </div>
           )}
         </section>
-        {/*Products Add Button End*/}
+        {/*clients Add Button End*/}
       </div>
     </div>
   );
