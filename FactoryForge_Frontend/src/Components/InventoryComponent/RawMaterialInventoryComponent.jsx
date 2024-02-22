@@ -70,7 +70,7 @@ const RawMaterialInventoryComponent = ({
             >
               {/* Inventory Order Form Raw Material */}
               <span className="title-close-button-pop-up-form">
-                <h2>Order Raw Material</h2>
+                <h2>Add Raw Material</h2>
                 <button onClick={handleCloseRawMatForm}>X</button>
               </span>
               <div className="inventory-order-form-raw-material">
