@@ -28,7 +28,7 @@ const Clients = () => {
     };
 
     fetchClients();
-  }, [searchQuery]);
+  }, [searchQuery, showFormRawMat]);
 
   const filteredClients = useMemo(() => {
     return clients.filter((product) =>
@@ -74,6 +74,7 @@ const Clients = () => {
         type_of_user: "C",
         address: "",
       });
+      handleCloseRawMatForm();
     } catch (error) {
       console.error("Error creating user: ", error);
     }
