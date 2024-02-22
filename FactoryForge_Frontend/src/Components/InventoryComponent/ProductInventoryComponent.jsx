@@ -143,7 +143,7 @@ const ProductInventoryComponent = ({
                             Select Raw Material
                           </option>
                           {rawMaterials.map((material) => (
-                            <option key={material.id} value={material.id}>
+                            <option key={material.id} value={material.name}>
                               {material.name}
                             </option>
                           ))}
