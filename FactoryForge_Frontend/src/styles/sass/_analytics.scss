@@ -17,8 +17,9 @@
   justify-content: center;
   max-width: 500px;
   gap: 10px;
-  margin: 20px 0px;
+  margin: 25px 0px;
   text-align: start;
+
   .list-item {
     width: 80%;
     display: flex;
@@ -69,7 +70,7 @@
   font-size: larger;
   justify-content: center;
   max-width: 500px;
-  margin: 20px 0px;
+  margin: 25px 0px;
   .list-item {
     width: 25rem;
     display: flex;
@@ -101,7 +102,7 @@
   max-width: 1150px;
   min-width: 500px;
   overflow: scroll;
-  gap: 15px;
+  gap: 25px;
   padding: 15px;
   width: 100vw;
 }
