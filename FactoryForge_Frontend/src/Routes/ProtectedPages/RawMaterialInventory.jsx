@@ -118,7 +118,10 @@ const RawMaterialInventory = () => {
               <span>{rawMaterials.cost}</span>
               <span>{rawMaterials.quantity_available}</span>
               <span>{rawMaterials.restock_required ? "Yes" : "No"}</span>
-              <button onClick={() => handleDeleteRawMat(rawMaterials.id)}>
+              <button
+                className="x-button"
+                onClick={() => handleDeleteRawMat(rawMaterials.id)}
+              >
                 X
               </button>
             </li>
