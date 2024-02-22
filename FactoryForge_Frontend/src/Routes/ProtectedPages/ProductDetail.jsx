@@ -172,7 +172,7 @@ const ProductDetail = () => {
         </li>
         <li key={"product-rawMatReq"} className="list-item">
           <span>
-            <p>rawMatRequirements</p>
+            <p>Raw Materials Required</p>
             <span className="product-detail-rawMatList">
               {Object.entries(product.raw_material_requirements).map(
                 ([rawMatId, quantity]) => (
