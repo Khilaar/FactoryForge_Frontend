@@ -169,9 +169,7 @@
     padding: 2vh;
 
     .header {
-      display: flex;
-      margin: 2vh;
-      .tracking_num, {
+      .tracking_num {
         padding-right: 2.5rem;
       }
       .status {
@@ -186,6 +184,14 @@
       //.tracking {
       //  min-width: 6vw;
       //}
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      margin-left: 2rem;
+      margin-right: 2rem;
     }
 
     .tracking {

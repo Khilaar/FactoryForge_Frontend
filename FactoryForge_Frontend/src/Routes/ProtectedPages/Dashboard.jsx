@@ -365,8 +365,8 @@ const Dashboard = () => {
             </div>
             <div className={"customer_orders"}>
               <h3>Customer Orders</h3>
-              <div className={"header"}>
-                <h5 className={"tracking_num"}>Tracking Number</h5>
+              <div className={"order-header"}>
+                <h5 className={"tracking_num"}>Track</h5>
                 <h5 className={"status"}>Status</h5>
                 <h5>Due Date</h5>
               </div>
@@ -374,9 +374,7 @@ const Dashboard = () => {
                 .filter((item) => clientOrders.indexOf(item) < 5)
                 .map((order) => (
                   <div className={"order"} key={order.id}>
-                    <p className={""}>
-                      {order.tracking_number.slice(-6)}
-                    </p>
+                    <p className={""}>{order.tracking_number.slice(-6)}</p>
                     <p>{order.order_status === 1 ? "Working" : "Completed"}</p>
                     <p className={""}>
                       {order.due_date ? order.due_date : "None"}
