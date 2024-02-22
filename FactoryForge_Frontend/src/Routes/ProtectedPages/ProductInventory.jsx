@@ -62,7 +62,7 @@ const ProductInventory = () => {
 
         {/*Products Title and search*/}
         <div className="title-and-searchbar">
-          <h3>All Products</h3>
+          <h2>All Products</h2>
           <span className="searchbar">
             <h3>search</h3>
             <input
@@ -81,7 +81,7 @@ const ProductInventory = () => {
         {/*Products List sort fields*/}
         <ul className="items-list" id="sort-list">
           {
-            <li key="sort-product" className="list-item">
+            <li key="sort-product" className="list-item-header">
               <span>
                 <p>id</p>
               </span>
@@ -94,9 +94,10 @@ const ProductInventory = () => {
               <span>
                 <p>available amount</p>
               </span>
-              <span>
-                <p></p>
+              <span className="list-item-price">
+                <p>price</p>
               </span>
+              <button className="x-button">X</button>
             </li>
           }
         </ul>

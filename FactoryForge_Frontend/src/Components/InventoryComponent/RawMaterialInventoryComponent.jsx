@@ -17,7 +17,7 @@ const RawMaterialInventoryComponent = ({
           {/*Products List sort fields*/}
           <ul className="items-list" id="sort-list">
             {
-              <li key="sort-product" className="list-item">
+              <li key="sort-product" className="list-item-header">
                 <span>
                   <p>id</p>
                 </span>

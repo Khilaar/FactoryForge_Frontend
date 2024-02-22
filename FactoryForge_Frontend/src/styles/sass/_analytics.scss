@@ -10,7 +10,7 @@
   backdrop-filter: blur(2.4px);
   -webkit-backdrop-filter: blur(2.4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  width: 30rem;
+  width: 95%;
   height: 20rem;
   display: flex;
   flex-direction: column;
@@ -18,14 +18,14 @@
   font-size: larger;
   justify-content: center;
   .list-item {
-    width: 25rem;
+    width: 80%;
     display: flex;
     justify-content: space-between;
   }
   ul {
     max-height: 15rem;
     overflow-y: auto;
-    width: fit-content;
+    width: 95%;
     padding: 2px;
   }
   li {
@@ -107,4 +107,5 @@
 .background-frame-piechart {
   @extend .background-frame-analytics;
   height: auto;
+  width: 95%;
 }
