@@ -316,13 +316,6 @@ const Dashboard = () => {
                       </li>
                     ))}
               </ol>
-
-              {/*{products && products.filter((item) => products.indexOf(item) < 5).map(product =>*/}
-              {/*    <div className='product' key={product.id}>*/}
-              {/*        <h4>{products.indexOf(product) + 1} </h4>*/}
-              {/*        <p>{product.title} </p>*/}
-              {/*    </div>*/}
-              {/*)}*/}
             </div>
             <div className={"tasks"}>
               <div className={"header"}>
