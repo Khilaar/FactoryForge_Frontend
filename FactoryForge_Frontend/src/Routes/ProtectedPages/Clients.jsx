@@ -77,6 +77,15 @@ const Clients = () => {
     setShowSortPopUp(!showSortPopUp);
   };
 
+
+  const handleRawMaterialInputChange = (e) => {
+    const { name, value } = e.target;
+    setRawMaterialFormData({
+      ...rawMaterialFormData,
+      [name]: value,
+    });
+  };
+
   const sortedClients = useMemo(() => {
     let sortedList = [...clients];
 
