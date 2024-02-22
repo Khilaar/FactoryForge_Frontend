@@ -144,8 +144,8 @@
 
       .supplier_container {
         display: flex;
-        gap: 2vh;
-        padding: 1vh;
+        gap: 1rem;
+        padding: 2rem;
 
         .supplier {
           @extend .list-item;
@@ -169,18 +169,29 @@
     padding: 2vh;
 
     .header {
-      display: flex;
-      justify-content: space-between;
-      margin: 2vh;
+      .tracking_num {
+        padding-right: 2.5rem;
+      }
+      .status {
+        padding-right: 5.5rem;
+      }
     }
 
     .order {
       @extend .list-item;
       justify-content: space-between;
 
-      .tracking {
-        min-width: 6vw;
-      }
+      //.tracking {
+      //  min-width: 6vw;
+      //}
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      margin-left: 2rem;
+      margin-right: 2rem;
     }
 
     .tracking {
