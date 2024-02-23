@@ -28,7 +28,14 @@ const ProductInventoryComponent = ({
     }
   };
 
-  
+  const deleteRequiredMaterial = (index) => {
+    const material = requiredMat[index];
+    const updatedFormData = { ...formDataProduct };
+    updatedFormData.raw_material_requirements[material] = 0;
+
+    handleRawMaterialChange({ target: { value: 0 } }, material);
+    handleDeleteRequiredMaterial(index);
+  };
 
   return (
     <>
@@ -195,10 +202,7 @@ const ProductInventoryComponent = ({
                                   />
                                 </span>
                                 <button
-                                  onClick={() => {
-                                    handleDeleteRequiredMaterial(index);
-                                    getTotalCost();
-                                  }}
+                                  onClick={() => deleteRequiredMaterial(index)}
                                 >
                                   X
                                 </button>
