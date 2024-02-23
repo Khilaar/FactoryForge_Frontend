@@ -188,7 +188,7 @@ const Clients = () => {
                 <p>name</p>
               </span>
               <span style={{ minWidth: "30px", maxWidth: "275px" }}>email</span>
-              <span style={{ minWidth: "30px", maxWidth: "250px" }}>
+              <span style={{ minWidth: "30px", maxWidth: "275px" }}>
                 <p>address</p>
               </span>
               <button className="invisible-button">X</button>
@@ -211,7 +211,7 @@ const Clients = () => {
               <span style={{ minWidth: "30px", maxWidth: "275px" }}>
                 {user.email}
               </span>
-              <span style={{ minWidth: "30px", maxWidth: "250px" }}>
+              <span style={{ minWidth: "30px", maxWidth: "245px" }}>
                 {user.address}
               </span>
               <button className="x-button">X</button>

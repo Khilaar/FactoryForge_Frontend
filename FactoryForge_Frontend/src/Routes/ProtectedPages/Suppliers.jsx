@@ -235,7 +235,15 @@ const Suppliers = () => {
           {showFormSupplier && (
             <div className="add-form-supply">
               <form onSubmit={handleSubmitSupplier}>
-                <div className="add-form">
+                <div
+                  className="add-form"
+                  style={{
+                    minWidth: "50px",
+                    maxWidth: "225px",
+                    maxHeight: "750px",
+                    minHeight: "425px",
+                  }}
+                >
                   <span className="title-close-button-pop-up-form">
                     <h3>Add Supplier</h3>
                     <button onClick={handleCloseSupplierForm}>X</button>
