@@ -14,18 +14,22 @@ const ProductInventoryComponent = ({
   handleDeleteRequiredMaterial,
 }) => {
   const getTotalCost = () => {
-    let materialList = []
-    for (let x in requiredMat) {
-      for (let y in rawMaterials) {
-        if (requiredMat[x] === rawMaterials[y].name) {
-          materialList.push(rawMaterials[y])
+    let totalCost = 0;
+    if (formDataProduct.raw_material_requirements) {
+      for (let item in formDataProduct.raw_material_requirements) {
+        const value = formDataProduct.raw_material_requirements[item];
+        for (let y in rawMaterials) {
+          if (item === rawMaterials[y].name) {
+            totalCost += rawMaterials[y].cost * value;
+          }
         }
       }
+      return totalCost;
     }
-    return materialList.reduce(
-      (accumulator, currentValue) => accumulator + Number(currentValue.cost), 0,)
-  }
-  console.log(getTotalCost())
+  };
+
+  
+
   return (
     <>
       <section>
@@ -163,7 +167,12 @@ const ProductInventoryComponent = ({
                         </select>
                         <span>
                           <h3>List of Raw Materials</h3>
-                          <p>Total Cost: {getTotalCost() > 0 ? getTotalCost() : 0}</p>
+                          <p style={{ margin: "12px 0px" }}>
+                            Total Cost:{" "}
+                            {getTotalCost() > 0
+                              ? getTotalCost() + ".-"
+                              : 0 + ".-"}
+                          </p>
                           <ul className="list-required-raw-mat">
                             {requiredMat.map((material, index) => (
                               <li key={index}>
@@ -178,7 +187,7 @@ const ProductInventoryComponent = ({
                                     value={
                                       formDataProduct.raw_material_requirements[
                                         material
-                                      ] || 1
+                                      ] || ""
                                     }
                                     onChange={(e) =>
                                       handleRawMaterialChange(e, material)
@@ -186,9 +195,10 @@ const ProductInventoryComponent = ({
                                   />
                                 </span>
                                 <button
-                                  onClick={() =>
-                                    handleDeleteRequiredMaterial(index)
-                                  }
+                                  onClick={() => {
+                                    handleDeleteRequiredMaterial(index);
+                                    getTotalCost();
+                                  }}
                                 >
                                   X
                                 </button>
