@@ -450,6 +450,10 @@ span:last-child {
   border: solid #464646 1px;
   border-radius: 5px;
 }
+
+.inventory-add-product-input {
+  margin-bottom: 2rem;
+}
 .inventory-order-form-message-input:focus {
   outline: none;
   color: whitesmoke;
@@ -737,7 +741,7 @@ span:last-child {
   li {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     /* From https://css.glass */
     background: rgba(255, 255, 255, 0.03);
     border-radius: 16px;
@@ -749,6 +753,10 @@ span:last-child {
     margin-bottom: 0.2rem;
     padding-right: 1rem;
   }
+}
+
+.list-required-mat li {
+  align-items: center;
 }
 .name-and-quantity-required-mat {
   display: flex;
@@ -799,9 +807,15 @@ input::-webkit-inner-spin-button {
   display: flex;
   gap: 2rem;
   margin-bottom: 3rem;
-  input {
-    margin-bottom: 1rem;
-  }
+}
+
+.left-left-add-product {
+  display: flex;
+  flex-direction: column;
+}
+
+.qty-raw-mat-input {
+  padding-bottom: 0px;
 }
 
 @media (max-width: 960px) {
