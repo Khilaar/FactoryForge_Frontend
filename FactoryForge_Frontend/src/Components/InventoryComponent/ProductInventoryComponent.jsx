@@ -31,9 +31,21 @@ const ProductInventoryComponent = ({
   const deleteRequiredMaterial = (index) => {
     const material = requiredMat[index];
     const updatedFormData = { ...formDataProduct };
-    updatedFormData.raw_material_requirements[material] = 0;
-
-    handleRawMaterialChange({ target: { value: 0 } }, material);
+    // Check if quantity is specified before setting it to 0
+    if (
+      updatedFormData.raw_material_requirements &&
+      updatedFormData.raw_material_requirements.hasOwnProperty(material)
+    ) {
+      updatedFormData.raw_material_requirements[material] = 0;
+    }
+  
+    // Call handleRawMaterialChange to update state with quantity 0
+    handleRawMaterialChange(
+      { target: { value: 0 } }, // Simulate event object with value 0
+      material
+    );
+  
+    // Then remove the material from requiredMat
     handleDeleteRequiredMaterial(index);
   };
 
@@ -92,7 +104,10 @@ const ProductInventoryComponent = ({
           <span>ADD</span>
         </button>
         {showFormProduct && (
-          <div className="add-form">
+          <div
+            className="add-form"
+            style={{ maxWidth: "500px", maxHeight: "450px" }}
+          >
             <form onSubmit={handleFormProductSubmit}>
               {/*Inventory Order Form Raw Material*/}
 
