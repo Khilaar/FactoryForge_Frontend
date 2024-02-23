@@ -339,29 +339,29 @@ const CreateOrderForm = ({
                 </div>
               </div>
               {addedRawMaterialsList.length > 0 && (
-              <div className="right-side-order-form">
-                <ul>
-                  {addedRawMaterialsList.map((rawmaterialName, index) => (
-                    <li key={index}>
-                      <div>{rawmaterialName}</div>
-                      <input
-                        type="number"
-                        placeholder="qty"
-                        onChange={(e) =>
-                          handleRawMaterialListChange(e, rawmaterialName)
-                        }
-                      />
-                      <button
-                        onClick={(e) =>
-                          handleDeleteRawMaterialFromList(e, index)
-                        }
-                      >
-                        X
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                <div className="right-side-order-form">
+                  <ul>
+                    {addedRawMaterialsList.map((rawmaterialName, index) => (
+                      <li key={index}>
+                        <div>{rawmaterialName}</div>
+                        <input
+                          type="number"
+                          placeholder="qty"
+                          onChange={(e) =>
+                            handleRawMaterialListChange(e, rawmaterialName)
+                          }
+                        />
+                        <button
+                          onClick={(e) =>
+                            handleDeleteRawMaterialFromList(e, index)
+                          }
+                        >
+                          X
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </form>
           </div>
