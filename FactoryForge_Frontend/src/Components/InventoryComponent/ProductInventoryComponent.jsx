@@ -13,6 +13,19 @@ const ProductInventoryComponent = ({
   handleRawMaterialChange,
   handleDeleteRequiredMaterial,
 }) => {
+  const getTotalCost = () => {
+    let materialList = []
+    for (let x in requiredMat) {
+      for (let y in rawMaterials) {
+        if (requiredMat[x] === rawMaterials[y].name) {
+          materialList.push(rawMaterials[y])
+        }
+      }
+    }
+    return materialList.reduce(
+      (accumulator, currentValue) => accumulator + Number(currentValue.cost), 0,)
+  }
+  console.log(getTotalCost())
   return (
     <>
       <section>
@@ -150,6 +163,7 @@ const ProductInventoryComponent = ({
                         </select>
                         <span>
                           <h3>List of Raw Materials</h3>
+                          <p>Total Cost: {getTotalCost() > 0 ? getTotalCost() : 0}</p>
                           <ul className="list-required-raw-mat">
                             {requiredMat.map((material, index) => (
                               <li key={index}>
