@@ -22,6 +22,7 @@ const RawMaterialOrderCard = ({
     delivery_date: order.delivery_date || "",
   });
   const [showSetNewDate, setShowSetNewDate] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const statusChoices = {
     1: "Ordered",
@@ -65,6 +66,10 @@ const RawMaterialOrderCard = ({
       toggleDetails();
       fetchRawMaterialOrders();
     } catch (error) {
+      if (error.response && error.response.data) {
+        setErrorMessage(error.response.data[0]);
+        /*For now that works, but if there is more than one raw material missing it will still show only one i think*/
+      }
       console.log(
         "Raw material order update was not successful.",
         error.message,
@@ -100,8 +105,18 @@ const RawMaterialOrderCard = ({
     }
   };
 
+  const handleCloseError = () => {
+    setErrorMessage("");
+  };
+
   return (
     <>
+      {errorMessage && (
+        <div className="error-popup">
+          <div className="error-message">{errorMessage}</div>
+          <button onClick={handleCloseError}>X</button>
+        </div>
+      )}
       <div className={`list-item-orders ${showDetails ? "expanded" : ""}`}>
         <div className="co-fields">
           <span>Supplier: {order.supplier.username}</span>
