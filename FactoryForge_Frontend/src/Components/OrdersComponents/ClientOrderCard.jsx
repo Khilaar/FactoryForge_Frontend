@@ -17,6 +17,7 @@ const ClientOrderCard = ({
     order_status: order.order_status,
   });
   const [showSetNewDate, setShowSetNewDate] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const statusChoices = {
     1: "Created",
@@ -65,6 +66,12 @@ const ClientOrderCard = ({
       fetchClientOrders();
     } catch (error) {
       console.log("Client order update was not successful.", error.message);
+      if (error.response && error.response.data) {
+        setErrorMessage(error.response.data[0]);
+        /*For now that works, but if there is more than one raw material missing it will still show only one i think*/
+      } else {
+        setErrorMessage("An error occurred. Please try again later.");
+      }
     }
   };
 
@@ -93,8 +100,18 @@ const ClientOrderCard = ({
     }
   };
 
+  const handleCloseError = () => {
+    setErrorMessage("");
+  };
+
   return (
     <>
+      {errorMessage && (
+        <div className="error-popup">
+          <div className="error-message">{errorMessage}</div>
+          <button onClick={handleCloseError}>X</button>
+        </div>
+      )}
       <div className={`list-item-orders ${showDetails ? "expanded" : ""}`}>
         <div className="co-fields">
           <span>Client: {order.client.username}</span>
