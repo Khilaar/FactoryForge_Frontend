@@ -81,11 +81,11 @@ const ProductInventoryComponent = ({
                 </span>
                 <span className="input-fields-add-product">
                   <span className="left-side-add-product">
-                    <span>
+                    <span className="left-left-add-product">
                       <span>
                         <h3>Name</h3>
                         <input
-                          className="inventory-add-product-title-input"
+                          className="inventory-add-product-input"
                           type="text"
                           name="title"
                           value={formDataProduct.title}
@@ -96,7 +96,7 @@ const ProductInventoryComponent = ({
                       <span>
                         <h3>Price</h3>
                         <input
-                          className="inventory-add-product-price-input"
+                          className="inventory-add-product-input"
                           type="textarea"
                           name="price"
                           value={formDataProduct.price}
@@ -107,7 +107,7 @@ const ProductInventoryComponent = ({
                       <span>
                         <h3>Category</h3>
                         <input
-                          className="inventory-add-product-category-input"
+                          className="inventory-add-product-input"
                           type="textarea"
                           name="category"
                           value={formDataProduct.category}
@@ -123,7 +123,7 @@ const ProductInventoryComponent = ({
                       <span>
                         <h3>Quantity available</h3>
                         <input
-                          className="inventory-add-product-quantity-available-input"
+                          className="inventory-add-product-input"
                           type="text"
                           name="quantity_available"
                           value={formDataProduct.quantity_available}
@@ -158,6 +158,7 @@ const ProductInventoryComponent = ({
                                     {material}
                                   </div>
                                   <input
+                                    className="qty-raw-mat-input"
                                     type="number"
                                     placeholder="qty"
                                     value={

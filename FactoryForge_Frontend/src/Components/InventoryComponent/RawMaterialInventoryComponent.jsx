@@ -117,7 +117,7 @@ const RawMaterialInventoryComponent = ({
               {/* Inventory Order Form Supplier End */}
 
               <div className="inventory-order-form-supplier">
-                <span>
+                <span className="span-cost-add-raw-mat">
                   <h3>Cost</h3>
                   <input
                     className="inventory-order-form-mat-input"
