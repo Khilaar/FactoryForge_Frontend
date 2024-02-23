@@ -271,25 +271,27 @@ const CreateOrderForm = ({
                   </select>
                 </div>
               </div>
-              <div className="right-side-order-form">
-                <ul>
-                  {addedProductsList.map((product, index) => (
-                    <li key={index}>
-                      <div>{product}</div>
-                      <input
-                        type="number"
-                        placeholder="qty"
-                        onChange={(e) => handleProductListChange(e, product)}
-                      />
-                      <button
-                        onClick={(e) => handleDeleteProductFromList(e, index)}
-                      >
-                        X
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {addedProductsList.length > 0 && (
+                <div className="right-side-order-form">
+                  <ul>
+                    {addedProductsList.map((product, index) => (
+                      <li key={index}>
+                        <div>{product}</div>
+                        <input
+                          type="number"
+                          placeholder="qty"
+                          onChange={(e) => handleProductListChange(e, product)}
+                        />
+                        <button
+                          onClick={(e) => handleDeleteProductFromList(e, index)}
+                        >
+                          X
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </form>
           </div>
         ) : (
@@ -336,6 +338,7 @@ const CreateOrderForm = ({
                   </select>
                 </div>
               </div>
+              {addedRawMaterialsList.length > 0 && (
               <div className="right-side-order-form">
                 <ul>
                   {addedRawMaterialsList.map((rawmaterialName, index) => (
@@ -359,6 +362,7 @@ const CreateOrderForm = ({
                   ))}
                 </ul>
               </div>
+              )}
             </form>
           </div>
         )}
