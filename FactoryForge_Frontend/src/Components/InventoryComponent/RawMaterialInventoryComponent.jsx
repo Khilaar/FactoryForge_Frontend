@@ -63,7 +63,10 @@ const RawMaterialInventoryComponent = ({
           <span>ADD</span>
         </button>
         {showFormRawMat && (
-          <div className="order-form">
+          <div
+            className="order-form"
+            style={{ maxWidth: "700px", minWidth: "500px" }}
+          >
             <form
               className="inner-part-form"
               onSubmit={handleFormRawMaterialSubmit}
